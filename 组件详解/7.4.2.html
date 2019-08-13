@@ -1,0 +1,43 @@
+<!-- 作用域 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<body>
+    <div id="app">
+        <child-component v-show="showChild"></child-component>
+
+        <child-component2 ></child-component>
+    </div>
+</body>
+<script>
+    Vue.component('child-component',{   
+        template:'<div>子组件</div>',                 
+    })
+
+    Vue.component('child-component2',{   
+        template:'<div v-show="showChild2">子组件</div>',     
+        data:function(){
+            return{
+                showChild2:true       //在子组件上绑定
+            }
+        }            
+    })
+    
+    var app = new Vue({
+        el:"#app",
+        data:{
+            showChild:true     //这里showchild绑定的是父组件的数据
+        },
+        
+    })
+</script>
+<style>
+    
+</style>
+</html>

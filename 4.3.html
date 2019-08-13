@@ -1,0 +1,35 @@
+<!-- 绑定内联样式 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div :style="{'color':yanse,'fontSize':daxiao+'px'}">文本1</div> 
+                                      <!-- 这样写不便阅读和维护 -->
+        <div :style="styles">文本2</div>          
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+            yanse:"red",
+            daxiao:30,
+
+            styles:{
+                color:"red",
+                fontSize:40+'px'
+            }
+        }
+    })
+</script>
+<style>
+    
+</style>
+</html>

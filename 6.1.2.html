@@ -1,0 +1,31 @@
+<!-- 单选按钮的双向绑定-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<body>
+    <div id="app">
+        <input type="radio" :checked="picked">
+        <!-- 单选按钮单独使用时，直接用v-bind绑定一个布尔值 ，为真时选中-->
+        <label >单选按钮</label>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+            picked:true
+        },
+        
+        
+    })
+</script>
+<style>
+    
+</style>
+</html>

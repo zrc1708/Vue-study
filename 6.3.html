@@ -1,0 +1,42 @@
+<!-- 修饰符-->
+<!-- v-model也有修饰符，用于控制数据同步的时机 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<body>
+    <div id="app">
+        <input type="text " v-model.lazy="message1">
+        <!-- 这时message失焦或按回车才会更新 -->
+        <p>{{message1}}</p>
+        <br>
+        <input type="number " v-model.number="message2">
+        <!-- .number可以将输入转换为number类型 -->
+        <p>{{message2+100000}}</p>
+        <br>
+        <input type="text " v-model.trim="message3">
+        <!-- .trim可以过滤输入的首尾空格 -->
+        <p>{{message3}}</p>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+            message1:'',
+            message2:123,
+            message3:'',
+        },
+        
+        
+    })
+</script>
+<style>
+    
+</style>
+</html>

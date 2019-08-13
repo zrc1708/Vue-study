@@ -1,0 +1,52 @@
+<!-- v-on -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<body>
+    <div id="app">
+      <ul>
+          
+          <template v-for="book in books">
+              <li>书名:{{book.name}}</li>
+              <li>作者:{{book.author}}</li>
+          </template>
+  
+
+      </ul>
+         
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+            books:[
+                {name:'三国演义',author:'罗贯中'},
+                {name:'java水浒传',author:'施耐庵'},
+                {name:'java西游记',author:'吴承恩'}
+            ],
+            user:{
+                name:'妮可',
+                age:'18',
+                height:'150'
+            }
+        },   
+    })
+    app.books.push({
+        name:'java红楼梦',
+        author:'曹雪芹'
+    })
+    app.books = app.books.filter(function(item){
+        return item.name.match(/java/);
+    })
+</script>
+<style>
+    
+</style>
+</html>

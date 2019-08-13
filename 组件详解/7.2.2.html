@@ -1,0 +1,35 @@
+<!-- 单向数据流 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<body>
+    <div id="app">
+        <my-component :init-count="1"></my-component>
+    </div>
+</body>
+<script>
+    //count获取来自父组建的initCount，之后就与之无关了，只用维护count，避免直接操作initCount
+    Vue.component('my-component',{  
+        props:['initCount'],    //由于html不区分大小写，当使用DOM模板时，驼峰命名的props名称要转为短横分隔命名
+        template:'<div>{{ count }}</div>',   
+        data:function(){
+            return{
+                count:this.initCount
+            }
+        }                 
+    })
+    
+    var app = new Vue({
+        el:"#app",
+    })
+</script>
+<style>
+    
+</style>
+</html>

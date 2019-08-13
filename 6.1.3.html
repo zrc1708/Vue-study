@@ -1,0 +1,39 @@
+<!-- 单选按钮的双向绑定-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<body>
+    <div id="app">
+        <!-- 实现互斥效果，需要v-model配合value使用 -->
+        <input type="radio" v-model="picked" value="html" id="html">
+        <label for="html">HTML</label>
+        <br>
+        <input type="radio" v-model="picked" value="js" id="js">
+        <label for="html">JavaScript</label>
+        <br>
+        <input type="radio" v-model="picked" value="css" id="css">
+        <label for="html">CSS</label>
+        <br>
+        <p>选择的项是:{{picked}}</p>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+            picked:js
+        },
+        
+        
+    })
+</script>
+<style>
+    
+</style>
+</html>

@@ -1,0 +1,45 @@
+<!-- 绑定值-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<body>
+    <div id="app">
+        <input type="radio" v-model = "picked" :value = "value">
+        <label for="">单选按钮</label>
+        <p>{{picked}}</p>
+        <p>{{value}}</p>
+        <!-- 选中时app.picked===app.value 值都是123 -->
+
+        <input type="checkbox" v-model="toggle" :true-value="value1" :false-value="value2">
+        <label for="">复选框</label>
+        <p>{{toggle}}</p>
+        <p>{{value1}}</p>
+        <p>{{value2}}</p>
+        <!-- 勾选时，app.toggle===app.value1 ;未勾选时,app.toggle === app.value2 -->
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+            picked:false,
+            value:123,
+
+            toggle:false,
+            value1:"a",
+            value2:"b"
+        },
+        
+        
+    })
+</script>
+<style>
+    
+</style>
+</html>

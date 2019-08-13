@@ -1,0 +1,34 @@
+<!-- vue组件在某些情况下会受到html的限制，比如<table>内规定只允许是tr td th等表格元素 -->
+    <!-- 所以在table内直接使用组件是无效的，要用特殊的方法来挂载组件 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<body>
+    <div id="app">
+        <table>
+            <tbody is="my-component"></tbody>
+        </table>
+    </div>
+</body>
+<script>
+    //tbody在渲染时，会被替换为组建的内容。常见的限制元素还有 ul ol select
+    Vue.component('my-component',{
+        template:'<div>这里是组件的内容</div>'
+    })
+    var app = new Vue({
+        el:"#app",
+        data:{
+            
+        },
+    })
+</script>
+<style>
+    
+</style>
+</html>

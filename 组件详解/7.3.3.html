@@ -1,0 +1,46 @@
+<!-- 非父子组件通信 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<body>
+    <div id="app">
+        {{message}}
+        <component-a></component-a>
+    </div>
+</body>
+<script>
+    var bus = new Vue();
+
+    Vue.component('component-a',{   
+        template:'<button @click="handleEvent">传递事件</button>',   
+        methods:{
+            handleEvent:function(){
+                bus.$emit('on-message','来自 component-a的内容')
+            }
+        }                 
+    })
+    
+    var app = new Vue({
+        el:"#app",
+        data:{
+            message:''
+        },
+        mounted:function(){
+            var _this=this;
+            //在示例初始化时，监听来自bus实例的事件
+            bus.$on('on-message',function(msg){
+                _this.message=msg;
+            })
+        }
+    })
+</script>
+<style>
+    
+</style>
+</html>

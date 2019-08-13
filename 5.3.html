@@ -1,0 +1,56 @@
+<!-- v-for -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<body>
+    <div id="app">
+      <ul>
+          <li v-for='book in books'>{{book.name}}</li>
+          <br>
+          <li v-for='book of books'>{{book.name}}</li>
+          <br>
+          <li v-for='(book,index) in books'>{{index}}--{{book.name}}</li>
+          <br>
+          <template v-for="book in books">
+              <li>书名:{{book.name}}</li>
+              <li>作者:{{book.author}}</li>
+          </template>
+          <br>
+
+          <span v-for='value in user'>{{value}}</span>    
+          <!-- 对象属性也是可以遍历的 -->
+          <br>
+          <li v-for='(value,key,index) in user'>{{index}}--{{key}}:{{value}}</li>   
+          <!-- 遍历对象时，有两个可选参数，为键名和索引 -->
+      </ul>
+         
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+            books:[
+                {name:'三国演义',author:'罗贯中'},
+                {name:'水浒传',author:'施耐庵'},
+                {name:'西游记',author:'吴承恩'}
+            ],
+            user:{
+                name:'妮可',
+                age:'18',
+                height:'150'
+            }
+        },
+       
+    })
+</script>
+<style>
+    
+</style>
+</html>

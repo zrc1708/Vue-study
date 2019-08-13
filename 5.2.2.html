@@ -1,0 +1,38 @@
+<!-- v-show -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<body>
+    <div id="app">
+      
+           <label v-show = "type==1">用户名</label>
+           <label v-show = "type==2">邮箱</label>
+           <input placeholder="输入"  >
+            
+       <button @click="handclick">切换</button>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+            type:2
+        },
+        methods:{
+            handclick:function(){
+                this.type=1;
+            }
+        }
+        
+    })
+</script>
+<style>
+    
+</style>
+</html>

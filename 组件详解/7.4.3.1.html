@@ -1,0 +1,41 @@
+<!-- 单个slot -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<body>
+    <div id="app">
+          <child-component>
+              <p>分发的内容</p>
+              <p>更多分发的内容</p>
+          </child-component>
+    </div>
+</body>
+<script>
+    /*子组件内使用<slot>开启一个插槽，在父组件模板里，插入子组件标签内的所有内容将替代子组件<slot>
+    标签及他的内容*/
+
+    Vue.component('child-component',{   
+        template:'\
+        <div>\
+            <slot>\
+                <p>如果父组件没有插入内容，我将作为默认出现</p>\
+            </slot>\
+        </div>',   
+                       
+    })
+    
+    var app = new Vue({
+        el:"#app",
+        
+    })
+</script>
+<style>
+    
+</style>
+</html>

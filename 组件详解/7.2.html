@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<body>
+    <div id="app">
+        <my-component message = "来自父组件的数据"></my-component>
+
+        <input type="text" v-model="parentMessage">
+        <my-component2 :message = "parentMessage"></my-component2>
+    </div>
+</body>
+<script>
+
+    Vue.component('my-component',{  
+        props:['message'],
+        template:'<div>{{message}}</div>',                    
+    })
+    
+    Vue.component('my-component2',{  
+        props:['message'],
+        template:'<div>{{message}}</div>',
+                          
+    })
+
+    var app = new Vue({
+        el:"#app",
+        data:{
+            parentMessage:''
+        }
+    })
+</script>
+<style>
+    
+</style>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <a v-bind:href="url">链接</a>
+        <img v-bind:src="imgUrl">
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+            url:"https://github.com",
+            imgUrl:"xxx.xxx.xx/img.png",
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,56 @@
+<!-- 作用域插槽 更具代表性的用例是列表组件，允许组件自定义应该如歌渲染列表的每一项-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<body>
+    <div id="app">
+          <my-list :books="books">
+              <!-- 作用域插槽也可以是具名的slot -->
+            <template slot="book" scope="props">
+                <li>{{props.bookName}}</li>
+            </template>
+          </my-list>
+    </div>
+    
+</body>
+<script>
+    //template内可以通过临时变量props访问来自子组件插槽的数据msg
+    Vue.component('my-list',{   
+        props:{
+            books:{
+                type:Array,
+                default:function(){
+                    return []
+                }
+            }
+        },
+        template:'\
+        <ul>\
+            <slot name="book" v-for="book in books" :book-name="book.name"></slot>\
+        </ul>'  
+        //这里也可以写默认slot内容 
+        /*子组件my-list接收一个来自父级的prop数组books，并且将它在name为book的slot上使用   
+        v-for指令循环，同时暴露一个变量bookName*/
+    })
+    
+    var app = new Vue({
+        el:"#app",
+        data:{
+            books:[
+                {name:"《Vue》"},
+                {name:"《JavaScript》"},
+                {name:"《CSS》"},
+            ]
+        }       
+    })
+</script>
+<style>
+    
+</style>
+</html>

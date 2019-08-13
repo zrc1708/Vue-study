@@ -1,0 +1,31 @@
+<!-- 使用components选项来注册组件，使组件可以嵌套 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<body>
+    <div id="app">
+        <my-component></my-component>
+    </div>
+</body>
+<script>
+    var Child={
+        template:'<div>这里是组件的内容</div>'
+    }
+
+    var app = new Vue({
+        el:"#app",
+        components:{
+            'my-component':Child,
+        }
+    })
+</script>
+<style>
+    
+</style>
+</html>

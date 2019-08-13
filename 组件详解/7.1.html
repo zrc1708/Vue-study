@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<body>
+    <div id="app">
+        <my-component1></my-component1>
+        <my-component1></my-component1>
+        <my-component1></my-component1>
+        <br>
+        <my-component2></my-component2>
+        <my-component2></my-component2>
+        <my-component2></my-component2>
+    </div>
+</body>
+<script>
+    var data = {
+        counter1:0
+    }
+
+    Vue.component('my-component1',{     //组件在使用data时，data必须是函数，然后将数据return出去
+        template:'<button @click="counter1++">{{counter1}}</button>',
+        data:function(){
+            return data;     //js对象是引用关系，如果return出的对象引用了外部的一个对象，这个对象就是共享的
+        }                    //任何一方修改都会同步
+    })
+
+    Vue.component('my-component2',{       //给组件返回一个新的data对象来独立，即可互不影响
+        template:'<button @click="counter2++">{{counter2}}</button>',
+        data:function(){
+            return {
+                counter2:0
+            };     
+        }                    
+    })
+
+    var app = new Vue({
+        el:"#app",
+    })
+</script>
+<style>
+    
+</style>
+</html>
