@@ -1,0 +1,44 @@
+<!-- $nextTick -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<body>
+    <div id="app">
+        <div id="div" v-if="showDiv">这是一段文本</div>
+        <button @click="getText">获取div内容</button>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el:"#app",   
+        data:{
+            showDiv:false
+        },
+        methods:{
+            // getText:function(){
+            //     this.showDiv=true;
+            //     var text = document.querySelector("#div").innerHTML;
+            //     console.log(text)
+            // }
+            // 在执行this.showDiv=true时，div仍然还是没有被创建出来，直到下一个vue事件循环时，才开始创建
+            // $nextTick就是用来知道什么时候DOM更新完成的
+            getText:function(){
+                this.showDiv=true;
+                this.$nextTick(function(){
+                    var text = document.querySelector("#div").innerHTML;
+                    console.log(text);
+                })
+            }
+        }
+    })
+</script>
+<style>
+    
+</style>
+</html>
