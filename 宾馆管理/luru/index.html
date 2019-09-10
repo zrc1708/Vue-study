@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script src="http://how2j.cn/study/js/jquery/2.0.0/jquery.min.js"></script>
+<link href="http://how2j.cn/study/css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+<script src="http://how2j.cn/study/js/bootstrap/3.3.6/bootstrap.min.js"></script>
+<link rel="stylesheet" href="index.css">
+
+<body>
+    <div id="app">
+        <div class="top">
+            <div class="back">
+                <div>
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <p>后退</p>
+                </div>
+                <div>
+                    <p class="dangqian">当前项目xxx</p>
+                </div>
+            </div>
+            <div class="time">
+                <p>{{nowTime}}</p>
+            </div>
+            <div class="adm">
+                <p>管理员xxx</p>
+            </div>
+        </div>
+
+        <div class="body">
+
+            <div class="b_one">
+                <div class="b_one2">
+                    <div class="luru">
+                        <p>录入</p>
+                    </div>
+                    <div class="select_one" @click="click_zhigong" :class="{'choosed':zhigong_show}">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <p>职工信息</p>
+                    </div>
+                    <div class="select_two" @click="click_yonghu" :class="{'choosed':yonghu_show}">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                        <p>用户订单</p>
+                    </div>
+                    <div class="select_four" @click="click_guibin" :class="{'choosed':guibin_show}">
+                            <span class="glyphicon glyphicon-list-alt"></span>
+                            <p>贵宾卡</p>
+                        </div>
+                    <div class="select_three" @click="click_ruzhu" :class="{'choosed':ruzhu_show}">
+                        <span class="glyphicon glyphicon-home"></span>
+                        <p>入住信息</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="b_two">
+                <div class="zhigong" v-if="zhigong_show">
+                    <form action="">
+                        <div class="dan"><p>姓名</p></div>
+                        <div class="xingming"><input type="text" class="form-control input-lg"  placeholder="姓名"></div>
+                        <div class="liang">
+                                <div><p>职工号ID</p></div>
+                                <div><p>职工级别</p></div>
+                        </div>
+                        <div class="liang2">
+                            <div class="two1"> </div>
+                            <div class="two2"><input type="text" class="form-control input-lg"  placeholder="职工号ID"></div>
+                            <div class="two3"> </div>
+                            <div class="two2"><input type="text" class="form-control input-lg"  placeholder="职工级别"></div>
+                            <div class="two1"> </div>
+                        </div>
+                        <div class="liang">
+                                <div><p>性别</p></div>
+                                <div><p>生日</p></div>
+                        </div>
+                        <div class="liang2">
+                            <div class="two1"> </div>
+                            <div class="two2"><input type="text" class="form-control input-lg"  placeholder="性别"></div>
+                            <div class="two3"> </div>
+                            <div class="two2"><input type="text" class="form-control input-lg"  placeholder="生日"></div>
+                            <div class="two1"> </div>
+                        </div>
+                        <div class="dan"><p>身份证号</p></div>
+                        <div class="xingming"><input type="text" class="form-control input-lg"  placeholder="身份证号"></div>
+                        <div class="liang">
+                                <div><p>密码</p></div>
+                                <div><p>确认密码</p></div>
+                        </div>
+                        <div class="liang2">
+                            <div class="two1"> </div>
+                            <div class="two2"><input type="text" class="form-control input-lg"  placeholder="密码"></div>
+                            <div class="two3"> </div>
+                            <div class="two2"><input type="text" class="form-control input-lg"  placeholder="确认密码"></div>
+                            <div class="two1"> </div>
+                        </div>
+                        <div class="liang">
+                                <div><p>入职时间</p></div>
+                                <div><p>联系电话</p></div>
+                        </div>
+                        <div class="liang2">
+                            <div class="two1"> </div>
+                            <div class="two2"><input type="text" class="form-control input-lg"  placeholder="入职时间"></div>
+                            <div class="two3"> </div>
+                            <div class="two2"><input type="text" class="form-control input-lg"  placeholder="联系电话"></div>
+                            <div class="two1"> </div>
+                        </div>
+                        <div class="dan"><p>备注</p></div>
+                        <div class="xingming"><input type="text" class="form-control input-lg"  placeholder="备注"></div>
+                        <div class="tijiao">
+                                <button type="button" class="btn btn-lg">&nbsp&nbsp&nbsp&nbsp&nbsp提交&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="yonghu" v-if="yonghu_show">
+                        <form action="">
+                                <div class="liang">
+                                        <div><p>姓名</p></div>
+                                        <div><p>性别</p></div>
+                                </div>
+                                <div class="liang2">
+                                    <div class="two1"> </div>
+                                    <div class="two2"><input type="text" class="form-control input-lg"  placeholder="姓名"></div>
+                                    <div class="two3"> </div>
+                                    <div class="two2"><input type="text" class="form-control input-lg"  placeholder="性别"></div>
+                                    <div class="two1"> </div>
+                                </div>
+                                <div class="dan"><p>身份证号</p></div>
+                                <div class="xingming"><input type="text" class="form-control input-lg"  placeholder="身份证号"></div>
+                                <div class="liang">
+                                        <div><p>房间级别</p></div>
+                                        <div><p>房间价位</p></div>
+                                </div>
+                                <div class="liang2">
+                                    <div class="two1"> </div>
+                                    <div class="two2"><input type="text" class="form-control input-lg"  placeholder="房间级别"></div>
+                                    <div class="two3"> </div>
+                                    <div class="two2"><input type="text" class="form-control input-lg"  placeholder="房间价位"></div>
+                                    <div class="two1"> </div>
+                                </div>
+                                <div class="liang">
+                                        <div><p>订单时间</p></div>
+                                        <div><p>订单状态</p></div>
+                                </div>
+                                <div class="liang2">
+                                    <div class="two1"> </div>
+                                    <div class="two2"><input type="text" class="form-control input-lg"  placeholder="订单时间"></div>
+                                    <div class="two3"> </div>
+                                    <div class="two2"><input type="text" class="form-control input-lg"  placeholder="订单状态"></div>
+                                    <div class="two1"> </div>
+                                </div>
+                                
+                                <div class="tijiao">
+                                        <button type="button" class="btn btn-lg">&nbsp&nbsp&nbsp&nbsp&nbsp提交&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                </div>
+                            </form>
+                </div>
+                <div class="ruzhu" v-if="ruzhu_show">
+                        <form action="">
+                                <div class="liang">
+                                        <div><p>姓名</p></div>
+                                        <div><p>性别</p></div>
+                                </div>
+                                <div class="liang2">
+                                    <div class="two1"> </div>
+                                    <div class="two2"><input type="text" class="form-control input-lg"  placeholder="姓名"></div>
+                                    <div class="two3"> </div>
+                                    <div class="two2"><input type="text" class="form-control input-lg"  placeholder="性别"></div>
+                                    <div class="two1"> </div>
+                                </div>
+                                <div class="dan"><p>身份证号</p></div>
+                                <div class="xingming"><input type="text" class="form-control input-lg"  placeholder="身份证号"></div>
+                                <div class="liang">
+                                        <div><p>房间号</p></div>
+                                        <div><p>房间状态</p></div>
+                                </div>
+                                <div class="liang2">
+                                    <div class="two1"> </div>
+                                    <div class="two2"><input type="text" class="form-control input-lg"  placeholder="房间号"></div>
+                                    <div class="two3"> </div>
+                                    <div class="two2"><input type="text" class="form-control input-lg"  placeholder="房间状态"></div>
+                                    <div class="two1"> </div>
+                                </div>
+                                <div class="liang">
+                                        <div><p>入住消费</p></div>
+                                        <div><p>入住时间</p></div>
+                                </div>
+                                <div class="liang2">
+                                    <div class="two1"> </div>
+                                    <div class="two2"><input type="text" class="form-control input-lg"  placeholder="入住消费"></div>
+                                    <div class="two3"> </div>
+                                    <div class="two2"><input type="text" class="form-control input-lg"  placeholder="入住时间"></div>
+                                    <div class="two1"> </div>
+                                </div>
+                                <div class="dan"><p>入住时长</p></div>
+                                <div class="xingming"><input type="text" class="form-control input-lg"  placeholder="入住时长"></div>
+                                
+                                <div class="tijiao">
+                                        <button type="button" class="btn btn-lg">&nbsp&nbsp&nbsp&nbsp&nbsp提交&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                </div>
+                            </form>
+                </div>
+                <div class="guibin" v-if="guibin_show">
+                    待开发
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="index.js"></script>
+
+</html>
