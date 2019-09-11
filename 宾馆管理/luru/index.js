@@ -1,3 +1,16 @@
+function timeFormate(timeStamp) {
+    let year = new Date(timeStamp).getFullYear();
+    let month = new Date(timeStamp).getMonth() + 1 < 10 ? "0" + (new Date(timeStamp).getMonth() + 1) : new Date(timeStamp).getMonth() + 1;
+    let date = new Date(timeStamp).getDate() < 10 ? "0" + new Date(timeStamp).getDate() : new Date(timeStamp).getDate();
+    let hh = new Date(timeStamp).getHours() < 10 ? "0" + new Date(timeStamp).getHours() : new Date(timeStamp).getHours();
+    let mm = new Date(timeStamp).getMinutes() < 10 ? "0" + new Date(timeStamp).getMinutes() : new Date(timeStamp).getMinutes();
+    let second = new Date(timeStamp).getSeconds() < 10 ? "0" + new Date(timeStamp).getSeconds() : new Date(timeStamp).getSeconds();
+    let nowTime = year + "年" + month + "月" + date + "日" + " " + hh + ":" + mm + ":" + second;
+    // console.log('nico')
+    document.querySelector('.time').innerText=nowTime
+}
+setInterval("timeFormate(new Date())",300)
+
 new Vue({
     el: '#app',
     data: {
@@ -6,7 +19,7 @@ new Vue({
         yonghu_show:false,
         ruzhu_show:false,
         guibin_show:false,       
-        timer: null // 定时器名称
+
     },
     methods: {
         click_zhigong:function(){
@@ -33,31 +46,13 @@ new Vue({
             this.guibin_show=true;
             this.ruzhu_show=false;
         },
-        timeFormate(timeStamp) {
-            let year = new Date(timeStamp).getFullYear();
-            let month = new Date(timeStamp).getMonth() + 1 < 10 ? "0" + (new Date(timeStamp).getMonth() + 1) : new Date(timeStamp).getMonth() + 1;
-            let date = new Date(timeStamp).getDate() < 10 ? "0" + new Date(timeStamp).getDate() : new Date(timeStamp).getDate();
-            let hh = new Date(timeStamp).getHours() < 10 ? "0" + new Date(timeStamp).getHours() : new Date(timeStamp).getHours();
-            let mm = new Date(timeStamp).getMinutes() < 10 ? "0" + new Date(timeStamp).getMinutes() : new Date(timeStamp).getMinutes();
-            let second = new Date(timeStamp).getSeconds() < 10 ? "0" + new Date(timeStamp).getSeconds() : new Date(timeStamp).getSeconds();
-            this.nowTime = year + "年" + month + "月" + date + "日" + " " + hh + ":" + mm + ":" + second;
-            console.log('nico')
-        },
-        // 定时器函数
-        nowTimes() {
-            this.timeFormate(new Date());
-            setInterval(this.nowTimes, 100); 
-        },
+        
         
     },
     // 挂载完成时
     mounted() {
-        // this.nowTimes()
-        this.timer = setInterval(this.nowTimes, 100); 
+        
         
     },
-    destroyed(){
-        clearInterval(this.timer);　　// 清除定时器
-        this.timer = null;
-      },
+    
 })
