@@ -1,0 +1,8 @@
+{
+    "name": "tweet-client",
+    "description": "An HTTP tweets client",
+    "authors": "author",
+    "version": "0.0.1",
+    "main": "pathToMain",
+    "dependencies": {}
+}
