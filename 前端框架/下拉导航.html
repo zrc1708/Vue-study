@@ -1,0 +1,97 @@
+<!-- 下拉菜单 -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+    <link rel="stylesheet" href="//unpkg.com/element-ui@2.12.0/lib/theme-chalk/index.css">
+    <script src="//unpkg.com/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/element-ui@2.12.0/lib/index.js"></script>
+
+<body>
+    
+    <style>
+    .nico{
+        display: block;
+        margin-left: 40px;
+        margin-top: 10px;
+        margin-bottom: 23px;
+        
+    }
+    /* .one{
+        font-size: 50px
+    } */
+    #box{
+        background: red;
+        width: 30%;
+    }
+    </style>
+    <div id="app">
+        <div id="box">
+            
+                
+                    <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+                        <el-submenu index="1">
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span>导航一</span>
+                            </template>
+                            <el-menu-item-group>
+                                <el-radio v-model="radio" label="1" class="nico"><span class="one">选项一</span></el-radio>
+                                <el-radio v-model="radio" label="2" class="nico">选项二</el-radio>
+                            </el-menu-item-group> 
+                        </el-submenu>
+                        <el-submenu index="2">
+                                <template slot="title">
+                                    <i class="el-icon-location"></i>
+                                    <span>导航二</span>
+                                </template>
+                                <el-menu-item-group>
+                                    <el-radio v-model="radio" label="1" class="nico"><span class="one">选项三</span></el-radio>
+                                    <el-radio v-model="radio" label="2" class="nico">选项四</el-radio>
+                                </el-menu-item-group> 
+                            </el-submenu>
+                        
+                    </el-menu>
+                
+
+            
+        </div>
+    </div>
+</body>
+<script>
+    // var Main = {
+    //     methods: {
+    //         handleOpen(key, keyPath) {
+    //             console.log(key, keyPath);
+    //         },
+    //         handleClose(key, keyPath) {
+    //             console.log(key, keyPath);
+    //         }
+    //     }
+    // }
+    // var Ctor = Vue.extend(Main)
+    // new Ctor().$mount('#app')
+
+    new Vue({
+        el: "#app",
+        data: {
+            radio: '1'
+        },
+        // methods: {
+        //     handleOpen(key, keyPath) {
+        //         console.log(key, keyPath);
+        //     },
+        //     handleClose(key, keyPath) {
+        //         console.log(key, keyPath);
+        //     }
+        // }
+    })
+</script>
+
+</html>
