@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+        <div id="app">
+                <input  v-model='str'>
+                <p>{{ getStr }} </p>
+                <button type="button" v-on:click='btnClick' >获取</button>
+            </div>
+</body>
+<script type="text/javascript">
+    var vm= new Vue({
+            el: '#app',
+            data: {
+                str: '初始值',
+                getStr: null,
+            },
+            created: function() {
+                // the created hook is called after the instance is created
+            },
+            computed: {
+            },
+            methods: {
+                btnClick: function() {
+                    this.getStr = this.str.toUpperCase();
+                },
+            }
+        })
+    </script>
+
+</html>

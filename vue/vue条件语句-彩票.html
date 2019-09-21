@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="div">
+        中奖率10%
+        <button @click="nico">买一张</button>
+        <div v-if="bool">中了500万</div>
+        <div v-else>谢谢惠顾</div>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "div",
+        data: {
+            bool: false,
+        },
+        methods: {
+            nico: function () {
+                this.bool = Math.random() < 0.1
+            }
+        }
+    })
+</script>
+
+</html>

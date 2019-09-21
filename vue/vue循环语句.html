@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue循环语句</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+    <div id="div">
+       <table>
+           <tr>
+               <td>number</td>
+               <td>name</td>
+               <td>hp</td>
+           </tr>
+           <tr v-for="nico,jishu in heros">
+               <td>{{jishu+1}}</td>
+               <td>{{nico.name}}</td>
+               <td>{{nico.hp}}</td>
+           </tr>
+       </table>
+    </div>
+</body>
+<script>
+    var hero = [
+   		  {name:"盖伦",hp:341},
+		  {name:"提莫",hp:225},
+		  {name:"安妮",hp:427},
+		  {name:"死歌",hp:893}
+    ];
+
+new Vue({
+    el:"div",
+    data:{
+        heros:hero,
+    },
+    methods:{
+
+    }
+})
+</script>
+</html>

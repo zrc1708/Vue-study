@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<style>
+    #four {
+        width: 200px;
+        height: 200px;
+        background-color: rgba(255, 0, 0, 0.25);
+    }
+
+    #three {
+        width: 150px;
+        height: 150px;
+        background-color: rgba(255, 0, 0, 0.25);
+    }
+
+    #two {
+        width: 100px;
+        height: 100px;
+        background-color: rgba(255, 0, 0, 0.25);
+    }
+
+    #one {
+        width: 50px;
+        height: 50px;
+        background-color: rgba(255, 0, 0, 0.25);
+    }
+</style>
+
+<body>
+    <div id="div">
+        <div id="four" @click="doc">
+            4
+            <div id="three" @click.self="doc">
+                3
+                <div id="two" @click="doc">
+                    2
+                    <div id="one" @click="doc">
+                        1
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#div",
+        data: {
+            id: ''
+        },
+        methods: {
+            doc: function () {
+                this.id= event.currentTarget.id;
+                alert(this.id)
+            }
+        }
+    })
+    
+</script>
+
+</html>
