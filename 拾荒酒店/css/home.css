@@ -1,0 +1,128 @@
+.Li{
+
+ width: 70%;
+ margin: auto;
+ /* border: 1px solid rebeccapurple; */
+ margin-top: 20px;
+ height: 40px;
+ font-size: 26px;
+}
+
+
+.LI{
+ 
+ width: 70%;
+ margin: auto;
+ border: 1px solid #dedee0;
+}
+
+.Li_1{
+ padding-top: 4px;
+ /* padding-left: 6px; */
+ border: 1px solid #dedee0;
+ width: 15%;
+ height: 550px;
+ margin-top: 20px;
+ display: flex;
+ flex-direction: column;
+ border-radius: 5px;
+ float: left;
+}
+
+.Li_2{
+ padding-left: 16px;
+ width: 91%;
+ height: 40px;
+ /* background-color: #f9f9f9; */
+ /* border: 1px solid rebeccapurple;  */
+ margin-top: 15px;
+ font-size:18px;
+ color: blue;
+}
+
+.Li_2 span:hover{
+    color: aqua;
+}
+
+.Li_1 section{
+
+ display: flex;
+ flex-direction: column;
+ font-size: 18px;
+ border-bottom: 2px solid #eaeaea;
+ 
+}
+.Li_1 section label{
+
+ margin-top: 6px;
+ padding-left: 6px;
+}
+
+.Li_3{
+   width: 70%;
+   float: left;  
+   margin-left: 6%;
+   margin-top: 20px;
+   /* border: 1px solid rebeccapurple;  */
+}
+
+.Li_4{
+
+ width: 100%;
+ height: 170px;
+ border-bottom: 2px solid #dedee0; 
+ display: flex;
+ margin-top: 20px;
+}
+
+.Li_5{
+
+ width: 900px;
+ height: 100%;
+ margin-left: 30px;
+ display: flex;
+ flex-direction: column;
+ /* border: 1px solid rebeccapurple;  */
+}
+
+.Li_5 label{
+
+   font-weight: bolder; 
+   font-size: 24px;
+
+}
+
+.Li_6{
+ 
+ width: 100%;
+ height: 32px;
+ /* border: 1px solid rebeccapurple;  */
+ position: relative;
+ margin-top: 10px;
+}
+
+.Li_6 span{
+
+    position: absolute;
+    top: 5px;
+    left: 15px;
+    color: white;
+    font-size: 14px;
+}
+
+.Li_5 p{
+ 
+ font-size: 20px;
+ margin-top: 10px;    
+}
+
+.Li_5 button{
+ 
+ font-size: 18px;
+ color: #4184c3;
+ width: 110px;
+ height: 40px;
+ border-radius: 5px;   
+ margin-left: 85%; 
+ margin-top: 10px;
+}

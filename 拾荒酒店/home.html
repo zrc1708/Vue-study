@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>home</title>
+    
+    <link rel="stylesheet" type="text/css" href="css/public.css" />
+	<link rel="stylesheet" type="text/css" href="css/login.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/home.css" />
+
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.12.0/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui@2.12.0/lib/index.js"></script>
+
+    <!-- <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script> -->
+	<script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+	<script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
+</head>
+<style>
+.rad{
+  display:block;
+  margin-left: 26px;
+}
+.rad span{
+  font-size: 18px;
+  
+}
+.mid{
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+.onetitle{
+  font-size: 20px;
+}
+</style>
+<body>
+    
+    <div id="app">
+
+        <div class="head">
+			<div class="wrapper clearfix">
+				<div class="clearfix" id="top">
+					<h1 class="fl"><a href="index.html"><img src="img/logo.png" class="Linn"/></a></h1>
+					<div class="fr clearfix" id="top1" style="margin-top: 2%;">
+						<!-- <p v-if="loginCheck" class="fl">
+							<a href="login.html">登录</a>
+							<a href="reg.html">注册</a>
+						</p> -->
+						<p class="fl">
+							欢迎您,Linn
+						</p>
+						<form action="#" method="get" class="fl">
+							<input type="text" placeholder="热门搜索：优质房间" />
+              <input type="button" />
+            </form>
+            <div class="btn fl clearfix">
+							<a href="mygrxx.html"><img src="img/grzx.png" /></a>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+        
+        <div class="Li">客房查询</div>
+        <div class="LI">
+          <div class="Li_1">
+              <el-menu  class="el-menu-vertical-demo"  :default-openeds=["1","2","3"]>
+                  <el-submenu index="1">
+                      <template slot="title">
+                          <i class="el-icon-location"></i>
+                          <span class="onetitle">大小</span>
+                      </template>
+                      <el-menu-item-group>
+                          <!-- <el-radio v-model="radio" label="1" class="nico"><span class="one">选项一</span></el-radio>
+                          <el-radio v-model="radio" label="1" class="nico">选项二</el-radio> -->
+                          <el-radio-group v-model="daxiao">
+                              <el-radio :label="1" class='rad'><span>单人</span></el-radio>
+                              <el-radio :label="2" class='rad mid'>双人</el-radio>
+                              <el-radio :label="3" class='rad'>任意</el-radio>
+                          </el-radio-group>
+                      </el-menu-item-group> 
+                  </el-submenu>
+                  <el-submenu index="2">
+                          <template slot="title">
+                              <i class="el-icon-location"></i>
+                              <span class="onetitle">类型</span>
+                          </template>
+                          <el-menu-item-group>
+                              <el-radio-group v-model="leixing">
+                                  <el-radio :label="4" class='rad'>标准</el-radio>
+                                  <el-radio :label="5" class='rad mid'>商务</el-radio>
+                                  <el-radio :label="6" class='rad' style="margin-bottom: 12px">套房</el-radio>
+                                  <el-radio :label="66" class='rad'>任意</el-radio>
+
+                              </el-radio-group>
+                          </el-menu-item-group> 
+                  </el-submenu>
+                  <el-submenu index="3">
+                      <template slot="title">
+                          <i class="el-icon-location"></i>
+                          <span class="onetitle">价格</span>
+                      </template>
+                      <el-menu-item-group>
+                          <el-radio-group v-model="jiage">
+                              <el-radio :label="7" class='rad'>0-200</el-radio>
+                              <el-radio :label="8" class='rad mid'>200-300</el-radio>
+                              <el-radio :label="9" class='rad' style="margin-bottom: 12px">300-400</el-radio>
+                              <el-radio :label="99" class='rad'>任意</el-radio>
+                          </el-radio-group>
+                      </el-menu-item-group> 
+                  </el-submenu>
+                  
+              </el-menu>
+          </div>
+
+
+          <div class="Li_3">
+
+             <div class="Li_4">
+
+                  <div><img src="img/酒店.png" alt="" style="width: 210px;height:140px;"></div>
+                  <div class="Li_5">
+                        <label>商务间（观景房）（单人/双人）</label>
+                        <div class="Li_6">
+                            <img src="img/标签.png" alt="" style="width: 80px;height:30px;">
+                            <span>￥318</span>
+                        </div>
+                        <p>房间18-20m³|大床1.8米|楼层2-4层|房间号:001</p>
+                        <button @click="clickbutton">预定</button>
+                  </div>
+             </div>
+             
+             <div class="Li_4">
+
+              <div><img src="img/酒店.png" alt="" style="width: 210px;height:140px;"></div>
+              <div class="Li_5">
+                    <label>商务间（观景房）（单人/双人）</label>
+                    <div class="Li_6">
+                        <img src="img/标签.png" alt="" style="width: 80px;height:30px;">
+                        <span>￥318</span>
+                    </div>
+                    <p>房间18-20m³|大床1.8米|楼层2-4层|房间号:001</p>
+                    <button>预定</button>
+              </div>
+         </div>
+
+         <div class="Li_4">
+
+          <div><img src="img/酒店.png" alt="" style="width: 210px;height:140px;"></div>
+          <div class="Li_5">
+                <label>商务间（观景房）（单人/双人）</label>
+                <div class="Li_6">
+                    <img src="img/标签.png" alt="" style="width: 80px;height:30px;">
+                    <span>￥318</span>
+                </div>
+                <p>房间18-20m³|大床1.8米|楼层2-4层|房间号:001</p>
+                <button>预定</button>
+          </div>
+     </div>
+     <div class="Li_4">
+
+      <div><img src="img/酒店.png" alt="" style="width: 210px;height:140px;"></div>
+      <div class="Li_5">
+            <label>商务间（观景房）（单人/双人）</label>
+            <div class="Li_6">
+                <img src="img/标签.png" alt="" style="width: 80px;height:30px;">
+                <span>￥318</span>
+            </div>
+            <p>房间18-20m³|大床1.8米|楼层2-4层|房间号:001</p>
+            <button>预定</button>
+      </div>
+ </div>
+ <div class="Li_4">
+
+  <div><img src="img/酒店.png" alt="" style="width: 210px;height:140px;"></div>
+  <div class="Li_5">
+        <label>商务间（观景房）（单人/双人）</label>
+        <div class="Li_6">
+            <img src="img/标签.png" alt="" style="width: 80px;height:30px;">
+            <span>￥318</span>
+        </div>
+        <p>房间18-20m³|大床1.8米|楼层2-4层|房间号:001</p>
+        <button>预定</button>
+  </div>
+</div>
+
+
+
+
+          </div>
+
+
+
+        </div>
+
+
+</div>
+</body>
+<script>
+      new Vue({
+
+            el:'#app',
+            data() {
+                return {
+                    show1:true,
+                    show2:true,
+                    show3:true,
+                    count1:0,
+                    count2:0,
+                    count3:0,
+                    daxiao:'',
+                    leixing:'',
+                    jiage:'',
+                }
+            },
+
+
+            methods: {
+                click1(){
+                    this.count1+=1;
+                    if(this.count1%2==0)
+                      {this.show1=true;}
+                    else{this.show1=false;}
+
+                },
+                click2(){
+                    this.count2+=1;
+                    if(this.count2%2==0)
+                      {this.show2=true;}
+                    else{this.show2=false;}
+
+                },
+                click3(){
+                    this.count3+=1;
+                    if(this.count3%2==0)
+                      {this.show3=true;}
+                    else{this.show3=false;}
+
+                },
+                
+                clickbutton(){
+
+                    window.location.href = "pay.html";
+                }
+
+
+
+
+
+
+            },
+
+      })
+
+
+</script>
+</html>

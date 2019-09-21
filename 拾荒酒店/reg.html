@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>注册</title>
+	<link rel="stylesheet" type="text/css" href="css/public.css" />
+	<link rel="stylesheet" type="text/css" href="css/login.css" />
+	
+	<link rel="stylesheet" href="https://unpkg.com/element-ui@2.12.0/lib/theme-chalk/index.css">
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<script src="https://unpkg.com/element-ui@2.12.0/lib/index.js"></script>
+
+	<!-- <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script> -->
+	<script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+	<script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
+</head>
+<style>
+#log{
+		font-family: Georgia;
+		font-size: 24px
+	}
+#button{
+		/* color: red; */
+		background: #c10000 ;
+		border-color: #c10000 ;
+		width: 270px;
+	}
+#button:hover{
+		color: rgb(0, 0, 0);
+	}
+</style>
+<body>
+	<div id="app">
+		<div class="head">
+			<div class="wrapper clearfix">
+				<div class="clearfix" id="top">
+					<h1 class="fl"><a href="index.html"><img src="img/logo.png" /></a></h1>
+					<div class="fr clearfix" id="top1" style="margin-top: 2%;">
+						<p v-if="loginCheck" class="fl">
+							<a href="login.html">登录</a>
+							<a href="reg.html">注册</a>
+						</p>
+						<p v-else class="fl">
+							欢迎您,{{username}}
+						</p>
+						<form action="#" method="get" class="fl">
+							<input type="text" placeholder="热门搜索：优质房间" />
+							<input type="button" />
+						</form>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		<!-------------------reg-------------------------->
+		<div class="reg">
+			<form @submit.prevent="handleSubmit">
+
+				<p id="log">用户注册</p>
+				<p>
+					<!-- <input type="text" v-model="user.username" @blur="checkName" placeholder="请输入用户名"> -->
+					<el-input v-model="user.username" placeholder="请输入用户名" @blur="checkName"></el-input>
+				</p>
+				<div class="msg-warn hide" style="margin-top: 10px" v-show="noName"><b></b>该用户名已被注册</div>
+
+				<p>
+					<!-- <input type="text" v-model="user.email" @blur="checkEmail" placeholder="请输入邮箱"> -->
+					<el-input v-model="user.email" placeholder="请输入邮箱" @blur="checkEmail"></el-input>
+				</p>
+				<div class="msg-warn hide" style="margin-top: 10px" v-show="noEmail"><b></b>该邮箱已被注册或非邮箱格式</div>
+
+				<p>
+					<!-- <input type="password" v-model="user.password" placeholder="请输入密码" style="padding-left: 10px;"> -->
+					<el-input type="password" v-model="user.password" placeholder="请输入密码"></el-input>
+				</p>
+				<p>
+					<!-- <input type="password" v-model="samePassword" @blur="checkPassword" placeholder="请确认密码" style="padding-left: 10px;"> -->
+					<el-input type="password" v-model="samePassword" @blur="checkPassword" placeholder="请确认密码"></el-input>					
+				</p>
+				<div class="msg-warn hide" style="margin-top: 10px" v-show="checkSamePassword"><b></b>两次密码不一致</div>
+
+				<!-- <p class="txtL txt"><input class="code" type="text" v-model="checkCode" @blur="checkCode1"
+						placeholder="验证码">
+					<img style="width: 97px;height: 42px;display: inline-block"
+						onclick="this.src='http\:\/\/127.0.0.1\:9999\/captcha\/captchaImage?type=math'"
+						src="http://127.0.0.1:9999/captcha/captchaImage?type=math" alt="">
+				</p> -->
+				
+				<!-- <div class="msg-warn hide" style="margin-top: 10px" v-show="CheckCodeError"><b></b>请输入正确的验证码</div> -->
+
+				<p>
+					<!-- <input type="submit" name="" value="注册"> -->
+					<el-button type="submit" id="button" value="注册"><span style="color:white">注册</span></el-button>
+				</p>
+				<p class="txtL txt">完成此注册，即表明您同意了我们的<a href="#">使用条款和隐私策略</a></p>
+				<p class="txt"><a href="login.html"><span></span>已有账号登录</a></p>
+				<!--<a href="#" class="off"><img src="img/temp/off.png"></a>-->
+			</form>
+		</div>
+	</div>
+</body>
+<script src="js/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+<script>
+
+	axios.defaults.withCredentials = true
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			noName: false,
+			noEmail: false,
+			checkSamePassword: false,
+			CheckCodeError: false,
+			user: {
+				username: '',
+				password: '',
+				email: '',
+			},
+			username: '',
+			loginCheck: true,
+
+			samePassword: '',
+			checkCode: ''
+
+		},
+		mounted() {
+
+			axios({
+				method: 'get',
+				url: 'http://127.0.0.1:9999/user/checkLogin',
+				headers: {
+					"Content-Type": "application/json"
+				},
+
+			}).then((result) => {
+
+				// 获取到数据后,去设置登录
+
+				let d = result.data.username;
+				if (result.data == "") {
+					console.log("未登录")
+				} else {
+
+					this.username = d;
+					this.loginCheck = false;
+				}
+
+
+
+			}).catch((err) => {
+
+				console.log("未获取到数据")
+
+			});
+
+		},
+		methods: {
+			handleSubmit() {
+
+				//在提交之前,需要检测用户名,邮箱,密码的相关操作是否合法
+				if (this.noName == false && this.noEmail == false && this.checkSamePassword == false && this.CheckCodeError == false) {
+					console.log("注册");
+
+					var user = JSON.stringify(this.user);
+					axios({
+						method: 'post',
+						url: 'http://127.0.0.1:9999/user/add',
+						headers: {
+							"Content-Type": "application/json"
+							//"Content-Type": "application/x-www-form-urlencoded"
+						},
+						data: user
+					}).then((result) => {
+
+						// 获取到数据后,去设置登录
+						if (result.data == "") {
+							//未登录;
+							console.log("未登录")
+						} else {
+							//跳转页面
+							window.location.href = "index.html";
+						}
+
+					}).catch((err) => {
+
+					});
+				} else {
+					console.log("尚有问题未解决")
+				}
+			},
+			//动态监测是否重名
+			checkName() {
+				console.log("name检测")
+				axios({
+					method: 'get',
+					url: "http://127.0.0.1:9999/user/noName",
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded"
+					},
+					params: {
+						//获取到的username数据
+						username: this.user.username
+
+					}
+				}).then((result) => {
+					//如果获取到了数据,则显示出错误提示
+					if (result.data == 1) {
+						this.noName = true;
+					} else {
+						this.noName = false;
+					}
+
+				})
+			},
+			//动态监测是否重复邮箱
+			checkEmail() {
+				console.log("email检测");
+				axios({
+					method: 'get',
+					url: "http://127.0.0.1:9999/user/noEmail",
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded"
+					},
+					params: {
+						//获取到的username数据
+						email: this.user.email
+
+					}
+				}).then((result) => {
+					//如果获取到了数据,则显示出错误提示
+					if (result.data == 1) {
+						this.noEmail = true;
+					} else {
+						this.noEmail = false;
+					}
+				}).then(()=>{
+
+					var re=/^\w+@[a-z0-9]+\.[a-z]+$/i;/*邮箱不区分大小写*/
+                  if (re.test(this.user.email)){
+					  console.log("通过邮箱检测")
+					this.noEmail = false;
+				  }else{
+					  console.log("未通过邮箱检测")
+					this.noEmail = true;
+				  }
+				})
+
+
+				 
+			},
+			//检测密码是否相同
+			checkPassword() {
+				if (this.user.password != this.samePassword) {
+					//两次密码不一致
+					this.checkSamePassword = true;
+					console.log("密码不一致")
+				} else {
+					this.checkSamePassword = false;
+				}
+			},
+			checkCode1() {
+
+				axios({
+					method: 'get',
+					url: "http://127.0.0.1:9999/captcha/checkCode",
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded"
+					},
+				}).then((result) => {
+                 console.log(result)
+					if (result.data == this.checkCode) {
+						this.CheckCodeError = false;
+					} else {
+						this.CheckCodeError = true;
+
+					}
+
+				})
+			}
+		}
+
+
+
+
+	})
+</script>
+
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>登录</title>
+	<link rel="stylesheet" type="text/css" href="css/public.css" />
+	<link rel="stylesheet" type="text/css" href="css/login.css" />
+	<link rel="stylesheet" type="text/css" href="css/index.css" />
+
+	<link rel="stylesheet" href="https://unpkg.com/element-ui@2.12.0/lib/theme-chalk/index.css">
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<script src="https://unpkg.com/element-ui@2.12.0/lib/index.js"></script>
+
+	<!-- <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script> -->
+	<script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+	<script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
+
+<style>
+	#log{
+		font-family: Georgia;
+		font-size: 24px
+	}
+	#button{
+		/* color: red; */
+		background: #c10000 ;
+		border-color: #c10000;
+		width: 270px;
+	}
+	#button:hover{
+		color: rgb(0, 0, 0);
+	}
+</style>
+</head>
+
+<body>
+	<div id="app">
+		<!-------------------login-------------------------->
+		<div class="head">
+			<div class="wrapper clearfix">
+				<div class="clearfix" id="top">
+					<h1 class="fl"><a href="index.html"><img src="img/logo.png" class="Linn" /></a></h1>
+					<div class="fr clearfix" id="top1" style="margin-top: 2%;">
+						<p v-if="loginCheck" class="fl">
+							<a href="login.html">登录</a>
+							<a href="reg.html">注册</a>
+						</p>
+						<p v-else class="fl">
+							欢迎您,{{username}}
+						</p>
+
+						<form action="#" method="get" class="fl">
+							<input type="text" placeholder="热门搜索：优质房间" />
+							<input type="button" />
+						</form>
+
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="login">
+
+			<form @submit.prevent="handleSubmit">
+
+				<p style="margin-top: 30px" id="log">用户登录</p>
+				<p>
+					<!-- <input type="text" v-model="login.loginName" placeholder="账号"> -->
+					<el-input v-model="login.loginName" placeholder="请输入账号"></el-input>
+				</p>
+				<p>
+					<!-- <input type="password" v-model="login.password" placeholder="密码" style="padding-left: 10px;"> -->
+					<el-input v-model="login.password" placeholder="请输入密码"></el-input>
+				</p>
+				
+				<div class="msg-warn hide" style="margin-top: 10px" v-show="loginError"><b></b>登录失败,账号或密码错误</div>
+				<!-- @click="xxx" -->
+				<!-- <p class="txtL txt"><input class="code" type="text" v-model="checkCode" @blur="checkCode1"
+						placeholder="验证码">
+					 <img src="img/temp/code.jpg"> 
+					<img style="width: 97px;height: 42px;display: inline-block"
+						onclick="this.src='http\:\/\/127.0.0.1\:9999\/captcha\/captchaImage?type=math'"
+						src="http://127.0.0.1:9999/captcha/captchaImage?type=math" alt="验证码">
+
+				</p> -->
+				<div class="msg-warn hide" style="margin-top: 10px" v-show="CheckCodeError"><b></b>登录失败,验证码错误</div>
+
+				<p>
+					<!-- <input type="submit" name="" value="登  录" @click="click"> -->
+					<el-button type="submit" id="button" @click="click"><span style="color:white">登录</span></el-button>
+				</p>
+				<p class="txt"><a class="" href="reg.html">免费注册</a><a href="forgetPwd1.html">忘记密码？</a></p>
+
+			</form>
+		</div>
+	</div>
+</body>
+<script>
+	axios.defaults.withCredentials = true
+	new Vue({
+		el: '#app',
+		data: {
+			loginError: false,
+			CheckCodeError: false,
+			login: {
+				loginName: '',
+				password: '',
+
+			},
+			checkCode: '',
+			username: '',
+			loginCheck: true,
+			
+
+
+		},
+
+		methods: {
+
+			click() {
+				window.location.href = "mygrxx.html";
+			},
+			handleSubmit() {
+
+				if (this.CheckCodeError == false) {
+					console.log("登录");
+
+					var login = JSON.stringify(this.login);
+
+
+					axios({
+						method: 'post',
+						url: 'http://127.0.0.1:9999/user/userLogin',
+						headers: {
+							"Content-Type": "application/json"
+
+						},
+
+						data: login
+					}).then((result) => {
+
+						// 获取到数据后,去设置登录
+						if (result.data == "") {
+							//未登录;
+							this.loginError = true;
+						} else {
+							//跳转页面
+							window.location.href = "index.html";
+
+						}
+
+
+
+					}).catch((err) => {
+
+
+
+					});
+
+				} else {
+					console.log("请输入正确的验证码");
+				}
+			},
+			checkCode1() {
+
+				axios({
+					method: 'get',
+					url: "http://127.0.0.1:9999/captcha/checkCode",
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded"
+					},
+
+				}).then((result) => {
+
+					if (result.data == this.checkCode) {
+						this.CheckCodeError = false;
+					} else {
+						this.CheckCodeError = true;
+
+					}
+
+				})
+
+			}
+		}
+
+	})
+</script>
+<script src="js/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

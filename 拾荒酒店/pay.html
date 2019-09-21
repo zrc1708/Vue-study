@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>home</title>
+
+    <link rel="stylesheet" type="text/css" href="css/public.css" />
+    <link rel="stylesheet" type="text/css" href="css/login.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/home.css" />
+
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.12.0/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui@2.12.0/lib/index.js"></script>
+
+    <!-- <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script> -->
+    <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
+</head>
+<style>
+    .body {
+        width: 100%;
+        height: 100%;
+        background: url(img/pay.png) no-repeat;
+        background-size: 100% 100%;
+    }
+
+    .text {
+        width: 100%;
+        text-align: center;
+        padding-top: 10px;
+    }
+
+    .text p {
+        font-size: 50px;
+        color: red
+    }
+</style>
+
+<body>
+
+    <div id="app">
+
+        <div class="head">
+            <div class="wrapper clearfix">
+                <div class="clearfix" id="top">
+                    <h1 class="fl"><a href="index.html"><img src="img/logo.png" class="Linn" /></a></h1>
+                    <div class="fr clearfix" id="top1" style="margin-top: 2%;">
+                        <!-- <p v-if="loginCheck" class="fl">
+							<a href="login.html">登录</a>
+							<a href="reg.html">注册</a>
+						</p> -->
+                        <p class="fl">
+                            欢迎您,Linn
+                        </p>
+                        <form action="#" method="get" class="fl">
+                            <input type="text" placeholder="热门搜索：优质房间" />
+                            <input type="button" />
+                        </form>
+                        <div class="btn fl clearfix">
+                            <a href="mygrxx.html"><img src="img/grzx.png" /></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="body" @click="click" >
+            <div class="text" v-show="pay">
+                <p>支付成功，{{num}}后跳转</p>
+            </div>
+        </div>
+
+
+    </div>
+</body>
+<script>
+    new Vue({
+
+        el: '#app',
+        data: {
+            num: 3,
+            pay:false,
+        },
+
+        methods: {
+            click: function () {
+                console.log('test'+this.num)
+            },
+            delete: function () {
+                var that=this
+                setTimeout(function () {
+                    that.pay=true
+                    // console.log(that.num)
+                    // console.log('第一次输出')
+                }, 2000)
+                setTimeout(function () {
+                    that.num--
+                    // console.log(that.num)
+                    // console.log('第一次输出')
+                }, 3000)
+                setTimeout(function () {
+                    that.num--
+                    // console.log(that.num)
+                    // console.log('第二次输出')
+                }, 4000)
+                setTimeout(function () {
+                    that.num--
+                    // console.log(that.num)
+                    // console.log('第三次输出')
+                    window.location.href = "home.html";
+                }, 5000)
+            }
+        },
+        mounted() {
+            this.delete()
+        }
+
+
+    })
+</script>
+
+</html>

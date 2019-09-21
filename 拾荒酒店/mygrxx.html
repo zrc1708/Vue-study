@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+	<meta charset="utf-8" />
+	<title>个人信息</title>
+	<link rel="stylesheet" type="text/css" href="css/public.css" />
+	<link rel="stylesheet" type="text/css" href="css/mygrxx.css" />
+	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+	<script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+	<script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<!------------------------------head------------------------------>
+		<div class="head">
+			<div class="wrapper clearfix">
+				<div class="clearfix" id="top">
+					<h1 class="fl"><a href="index.html"><img src="img/logo.png" /></a></h1>
+					<div class="fr clearfix" id="top1" style="margin-top: 2%;">
+						<!-- <p v-if="loginCheck" class="fl">
+							<a href="login.html">登录</a>
+							<a href="reg.html">注册</a>
+						</p> -->
+						<p class="fl">
+							欢迎您,Linn
+						</p>
+
+						<form action="#" method="get" class="fl">
+							<input type="text" placeholder="热门搜索：优质房间" />
+							<input type="button" />
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!------------------------------idea------------------------------>
+		<!-- <div class="address mt">
+			<div class="wrapper clearfix">
+				<a href="index.html" class="fl">首页</a>
+				<span>/</span>
+				<a href="mygxin.html" class="on">个人信息</a>
+			</div>
+		</div> -->
+
+		<!------------------------------Bott------------------------------>
+		<div class="Bott">
+			<div class="wrapper clearfix">
+				<!-- <div class="zuo fl">
+					<h3>
+						<a href="#"><img src="img/tx.png" /></a>
+						<p class="clearfix"><span class="fl">[{{username}}]</span><span class="fr" @click="exit">[退出登录]</span></p>
+					</h3>
+					<div>
+						<ul>
+							<li><a href="myorderq.html">我的订单</a></li>
+							<li><a href="myprod.html">评价晒单</a></li>
+							<li><a href="address.html">地址管理</a></li>
+							<li class="on"><a href="mygrxx.html">个人信息</a></li>
+							<li><a href="remima.html">修改密码</a></li>
+						</ul>
+					</div>
+				</div> -->
+				<div class="you fl">
+					<h2>填充信息</h2>
+					<div class="gxin">
+						<!-- <div class="tx" style="margin-top: 0%"><a href="#"><img src="img/tx.png" />
+								<p id="avatar">修改头像</p>
+							</a></div> -->
+						<div class="xx">
+							<h3 class="clearfix"><strong class="fl">基础资料</strong><a href="#" class="fr"
+									id="edit1">填充</a></h3>
+							<div>姓名：张汝超</div>
+							<div>性别：男</div>
+							<div>身份证号：320322200009243810</div>
+							<div>邮箱：193265261@qq.com</div>
+							<div>地址：拾荒酒店201号房</div>
+							<div>联系方式：15962101588</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--footer-->
+			<div class="footer">
+				<div class="top">
+					<div class="wrapper">
+						<div class="clearfix">
+							<a href="#2" class="fl"><img src="img/foot1.png" /></a>
+							<span class="fl">节假日度假酒店</span>
+						</div>
+						<div class="clearfix">
+							<a href="#2" class="fl"><img src="img/foot2.png" /></a>
+							<span class="fl">观景区酒店</span>
+						</div>
+						<div class="clearfix">
+							<a href="#2" class="fl"><img src="img/foot3.png" /></a>
+							<span class="fl">情侣双人减半</span>
+						</div>
+						<div class="clearfix">
+							<a href="#2" class="fl"><img src="img/foot4.png" /></a>
+							<span class="fl">食物特色服务</span>
+						</div>
+					</div>
+				</div>
+				<p class="dibu">拾荒&copy;2018-2019公司版权所有 苏ICP备080100-44备0000111000号<br />
+					违法和不良信息举报电话：159-5051-9615，本网站所有数据均来源于互联网，若有侵权，联系删除</p>
+			</div>
+		</div>
+		<!--遮罩-->
+		<div class="mask"></div>
+		<!--编辑弹框-->
+		<div class="bj">
+			<div class="clearfix"><a href="#" class="fr gb"><img src="img/icon4.png" /></a></div>
+			<h3>填充资料</h3>
+			<form action="#" method="get">
+				<p><label>姓名：</label><input type="text" value="" /></p>
+				<p><label>证件：</label><input type="text" /></p>
+				<p>
+					<label>性别：</label>
+					<span><input type="radio" name="light" />男</span>
+					<span><input type="radio" name="light" />女</span>
+				</p>
+				<p><label>邮箱：</label><input type="text" /></p>
+				<p><label>地址：</label><input type="text" /></p>
+				<p><label>电话：</label><input type="text" /></p>
+				<div class="bc">
+					<input type="button" value="保存" @click="TOhome"/>
+					<input type="button" value="取消" />
+				</div>
+			</form>
+		</div>
+		<!--高级设置修改-->
+		<div class="xg">
+			<div class="clearfix"><a href="#" class="fr gb"><img src="img/icon4.png" /></a></div>
+			<h3>切换账号地区</h3>
+			<form action="#" method="get">
+				<p><label>姓名：</label><input type="text" value="lisi" /></p>
+				<div class="bc">
+					<input type="button" value="保存" />
+					<input type="button" value="取消" />
+				</div>
+			</form>
+		</div>
+
+	</div>
+
+	<script>
+		axios.defaults.withCredentials = true
+
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				username: '请登录',
+				loginCheck: true
+
+
+			},
+			mounted() {
+				console.log("检测登录")
+				axios({
+					method: 'get',
+					url: 'http://127.0.0.1:9999/user/checkLogin',
+					headers: {
+						"Content-Type": "application/json"
+					},
+
+				}).then((result) => {
+
+					// 获取到数据后,去设置登录
+
+					let d = result.data.username;
+					if (result.data == "") {
+						console.log("未登录")
+					} else {
+
+						this.username = d;
+						this.loginCheck = false;
+					}
+
+
+				}).catch((err) => {
+
+					console.log("未获取到数据")
+
+				});
+
+			},
+			methods: {
+
+				TOhome(){
+
+					setTimeout(function()  {
+ 
+						window.location.href = "home.html"; 
+
+                   }, 1000);
+
+				},
+				exit() {
+					axios({
+						method: 'delete',
+						url: 'http://127.0.0.1:9999/user/exit',
+
+
+					}).then((result) => {
+						if (result.data == 1) {
+							console.log("退出登陆成功");
+							window.location.href = "index.html";
+
+						}
+					})
+				}
+			}
+		})
+	</script>
+	<script src="js/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/user.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>
