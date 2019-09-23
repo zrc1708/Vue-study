@@ -13,7 +13,8 @@
   "license": "ISC",
   "devDependencies": {
     "cross-env": "^5.2.1",
-    "nodemon": "^1.19.2"
+    "nodemon": "^1.19.2",
+    "webpack-dev-server": "^3.8.1"
   },
   "dependencies": {
     "mysql": "^2.17.1"

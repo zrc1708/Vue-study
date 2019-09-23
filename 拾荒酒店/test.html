@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+	<script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+	<script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        123
+    </div>
+</body>
+<script>
+// axios.defaults.withCredentials = true;
+    new Vue({
+
+        el: '#app',
+        data() {
+            
+        },
+
+        methods: {
+            
+        },
+        mounted() {
+
+            axios({
+                method: 'post',
+                url: 'http://127.0.0.1:8888/room/selectAll',
+                headers: {
+            			"Content-Type": "application/json"
+                },
+                
+            }).then((result) => {
+                console.log(result.data)
+
+            })
+
+
+        }
+
+    })
+</script>
+</html>

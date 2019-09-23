@@ -12,11 +12,12 @@
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <link rel="stylesheet" type="text/css" href="css/home.css" />
 
-    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.12.0/lib/theme-chalk/index.css">
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.12.0/lib/theme-chalk/index.css">
     <script src="https://unpkg.com/element-ui@2.12.0/lib/index.js"></script>
 
-	
+
 
     <!-- <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script> -->
     <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
@@ -100,7 +101,7 @@
                             <el-radio-group v-model="leixing">
                                 <el-radio :label="4" class='rad'>标准</el-radio>
                                 <el-radio :label="5" class='rad mid'>商务</el-radio>
-                                <el-radio :label="6" class='rad' style="margin-bottom: 12px">套房</el-radio>
+                                <el-radio :label="6" class='rad' style="margin-bottom: 12px">总统</el-radio>
                                 <el-radio :label="66" class='rad'>任意</el-radio>
 
                             </el-radio-group>
@@ -127,73 +128,21 @@
 
             <div class="Li_3">
 
-                <div class="Li_4">
+                <div class="Li_4" v-for="(item, index) in homedata"  :key="index">
 
                     <div><img src="img/酒店.png" alt="" style="width: 210px;height:140px;"></div>
                     <div class="Li_5">
-                        <label>商务间（观景房）（单人/双人）</label>
+                        <label>{{item.roomname}}（{{item.roomcategory}}）</label>
                         <div class="Li_6">
                             <img src="img/标签.png" alt="" style="width: 80px;height:30px;">
-                            <span>￥318</span>
+                            <span>￥{{item.price}}</span>
                         </div>
-                        <p>房间18-20m³|大床1.8米|楼层2-4层|房间号:001</p>
-                        <button @click="clickbutton">预定</button>
+                        <p>{{item.roomdetail}}&nbsp;&nbsp;|&nbsp;&nbsp;房间号:{{item.roomid}}</p>
+                        <button @click="clickbutton($event)">预定</button>
                     </div>
                 </div>
 
-                <div class="Li_4">
-
-                    <div><img src="img/酒店.png" alt="" style="width: 210px;height:140px;"></div>
-                    <div class="Li_5">
-                        <label>商务间（观景房）（单人/双人）</label>
-                        <div class="Li_6">
-                            <img src="img/标签.png" alt="" style="width: 80px;height:30px;">
-                            <span>￥318</span>
-                        </div>
-                        <p>房间18-20m³|大床1.8米|楼层2-4层|房间号:001</p>
-                        <button>预定</button>
-                    </div>
-                </div>
-
-                <div class="Li_4">
-
-                    <div><img src="img/酒店.png" alt="" style="width: 210px;height:140px;"></div>
-                    <div class="Li_5">
-                        <label>商务间（观景房）（单人/双人）</label>
-                        <div class="Li_6">
-                            <img src="img/标签.png" alt="" style="width: 80px;height:30px;">
-                            <span>￥318</span>
-                        </div>
-                        <p>房间18-20m³|大床1.8米|楼层2-4层|房间号:001</p>
-                        <button>预定</button>
-                    </div>
-                </div>
-                <div class="Li_4">
-
-                    <div><img src="img/酒店.png" alt="" style="width: 210px;height:140px;"></div>
-                    <div class="Li_5">
-                        <label>商务间（观景房）（单人/双人）</label>
-                        <div class="Li_6">
-                            <img src="img/标签.png" alt="" style="width: 80px;height:30px;">
-                            <span>￥318</span>
-                        </div>
-                        <p>房间18-20m³|大床1.8米|楼层2-4层|房间号:001</p>
-                        <button>预定</button>
-                    </div>
-                </div>
-                <div class="Li_4">
-
-                    <div><img src="img/酒店.png" alt="" style="width: 210px;height:140px;"></div>
-                    <div class="Li_5">
-                        <label>商务间（观景房）（单人/双人）</label>
-                        <div class="Li_6">
-                            <img src="img/标签.png" alt="" style="width: 80px;height:30px;">
-                            <span>￥318</span>
-                        </div>
-                        <p>房间18-20m³|大床1.8米|楼层2-4层|房间号:001</p>
-                        <button>预定</button>
-                    </div>
-                </div>
+                
 
 
 
@@ -208,12 +157,14 @@
     </div>
 </body>
 <script>
-    axios.defaults.withCredentials = true;
+ 
+    // axios.defaults.withCredentials = true;
     new Vue({
 
         el: '#app',
         data() {
             return {
+                homedata:'',
                 daxiao: '',
                 leixing: '',
                 jiage: '',
@@ -222,8 +173,9 @@
 
 
         methods: {
-            clickbutton() {
-                window.location.href = "pay.html";
+            clickbutton(e) {
+                console.log(e)
+                // window.location.href = "pay.html";
             }
 
         },
@@ -233,12 +185,17 @@
                 method: 'post',
                 url: 'http://localhost:8888/room/selectAll',
                 headers: {
-						"Content-Type": "application/json"
-                    },
+            			"Content-Type": "application/json"
+                },
+                
             }).then((result) => {
                 console.log(result.data)
-
+                this.homedata=result.data
+                console.log(this.homedata)
+                // console.log(this.homedata.length)
             })
+
+
         }
 
     })

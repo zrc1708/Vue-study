@@ -8,7 +8,7 @@ const getList =(author,keyword)=>{
     if(keyword){
         sql +=`and title like '%${keyword}%' `
     }
-    sql += `order by createtime desc`
+    sql += `order by createtime desc;`
     
     //返回promise
     return exec(sql)
@@ -41,7 +41,7 @@ const newBlog =(blogData={})=>{
     })
     
 }
-v
+
 const updateBlog = (id,blogData={})=>{
     //id就是要跟新博客的id
     // blogData 是一个博客对象 包含title content属性
