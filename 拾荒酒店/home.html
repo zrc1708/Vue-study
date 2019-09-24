@@ -83,13 +83,18 @@
                             <span class="onetitle">大小</span>
                         </template>
                         <el-menu-item-group>
-                            <!-- <el-radio v-model="radio" label="1" class="nico"><span class="one">选项一</span></el-radio>
-                          <el-radio v-model="radio" label="1" class="nico">选项二</el-radio> -->
-                            <el-radio-group v-model="daxiao">
-                                <el-radio :label="1" class='rad'><span>单人</span></el-radio>
-                                <el-radio :label="2" class='rad mid'>双人</el-radio>
-                                <el-radio :label="3" class='rad'>任意</el-radio>
+                            <el-radio-group v-model="ok.one">
+                                <span @click="one_1">
+                                    <el-radio :label='1' class='rad'><span>单人</span></el-radio>
+                                </span>
+                                <span @click="one_2">
+                                    <el-radio :label='2' class='rad mid'>双人</el-radio>
+                                </span>
+                                <span @click="one_3">
+                                    <el-radio :label='3' class='rad'>任意</el-radio>
+                                </span>
                             </el-radio-group>
+
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="2">
@@ -98,11 +103,19 @@
                             <span class="onetitle">类型</span>
                         </template>
                         <el-menu-item-group>
-                            <el-radio-group v-model="leixing">
-                                <el-radio :label="4" class='rad'>标准</el-radio>
-                                <el-radio :label="5" class='rad mid'>商务</el-radio>
-                                <el-radio :label="6" class='rad' style="margin-bottom: 12px">总统</el-radio>
-                                <el-radio :label="66" class='rad'>任意</el-radio>
+                            <el-radio-group v-model="ok.two">
+                                <span @click="two_1">
+                                    <el-radio :label="4" class='rad'>标准</el-radio>
+                                </span>
+                                <span @click="two_2">
+                                    <el-radio :label="5" class='rad mid'>商务</el-radio>
+                                </span>
+                                <span @click="two_3">
+                                    <el-radio :label="6" class='rad' style="margin-bottom: 12px">总统</el-radio>
+                                </span>
+                                <span @click="two_4">
+                                    <el-radio :label="66" class='rad'>任意</el-radio>
+                                </span>
 
                             </el-radio-group>
                         </el-menu-item-group>
@@ -113,11 +126,19 @@
                             <span class="onetitle">价格</span>
                         </template>
                         <el-menu-item-group>
-                            <el-radio-group v-model="jiage">
-                                <el-radio :label="7" class='rad'>0-200</el-radio>
-                                <el-radio :label="8" class='rad mid'>200-300</el-radio>
-                                <el-radio :label="9" class='rad' style="margin-bottom: 12px">300-400</el-radio>
-                                <el-radio :label="99" class='rad'>任意</el-radio>
+                            <el-radio-group v-model="ok.three">
+                                <span @click="three_1">
+                                    <el-radio :label="7" class='rad'>0-200</el-radio>
+                                </span>
+                                <span @click="three_2">
+                                    <el-radio :label="8" class='rad mid'>200-300</el-radio>
+                                </span>
+                                <span @click="three_3">
+                                    <el-radio :label="9" class='rad' style="margin-bottom: 12px">300-400</el-radio>
+                                </span>
+                                <span @click="three_4">
+                                    <el-radio :label="99" class='rad'>任意</el-radio>
+                                </span>
                             </el-radio-group>
                         </el-menu-item-group>
                     </el-submenu>
@@ -128,7 +149,7 @@
 
             <div class="Li_3">
 
-                <div class="Li_4" v-for="(item, index) in homedata"  :key="index">
+                <div class="Li_4" v-for="(item, index) in showdata" :key="index">
 
                     <div><img src="img/酒店.png" alt="" style="width: 210px;height:140px;"></div>
                     <div class="Li_5">
@@ -138,61 +159,191 @@
                             <span>￥{{item.price}}</span>
                         </div>
                         <p>{{item.roomdetail}}&nbsp;&nbsp;|&nbsp;&nbsp;房间号:{{item.roomid}}</p>
-                        <button @click="clickbutton($event)">预定</button>
+                        <button @click="clickbutton($event)" :id="item.roomid">预定</button>
                     </div>
                 </div>
-
-                
-
-
-
-
             </div>
-
-
-
         </div>
-
-
     </div>
 </body>
 <script>
- 
     // axios.defaults.withCredentials = true;
-    new Vue({
+    var home = new Vue({
 
         el: '#app',
-        data() {
-            return {
-                homedata:'',
+        data: {
+            ok: {
+                one: '',
+                two: '',
+                three: ''
+            },
+            select: {
                 daxiao: '',
                 leixing: '',
-                jiage: '',
-            }
+                jiage: ''
+            },
+            jiage: '',
+            showdata: [],
+
         },
 
-
         methods: {
-            clickbutton(e) {
-                console.log(e)
+            one_1: function () {
+                this.select.daxiao = '单人'
+                console.log(this.select)
+                this.compare()                
+            },
+            one_2: function () {
+                this.select.daxiao = '双人'
+                console.log(this.select)
+                this.compare()
+            },
+            one_3: function () {
+                this.select.daxiao = ''
+                console.log(this.select)
+                this.compare()                
+            },
+
+
+            two_1: function () {
+                console.log('标准')
+                this.select.leixing = '标准'
+                // console.log(this.daxiao)
+                this.compare()                
+            },
+            two_2: function () {
+                console.log('商务')
+                this.select.leixing = '商务'
+                // console.log(this.daxiao)
+                this.compare()                
+            },
+            two_3: function () {
+                console.log('总统')
+                this.select.leixing = '总统'
+                // console.log(this.daxiao)
+                this.compare()                
+            },
+            two_4: function () {
+                console.log('任意')
+                this.select.leixing = ''
+                // console.log(this.daxiao)
+                this.compare()                
+            },
+
+
+            three_1: function () {
+                console.log('0-200')
+                this.select.jiage = [0, 200]
+                // console.log(this.daxiao)
+                this.compare()                
+            },
+            three_2: function () {
+                console.log('200-300')
+                this.select.jiage = [200, 300]
+                // console.log(this.daxiao)
+                this.compare()                
+            },
+            three_3: function () {
+                console.log('300-400')
+                this.select.jiage = [300, 400]
+                // console.log(this.daxiao)
+                this.compare()                
+            },
+            three_4: function () {
+                console.log('任意')
+                this.select.jiage = ''
+                // console.log(this.daxiao)
+                this.compare()                
+            },
+            compare:function(){
+                if(!this.select.leixing && !this.select.jiage&&!this.select.daxiao){
+                    this.showdata=this.homedata
+                }else if (!this.select.leixing && !this.select.jiage&&this.select.daxiao) {
+                    this.showdata = []
+                    for (let index = 0; index < this.homedata.length; index++) {
+                        if (this.homedata[index].roomcategory == this.select.daxiao ) {
+                            this.showdata.push(this.homedata[index])
+                        }
+                    }
+                }else if(this.select.leixing && this.select.jiage&&!this.select.daxiao){
+                    this.showdata = []
+                    for (let index = 0; index < this.homedata.length; index++) {
+                        if (this.homedata[index].roomname == this.select.leixing &&
+                            Number(this.homedata[index].price) < this.select.jiage[1] &&
+                            Number(this.homedata[index].price) > this.select.jiage[0]) {
+                            this.showdata.push(this.homedata[index])
+                        }
+                    }
+                }else if(this.select.leixing && !this.select.jiage&&!this.select.daxiao){
+                    this.showdata = []
+                    for (let index = 0; index < this.homedata.length; index++) {
+                        if ( this.homedata[index].roomname == this.select.leixing) {
+                            this.showdata.push(this.homedata[index])
+                        }
+                    }
+                }else if(!this.select.leixing && this.select.jiage&&!this.select.daxiao) {
+                    this.showdata = []
+                    for (let index = 0; index < this.homedata.length; index++) {
+                        if (Number(this.homedata[index].price) < this.select.jiage[1] &&
+                            Number(this.homedata[index].price) > this.select.jiage[0]) {
+                            this.showdata.push(this.homedata[index])
+                        }
+                    }
+                } else if (this.select.leixing && !this.select.jiage&&this.select.daxiao) {
+                    this.showdata = []
+                    for (let index = 0; index < this.homedata.length; index++) {
+                        if (this.homedata[index].roomcategory == this.select.daxiao && this.homedata[index]
+                            .roomname == this.select.leixing) {
+                            this.showdata.push(this.homedata[index])
+                        }
+                    }
+                } else if (!this.select.leixing && this.select.jiage&&this.select.daxiao) {
+                    this.showdata = []
+                    for (let index = 0; index < this.homedata.length; index++) {
+                        if (this.homedata[index].roomcategory == this.select.daxiao &&
+                            Number(this.homedata[index].price) < this.select.jiage[1] &&
+                            Number(this.homedata[index].price) > this.select.jiage[0]) {
+                            this.showdata.push(this.homedata[index])
+                        }
+                    }
+                }else if (this.select.leixing && this.select.jiage&&this.select.daxiao) {
+                    this.showdata = []
+                    for (let index = 0; index < this.homedata.length; index++) {
+                        if (this.homedata[index].roomcategory == this.select.daxiao &&
+                            this.homedata[index].roomname == this.select.leixing &&
+                            Number(this.homedata[index].price) < this.select.jiage[1] &&
+                            Number(this.homedata[index].price) > this.select.jiage[0]) {
+                            this.showdata.push(this.homedata[index])
+                        }
+                    }
+                }
+            },
+            
+            clickbutton: function (e) {
+                console.log(e.path[0].id)
+
                 // window.location.href = "pay.html";
+            },
+            show: function () {
+                for (let index = 0; index < this.homedata.length; index++) {
+                    if (this.homedata[index].roomstatus == '0') {
+                        this.showdata.push(this.homedata[index])
+                    }
+                }
             }
 
         },
         mounted() {
-
             axios({
                 method: 'post',
                 url: 'http://localhost:8888/room/selectAll',
                 headers: {
-            			"Content-Type": "application/json"
+                    "Content-Type": "application/json"
                 },
-                
+
             }).then((result) => {
-                console.log(result.data)
-                this.homedata=result.data
-                console.log(this.homedata)
-                // console.log(this.homedata.length)
+                this.homedata = result.data
+                this.show();
             })
 
 

@@ -52,8 +52,8 @@
                                     <span>导航二</span>
                                 </template>
                                 <el-menu-item-group>
-                                    <el-radio v-model="radio" label="1" class="nico"><span class="one">选项三</span></el-radio>
-                                    <el-radio v-model="radio" label="2" class="nico">选项四</el-radio>
+                                    <el-radio v-model="radio" label="3" class="nico"><span class="one">选项三</span></el-radio>
+                                    <el-radio v-model="radio" label="4" class="nico">选项四</el-radio>
                                 </el-menu-item-group> 
                             </el-submenu>
                         
@@ -83,14 +83,14 @@
         data: {
             radio: '1'
         },
-        // methods: {
-        //     handleOpen(key, keyPath) {
-        //         console.log(key, keyPath);
-        //     },
-        //     handleClose(key, keyPath) {
-        //         console.log(key, keyPath);
-        //     }
-        // }
+        methods: {
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                console.log(key, keyPath);
+            }
+        }
     })
 </script>
 
