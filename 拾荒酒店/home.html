@@ -22,6 +22,7 @@
     <!-- <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script> -->
     <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
     <script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script> -->
 </head>
 <style>
     .rad {
@@ -184,14 +185,17 @@
             },
             jiage: '',
             showdata: [],
-
+            p: {
+                roomid: '',
+                roomstatus: ''
+            }
         },
 
         methods: {
             one_1: function () {
                 this.select.daxiao = '单人'
                 console.log(this.select)
-                this.compare()                
+                this.compare()
             },
             one_2: function () {
                 this.select.daxiao = '双人'
@@ -201,7 +205,7 @@
             one_3: function () {
                 this.select.daxiao = ''
                 console.log(this.select)
-                this.compare()                
+                this.compare()
             },
 
 
@@ -209,25 +213,25 @@
                 console.log('标准')
                 this.select.leixing = '标准'
                 // console.log(this.daxiao)
-                this.compare()                
+                this.compare()
             },
             two_2: function () {
                 console.log('商务')
                 this.select.leixing = '商务'
                 // console.log(this.daxiao)
-                this.compare()                
+                this.compare()
             },
             two_3: function () {
                 console.log('总统')
                 this.select.leixing = '总统'
                 // console.log(this.daxiao)
-                this.compare()                
+                this.compare()
             },
             two_4: function () {
                 console.log('任意')
                 this.select.leixing = ''
                 // console.log(this.daxiao)
-                this.compare()                
+                this.compare()
             },
 
 
@@ -235,37 +239,37 @@
                 console.log('0-200')
                 this.select.jiage = [0, 200]
                 // console.log(this.daxiao)
-                this.compare()                
+                this.compare()
             },
             three_2: function () {
                 console.log('200-300')
                 this.select.jiage = [200, 300]
                 // console.log(this.daxiao)
-                this.compare()                
+                this.compare()
             },
             three_3: function () {
                 console.log('300-400')
                 this.select.jiage = [300, 400]
                 // console.log(this.daxiao)
-                this.compare()                
+                this.compare()
             },
             three_4: function () {
                 console.log('任意')
                 this.select.jiage = ''
                 // console.log(this.daxiao)
-                this.compare()                
+                this.compare()
             },
-            compare:function(){
-                if(!this.select.leixing && !this.select.jiage&&!this.select.daxiao){
-                    this.showdata=this.homedata
-                }else if (!this.select.leixing && !this.select.jiage&&this.select.daxiao) {
+            compare: function () {
+                if (!this.select.leixing && !this.select.jiage && !this.select.daxiao) {
+                    this.showdata = this.homedata
+                } else if (!this.select.leixing && !this.select.jiage && this.select.daxiao) {
                     this.showdata = []
                     for (let index = 0; index < this.homedata.length; index++) {
-                        if (this.homedata[index].roomcategory == this.select.daxiao ) {
+                        if (this.homedata[index].roomcategory == this.select.daxiao) {
                             this.showdata.push(this.homedata[index])
                         }
                     }
-                }else if(this.select.leixing && this.select.jiage&&!this.select.daxiao){
+                } else if (this.select.leixing && this.select.jiage && !this.select.daxiao) {
                     this.showdata = []
                     for (let index = 0; index < this.homedata.length; index++) {
                         if (this.homedata[index].roomname == this.select.leixing &&
@@ -274,14 +278,14 @@
                             this.showdata.push(this.homedata[index])
                         }
                     }
-                }else if(this.select.leixing && !this.select.jiage&&!this.select.daxiao){
+                } else if (this.select.leixing && !this.select.jiage && !this.select.daxiao) {
                     this.showdata = []
                     for (let index = 0; index < this.homedata.length; index++) {
-                        if ( this.homedata[index].roomname == this.select.leixing) {
+                        if (this.homedata[index].roomname == this.select.leixing) {
                             this.showdata.push(this.homedata[index])
                         }
                     }
-                }else if(!this.select.leixing && this.select.jiage&&!this.select.daxiao) {
+                } else if (!this.select.leixing && this.select.jiage && !this.select.daxiao) {
                     this.showdata = []
                     for (let index = 0; index < this.homedata.length; index++) {
                         if (Number(this.homedata[index].price) < this.select.jiage[1] &&
@@ -289,7 +293,7 @@
                             this.showdata.push(this.homedata[index])
                         }
                     }
-                } else if (this.select.leixing && !this.select.jiage&&this.select.daxiao) {
+                } else if (this.select.leixing && !this.select.jiage && this.select.daxiao) {
                     this.showdata = []
                     for (let index = 0; index < this.homedata.length; index++) {
                         if (this.homedata[index].roomcategory == this.select.daxiao && this.homedata[index]
@@ -297,7 +301,7 @@
                             this.showdata.push(this.homedata[index])
                         }
                     }
-                } else if (!this.select.leixing && this.select.jiage&&this.select.daxiao) {
+                } else if (!this.select.leixing && this.select.jiage && this.select.daxiao) {
                     this.showdata = []
                     for (let index = 0; index < this.homedata.length; index++) {
                         if (this.homedata[index].roomcategory == this.select.daxiao &&
@@ -306,7 +310,7 @@
                             this.showdata.push(this.homedata[index])
                         }
                     }
-                }else if (this.select.leixing && this.select.jiage&&this.select.daxiao) {
+                } else if (this.select.leixing && this.select.jiage && this.select.daxiao) {
                     this.showdata = []
                     for (let index = 0; index < this.homedata.length; index++) {
                         if (this.homedata[index].roomcategory == this.select.daxiao &&
@@ -318,11 +322,29 @@
                     }
                 }
             },
-            
-            clickbutton: function (e) {
-                console.log(e.path[0].id)
 
-                // window.location.href = "pay.html";
+            clickbutton: function (e) {
+                if(e.path){
+                    this.p.roomid = e.path[0].id
+                }else{
+                    this.p.roomid = e.originalTarget.id
+                }
+                this.p.roomstatus = "1"
+                // console.log(this.p)
+            
+                var product=JSON.stringify(this.p)
+                axios({
+                	method: 'post',
+                	url: 'http://localhost:8888/room/updateByPrimaryKeySelective',
+                	headers: {
+                		"Content-Type": "application/json"
+                    },
+                    data: product                           
+
+                }).then((result) => {
+                    console.log(result)					
+                })
+                window.location.href = "pay.html";
             },
             show: function () {
                 for (let index = 0; index < this.homedata.length; index++) {
