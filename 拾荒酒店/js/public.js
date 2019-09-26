@@ -40,26 +40,26 @@ $(function(){
 	
 
 //登陆注册
-	$("#login").click(function(){
-		$(".login").show();
-		$(".msk").show();
-	});
-	$("#reg").click(function(){
-		$(".reg").show();
-		$(".msk").show();
-	});
-	$(".off").click(function(){
-		$(".login").hide();
-		$(".reg").hide();
-		$(".msk").hide();
-	});
-	$('.goReg').click(function(){
-		$(".login").hide();
-		$(".reg").show();
-	});
-	$('.goLogin').click(function(){
-		$(".reg").hide();
-		$(".login").show();
-	});
-});
+// 	$("#login").click(function(){
+// 		$(".login").show();
+// 		$(".msk").show();
+// 	});
+// 	$("#reg").click(function(){
+// 		$(".reg").show();
+// 		$(".msk").show();
+// 	});
+// 	$(".off").click(function(){
+// 		$(".login").hide();
+// 		$(".reg").hide();
+// 		$(".msk").hide();
+// 	});
+// 	$('.goReg').click(function(){
+// 		$(".login").hide();
+// 		$(".reg").show();
+// 	});
+// 	$('.goLogin').click(function(){
+// 		$(".reg").hide();
+// 		$(".login").show();
+// 	});
+ });
 

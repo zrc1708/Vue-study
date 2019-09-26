@@ -9,6 +9,7 @@
 	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
 	<script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
 	<script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
+	<script src="js/getUrlParam.js"> </script>
 </head>
 
 <body>
@@ -19,12 +20,12 @@
 				<div class="clearfix" id="top">
 					<h1 class="fl"><a href="index.html"><img src="img/logo.png" /></a></h1>
 					<div class="fr clearfix" id="top1" style="margin-top: 2%;">
-						<!-- <p v-if="loginCheck" class="fl">
+						<p v-if="loginCheck" class="fl">
 							<a href="login.html">登录</a>
 							<a href="reg.html">注册</a>
-						</p> -->
-						<p class="fl">
-							欢迎您,Linn
+						</p>
+						<p v-else class="fl">
+							欢迎您,{{name}}
 						</p>
 
 						<form action="#" method="get" class="fl">
@@ -37,32 +38,12 @@
 			</div>
 		</div>
 		<!------------------------------idea------------------------------>
-		<!-- <div class="address mt">
-			<div class="wrapper clearfix">
-				<a href="index.html" class="fl">首页</a>
-				<span>/</span>
-				<a href="mygxin.html" class="on">个人信息</a>
-			</div>
-		</div> -->
+
 
 		<!------------------------------Bott------------------------------>
 		<div class="Bott">
 			<div class="wrapper clearfix">
-				<!-- <div class="zuo fl">
-					<h3>
-						<a href="#"><img src="img/tx.png" /></a>
-						<p class="clearfix"><span class="fl">[{{username}}]</span><span class="fr" @click="exit">[退出登录]</span></p>
-					</h3>
-					<div>
-						<ul>
-							<li><a href="myorderq.html">我的订单</a></li>
-							<li><a href="myprod.html">评价晒单</a></li>
-							<li><a href="address.html">地址管理</a></li>
-							<li class="on"><a href="mygrxx.html">个人信息</a></li>
-							<li><a href="remima.html">修改密码</a></li>
-						</ul>
-					</div>
-				</div> -->
+
 				<div class="you fl">
 					<h2>填充信息</h2>
 					<div class="gxin">
@@ -72,13 +53,14 @@
 						<div class="xx">
 							<h3 class="clearfix"><strong class="fl">基础资料</strong><a href="#" class="fr"
 									id="edit1">填充</a></h3>
-							<div>姓名：张汝超</div>
-							<div>性别：男</div>
-							<div>身份证号：320322200009243810</div>
-							<div>邮箱：193265261@qq.com</div>
-							<div>地址：拾荒酒店201号房</div>
-							<div>联系方式：15962101588</div>
-
+							<div>姓名：{{name}}</div>
+							<div>性别：{{chinasex}}</div>
+							<div>身份证号：{{information.a1}}</div>
+							<!-- <div>邮箱：{{reallemail}}</div> -->
+							<div>地址：{{information.a2}}</div>
+							<div>联系方式：{{information.a3}}</div>
+							<div style="width: 100px;height:35px;margin: auto;"><button @click="TO" style="width: 100%;height:100%;border-radius:10px;border:1px soild white;background-color: #c10000;color:white;">进入</button></div>
+							<div style="margin: auto;color: #c10000;" v-show="show">请点击右上角填充按钮，填充信息。</div>
 						</div>
 					</div>
 				</div>
@@ -116,18 +98,18 @@
 			<div class="clearfix"><a href="#" class="fr gb"><img src="img/icon4.png" /></a></div>
 			<h3>填充资料</h3>
 			<form action="#" method="get">
-				<p><label>姓名：</label><input type="text" value="" /></p>
-				<p><label>证件：</label><input type="text" /></p>
+				<p><label>姓名：</label><input type="text" v-model="reallname"/></p>
+				<p><label>证件：</label><input type="text" v-model="user.userid"  /></p>
 				<p>
 					<label>性别：</label>
-					<span><input type="radio" name="light" />男</span>
-					<span><input type="radio" name="light" />女</span>
+					<span><input type="radio" name="light" @click="checksex" />男</span>
+					<span><input type="radio" name="light" @click="checksex2" />女</span>
 				</p>
-				<p><label>邮箱：</label><input type="text" /></p>
-				<p><label>地址：</label><input type="text" /></p>
-				<p><label>电话：</label><input type="text" /></p>
+				<!-- <p><label>邮箱：</label><input type="text" v-model="reallemail" value="XX" /></p> -->
+				<p><label>地址：</label><input type="text" v-model="user.address" /></p>
+				<p><label>电话：</label><input type="text" v-model="user.phone" /></p>
 				<div class="bc">
-					<input type="button" value="保存" @click="TOhome"/>
+					<input type="button" value="保存" @click="TOhome" />
 					<input type="button" value="取消" />
 				</div>
 			</form>
@@ -148,77 +130,130 @@
 	</div>
 
 	<script>
-		axios.defaults.withCredentials = true
+		// axios.defaults.withCredentials = true
 
 		var vm = new Vue({
 			el: '#app',
 			data: {
-				username: '请登录',
-				loginCheck: true
-
+				loginCheck: false,
+				show:false,
+				name: null,
+				userdata: '',
+				reallname: '',
+				reallemail: '',
+				array: [],
+				array2:[],
+				str: '',
+				chinasex: '',
+				user: {
+					id: '',
+					userid: '',
+					address: '',
+					phone: '',
+					sex: ''
+				},
+				information:{
+					  a1:'',
+					  a2:'',
+					  a3:''
+				}
 
 			},
 			mounted() {
-				console.log("检测登录")
-				axios({
-					method: 'get',
-					url: 'http://127.0.0.1:9999/user/checkLogin',
-					headers: {
-						"Content-Type": "application/json"
-					},
-
-				}).then((result) => {
-
-					// 获取到数据后,去设置登录
-
-					let d = result.data.username;
-					if (result.data == "") {
-						console.log("未登录")
-					} else {
-
-						this.username = d;
-						this.loginCheck = false;
-					}
-
-
-				}).catch((err) => {
-
-					console.log("未获取到数据")
-
-				});
+				this.userdata = UrlParam.paramValues("username");
+				// console.log(this.userdata)
+				this.str = this.userdata[0]
+				this.array = this.str.split('?')
+				this.name = this.array[0]
+				this.user.id = this.array[1]
+				this.getData()
 
 			},
 			methods: {
 
-				TOhome(){
+				TOhome() {
 
-					setTimeout(function()  {
- 
-						window.location.href = "home.html"; 
+					this.upDate()
+					setTimeout(function(){
 
-                   }, 1000);
+						location.reload("mygrxx.html");
 
+					},500)
 				},
-				exit() {
-					axios({
-						method: 'delete',
-						url: 'http://127.0.0.1:9999/user/exit',
+				
+				TO(){
+                     
+					 if(this.information.a1){
+						 this.show=false;
+						 window.location.href = "home.html?name="+this.name;}
+					 else{this.show=true; }
+				},
 
+				checksex() {
+					this.user.sex = 0;
+					// this.chinasex = '男'
+				},
+				checksex2() {
+					this.user.sex = 1;
+					// this.chinasex = '女'
+				},
+
+				upDate() {
+
+					var update = JSON.stringify(this.user);
+					axios({
+						method: 'post',
+						url: 'http://localhost:8888/users/updateByPrimaryKeySelective',
+						headers: {
+							"Content-Type": "application/json"
+
+						},
+
+						data: update
 
 					}).then((result) => {
-						if (result.data == 1) {
-							console.log("退出登陆成功");
-							window.location.href = "index.html";
+						// console.log(result)
 
-						}
 					})
-				}
+
+				},
+
+				getData() {
+
+					var login = JSON.stringify(this.login);
+					axios({
+						method: 'post',
+						url: 'http://localhost:8888/users/selectAll',
+						headers: {
+							"Content-Type": "application/json"
+
+						},
+
+					}).then((result) => {
+						this.login = result.data[parseInt(this.user.id)-1]
+						// console.log(this.login)
+						this.information.a1=this.login.userid
+						this.information.a2=this.login.address
+						this.information.a3=this.login.phone
+						if(this.login.sex=='0'){this.chinasex='男'}
+						else{this.chinasex='女'}
+					})
+
+				},
+
+
+
+
+
+
+
 			}
 		})
 	</script>
 	<script src="js/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/public.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/user.js" type="text/javascript" charset="utf-8"></script>
+
 </body>
 
 </html>

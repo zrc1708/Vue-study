@@ -16,7 +16,7 @@
 
     <link rel="stylesheet" href="https://unpkg.com/element-ui@2.12.0/lib/theme-chalk/index.css">
     <script src="https://unpkg.com/element-ui@2.12.0/lib/index.js"></script>
-
+    <script src="js/getUrlParam.js"> </script>
 
 
     <!-- <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script> -->
@@ -59,14 +59,14 @@
 							<a href="reg.html">注册</a>
 						</p> -->
                         <p class="fl">
-                            欢迎您,Linn
+                            欢迎您,{{reallname}}
                         </p>
                         <form action="#" method="get" class="fl">
                             <input type="text" placeholder="热门搜索：优质房间" />
                             <input type="button" />
                         </form>
                         <div class="btn fl clearfix">
-                            <a href="mygrxx.html"><img src="img/grzx.png" /></a>
+                            <img src="img/grzx.png" @click="tiaozhuan" />
                         </div>
                     </div>
                 </div>
@@ -152,7 +152,7 @@
 
                 <div class="Li_4" v-for="(item, index) in showdata" :key="index">
 
-                    <div><img src="img/酒店.png" alt="" style="width: 210px;height:140px;"></div>
+                    <div><img :src="item.img" alt="" style="width: 210px;height:140px;"></div>
                     <div class="Li_5">
                         <label>{{item.roomname}}（{{item.roomcategory}}）</label>
                         <div class="Li_6">
@@ -169,10 +169,16 @@
 </body>
 <script>
     // axios.defaults.withCredentials = true;
+    var nico
+    var id
     var home = new Vue({
 
         el: '#app',
         data: {
+            name: null,
+            address: '',
+            reallname: '',
+            flag: Number,
             ok: {
                 one: '',
                 two: '',
@@ -188,76 +194,110 @@
             p: {
                 roomid: '',
                 roomstatus: ''
-            }
+            },
+            orders: {
+                id: '',
+                userid: '',
+                roomid: '',
+                paymoney: '',
+                paystatus: '1',
+                ordertime: '',
+                orderstatus: '1',
+
+            },
+            object: [],
+            array: [],
         },
 
         methods: {
             one_1: function () {
                 this.select.daxiao = '单人'
-                console.log(this.select)
+                // console.log(this.select)
                 this.compare()
+                this.compare2()
+                this.addimg()
             },
             one_2: function () {
                 this.select.daxiao = '双人'
-                console.log(this.select)
+                // console.log(this.select)
                 this.compare()
+                this.compare2()
+                this.addimg()
             },
             one_3: function () {
                 this.select.daxiao = ''
-                console.log(this.select)
+                // console.log(this.select)
                 this.compare()
+                this.compare2()
+                this.addimg()
             },
 
 
             two_1: function () {
-                console.log('标准')
+                // console.log('标准')
                 this.select.leixing = '标准'
                 // console.log(this.daxiao)
                 this.compare()
+                this.compare2()
+                this.addimg()
             },
             two_2: function () {
-                console.log('商务')
+                // console.log('商务')
                 this.select.leixing = '商务'
                 // console.log(this.daxiao)
                 this.compare()
+                this.compare2()
+                this.addimg()
             },
             two_3: function () {
-                console.log('总统')
+                // console.log('总统')
                 this.select.leixing = '总统'
                 // console.log(this.daxiao)
                 this.compare()
+                this.compare2()
+                this.addimg()
             },
             two_4: function () {
-                console.log('任意')
+                // console.log('任意')
                 this.select.leixing = ''
                 // console.log(this.daxiao)
                 this.compare()
+                this.compare2()
+                this.addimg()
             },
 
 
             three_1: function () {
-                console.log('0-200')
+                // console.log('0-200')
                 this.select.jiage = [0, 200]
                 // console.log(this.daxiao)
                 this.compare()
+                this.compare2()
+                this.addimg()
             },
             three_2: function () {
-                console.log('200-300')
+                // console.log('200-300')
                 this.select.jiage = [200, 300]
                 // console.log(this.daxiao)
                 this.compare()
+                this.compare2()
+                this.addimg()
             },
             three_3: function () {
-                console.log('300-400')
+                // console.log('300-400')
                 this.select.jiage = [300, 400]
                 // console.log(this.daxiao)
                 this.compare()
+                this.compare2()
+                this.addimg()
             },
             three_4: function () {
-                console.log('任意')
+                // console.log('任意')
                 this.select.jiage = ''
                 // console.log(this.daxiao)
                 this.compare()
+                this.compare2()
+                this.addimg()
             },
             compare: function () {
                 if (!this.select.leixing && !this.select.jiage && !this.select.daxiao) {
@@ -322,40 +362,163 @@
                     }
                 }
             },
+            compare2: function () {
+                for (let index = this.showdata.length - 1; index >= 0; index--) {
+                    if (this.showdata[index].roomstatus == '1') {
+                        this.showdata.splice(index, 1);
+                    }
 
+                }
+            },
+            addimg: function () {
+                for (let index = 0; index < this.showdata.length; index++) {
+                    if (this.showdata[index].roomcategory == "单人") {
+                        if (this.showdata[index].roomname == "标准") {
+                            this.showdata[index].img='./img/1.jpg'
+                        } else if (this.showdata[index].roomname == "商务") {
+                            this.showdata[index].img='./img/4.jpg'
+                        } else {
+                            this.showdata[index].img='./img/2.jpg'
+                        }
+                    } else {
+                        if (this.showdata[index].roomname == "标准") {
+                            this.showdata[index].img='./img/5.jpg'
+                        } else if (this.showdata[index].roomname == "商务") {
+                            this.showdata[index].img='./img/3.jpg'
+                        } else {
+                            this.showdata[index].img='./img/6.jpg'
+                        }
+                    }
+
+                }
+            },
             clickbutton: function (e) {
-                if(e.path){
+                // console.log(e)
+                if (e.path) {
                     this.p.roomid = e.path[0].id
-                }else{
+                    this.orders.roomid = e.path[0].id
+                } else {
                     this.p.roomid = e.originalTarget.id
                 }
                 this.p.roomstatus = "1"
                 // console.log(this.p)
-            
-                var product=JSON.stringify(this.p)
+
+                var product = JSON.stringify(this.p)
                 axios({
-                	method: 'post',
-                	url: 'http://localhost:8888/room/updateByPrimaryKeySelective',
-                	headers: {
-                		"Content-Type": "application/json"
+                    method: 'post',
+                    url: 'http://localhost:8888/room/updateByPrimaryKeySelective',
+                    headers: {
+                        "Content-Type": "application/json"
                     },
-                    data: product                           
+                    data: product
 
                 }).then((result) => {
-                    console.log(result)					
+                    // console.log(result)					
                 })
-                window.location.href = "pay.html";
+
+                for (var k = 0; k < this.showdata.length; k++) {
+
+                    if (this.orders.roomid == this.showdata[k].roomid) {
+                        this.orders.paymoney = this.showdata[k].price
+                        // console.log(this.order.paymoney)
+                    }
+                }
+
+                this.orders.ordertime = Date.parse(new Date())
+
+                this.insertorder()
+
+                setTimeout(() => {
+                    window.location.href = "pay.html?name=" + this.reallname
+                }, 1000)
+
             },
+
             show: function () {
                 for (let index = 0; index < this.homedata.length; index++) {
                     if (this.homedata[index].roomstatus == '0') {
                         this.showdata.push(this.homedata[index])
+
                     }
                 }
+                // console.log(this.showdata)
+            },
+
+            getData() {
+                var login = JSON.stringify(this.login);
+                axios({
+
+                    method: 'post',
+                    url: 'http://localhost:8888/users/selectAll',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                }).then((result) => {
+                    this.login = result.data
+                    // console.log(this.login[0])
+                    var str1;
+                    var str2;
+                    for (var i = 0; i < this.login.length; i++) {
+                        if (this.reallname == this.login[i].username) {
+                            this.orders.userid = this.login[i].userid
+                            id = this.login[i].id
+                            //console.log(this.id)
+                        }
+                    }
+
+                })
+
+            },
+
+            insertorder() {
+                var insert = JSON.stringify(this.orders)
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:8888/order/insertSelective',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    data: insert
+
+                }).then((result) => {
+                    //  console.log(result)					
+                })
+            },
+
+            getorder() {
+
+                var Order = JSON.stringify(this.Order)
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:8888/order/selectAll',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                }).then((result) => {
+                    this.Order = result.data
+                    this.orders.id = this.Order.length + 1
+                    // console.log(this.orders.id)
+                })
+
+
+
+            },
+
+            tiaozhuan() {
+                window.location.href = "mygrxx.html?username=" + nico + '?' + id
             }
+
+
 
         },
         mounted() {
+
+            this.name = UrlParam.paramValues("name");
+            // console.log(this.name)
+            this.reallname = this.name[0]
+            nico = this.name[0]
             axios({
                 method: 'post',
                 url: 'http://localhost:8888/room/selectAll',
@@ -366,9 +529,13 @@
             }).then((result) => {
                 this.homedata = result.data
                 this.show();
+                this.addimg()
+                // console.log(this.showdata)
             })
-
-
+            this.getorder()
+            this.getData()
+            
+            // this.address="mygrxx.html?username="+nico
         }
 
     })

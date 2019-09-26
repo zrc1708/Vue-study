@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://unpkg.com/element-ui@2.12.0/lib/theme-chalk/index.css">
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/element-ui@2.12.0/lib/index.js"></script>
-
+    <script src="js/getUrlParam.js"> </script>
     <!-- <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script> -->
     <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
     <script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
@@ -54,7 +54,7 @@
 							<a href="reg.html">注册</a>
 						</p> -->
                         <p class="fl">
-                            欢迎您,Linn
+                            欢迎您,{{reallname}}
                         </p>
                         <form action="#" method="get" class="fl">
                             <input type="text" placeholder="热门搜索：优质房间" />
@@ -79,17 +79,20 @@
     </div>
 </body>
 <script>
+    var nico
     new Vue({
 
         el: '#app',
         data: {
+            name:null,
+            reallname:'',
             num: 3,
             pay:false,
         },
 
         methods: {
             click: function () {
-                console.log('test'+this.num)
+                // console.log('test'+this.num)
             },
             delete: function () {
                 var that=this
@@ -112,12 +115,17 @@
                     that.num--
                     // console.log(that.num)
                     // console.log('第三次输出')
-                    window.location.href = "home.html";
+                    window.location.href = "home.html?name="+nico;
                 }, 5000)
             }
         },
         mounted() {
+            this.name = UrlParam.paramValues("name");
+            // console.log(this.name)
+            this.reallname=this.name[0]
+            nico = this.reallname
             this.delete()
+
         }
 
 

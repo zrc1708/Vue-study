@@ -38,77 +38,75 @@
     <div class="page-container" id="app">
         <form action="" method="post" class="form form-horizontal" id="form-article-add" @submit.prevent="handleSubmit">
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span>产品ID：</label>
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span>房间ID：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="" name="" v-model="p.id">
+                    <input type="text" class="input-text" value="" placeholder="" id="" name="" v-model="p.roomid">
                 </div>
             </div>
+
+
+            <!-- <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">房间类别：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" name="" id="" placeholder="" value="" class="input-text" v-model="p.roomname">
+                </div>
+            </div> -->
+
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span>一级分类：</label>
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span>房间类别：</label>
                 <div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-                        <select name="" v-model="countryName" @change="selectCountry" class="select">
-                            <option :value="item" v-for="(item,index) in area">
-                                {{item.country}}
-                            </option>
+                        <select name="" v-model="p.roomname"  class="select">
+                            <option >商务 </option>
+                            <option >标准 </option>
+                            <option >总统 </option>
                         </select>
                     </span>
                 </div>
             </div>
 
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span>二级分类：</label>
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span>房间大小：</label>
                 <div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-                        <select name="" v-model="cityName" class="select">
-                            <option :value="item" v-for="(item,index) in countryName.city">
-                                {{item}}
-                            </option>
+                        <select name="" v-model="p.roomcategory"  class="select">
+                            <option >单人 </option>
+                            <option >双人 </option>
                         </select>
-                    </span> </div>
+                    </span>
+                </div>
             </div>
 
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2">品名：</label>
+            <!-- <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">房间大小：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" name="" id="" placeholder="" value="" class="input-text" v-model="p.name">
+                    <input type="text" name="" id="" placeholder="" value="" class="input-text" v-model="p.orderstatus">
+                </div>
+            </div> -->
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">房间介绍：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" name="" id="" placeholder="" value="" class="input-text" v-model="p.roomdetail">
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2">描述：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" name="" id="" placeholder="" value="" class="input-text" v-model="p.datail">
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2">单价：</label>
+                <label class="form-label col-xs-4 col-sm-2">房间价格：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <input type="text" name="" id="" placeholder="" value="" class="input-text" v-model="p.price">
                 </div>
             </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2">库存数量：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" name="" id="" placeholder="" value="" class="input-text" v-model="p.stock">
-                </div>
-            </div>
 
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2">缩略图地址：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" name="" id="" placeholder="" value="" class="input-text" v-model="p.mainImage">
-                </div>
-            </div>
+            
 
             <div class="row cl">
                 <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-                    <button  class="btn btn-primary radius" type="submit"><i
-                            class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
+                    <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i>
+                        提交</button>
                     <!-- <button onClick="article_save();" class="btn btn-secondary radius" type="button"><i
                             class="Hui-iconfont">&#xe632;</i> 保存草稿</button> -->
-                    <button onClick="layer_close();" class="btn btn-default radius"
+                    <button @click="back" class="btn btn-default radius"
                         type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
                 </div>
             </div>
-            
+
         </form>
     </div>
 
@@ -129,111 +127,51 @@
     <script type="text/javascript" src="lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="text/javascript">
-    axios.defaults.withCredentials = true;
+        // axios.defaults.withCredentials = true;
         new Vue({
             el: '#app',
             data: {
-                p:{
-                     first:'',
-                     second:'',
-                     id:'',
-                     name:'',
-                     datail:'',
-                     price:'',
-                     stock:'',
-                     mainImage:''
-                },
-                list: [{
-                    text: '这是第1条数据'
-                }],
-                UniversityList: [],
-                schoolList: [],
-                countryName: {},
-                cityName: "",
-                area: [{
-                        "country": "装饰摆件",
-                        "city": [
-                            "手机",
-                            "电脑",
-                            "平板",
-                            "其它",
-                        ]
-                    },
-                    {
-                        "country": "布艺软饰",
-                        "city": [
-                            "火腿肠",
-                            "方便面",
-                            "鸡腿",
-                            "其它"
-                        ]
-                    },
-                    {
-                        "country": "墙饰挂壁",
-                        "city": [
-                            "教辅",
-                            "古典文学",
-                            "流行文学"
-                        ]
-                    },
-                    {
-                        "country": "蜡艺香薰",
-                        "city": [
-                            "步枪",
-                            "霰弹枪",
-                            "其他",
-                        ]
-                    },
-                    {
-                        "country": "创意家居",
-                        "city": [
-                            "步枪",
-                            "霰弹枪",
-                            "其他",
-                        ]
-                    },
+                p: {
+                    roomid: '',
+                    roomname: '',
+                    roomcategory: '',
+                    roomdetail: '',
+                    price: '',
+                    roomstatus: '0',
 
-                ],
+                },
+
+
             },
-            
+
             methods: {
-                handleSubmit(){
-                    this.p.first=this.countryName.country
-                    this.p.second=this.cityName
+                handleSubmit() {
+
                     console.log(this.p)
 
 
-                    var product=JSON.stringify(this.p)
-                axios({
-					method: 'post',
-					url: 'http://localhost:9999/backstageProductController/add',
-					// url: 'https://www.fastmock.site/mock/3f6803b70707cb38331ea284c569425e/shop01/user',
-					headers: {
-						"Content-Type": "application/json"
-                    },
-                    data: product 
-                           
-                    
+                    var product = JSON.stringify(this.p)
+                    axios({
+                        method: 'post',
+                        url: 'http://localhost:8888/room/insertSelective',
+                        // url: 'https://www.fastmock.site/mock/3f6803b70707cb38331ea284c569425e/shop01/user',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        data: product
+
+                    }).then((result) => {
+                        console.log(result)
+
+                    })
+
+                }, 
+                back:function(){
+                    window.location.href = "product-list.html";
+                }
 
 
-				}).then((result) => {
-                    console.log(result)
-					// console.log(result)			
-					// this.lists = result.data.list
-					
 
-					// console.log(this.lists)
-					// this.number=this.lists.length
-					
-                })
-                
-                },
-                selectCountry(value) {
-                    this.cityName = this.countryName.city[0];
-                },
-               
-
-               
 
 
 
@@ -241,10 +179,6 @@
 
             }
         })
-
-        
-
-        
     </script>
 </body>
 
