@@ -11,10 +11,7 @@
 	<meta http-equiv="Cache-Control" content="no-siteapp" />
 	<link rel="Bookmark" href="favicon.ico">
 	<link rel="Shortcut Icon" href="favicon.ico" />
-	<!--[if lt IE 9]>
-<script type="text/javascript" src="lib/html5.js"></script>
-<script type="text/javascript" src="lib/respond.min.js"></script>
-<![endif]-->
+
 	<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
 	<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
 	<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
@@ -24,10 +21,7 @@
 	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
 	<script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
 	<script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
-	<!--[if IE 6]>
-<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
-<script>DD_belatedPNG.fix('*');</script><![endif]-->
-	<!--/meta 作为公共模版分离出去-->
+
 
 	<title>用户管理</title>
 	<meta name="keywords" content="H-ui.admin v3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
@@ -37,6 +31,35 @@
 	[v-cloak] {
 		display: none;
 	}
+
+	.caozuo {
+		display: inline-block;
+		background-color: rgba(233, 47, 47, 0.55);
+		width: 40px;
+		height: 20px;
+		border-radius: 5px;
+		line-height: 20px;
+		text-align: center;
+		cursor: pointer;
+	}
+
+	.showmessage {
+		z-index: 3;
+		position: absolute;
+		left: 43%;
+		top: 50%;
+		margin-top: -70px;
+		margin-left: -50px;
+		border-radius: 10px;
+		background-color: rgba(204, 204, 204, 0.815);
+		width: 350px;
+		height: 140px;
+
+		font-size: 50px;
+		text-align: center;
+
+		padding-top: 30px;
+	}
 </style>
 
 
@@ -44,37 +67,25 @@
 <body>
 	<div id="app" v-cloak>
 		<!--_header 作为公共模版分离出去-->
+		<div class="showmessage" v-show="messhow">
+			{{this.fakaname}}已被发卡
+		</div>
+		<div class="showmessage" v-show="delshow">
+			{{this.delname}}已被删除
+		</div>
 		<header class="navbar-wrapper">
 			<div class="navbar navbar-fixed-top">
 				<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs"
-						href="/aboutHui.shtml">酒店管理系统</a> <a class="logo navbar-logo-m f-l mr-10 visible-xs"
+						href="#">拾荒酒店管理系统</a> <a class="logo navbar-logo-m f-l mr-10 visible-xs"
 						href="/aboutHui.shtml">H-ui</a>
-					<span class="logo navbar-slogan f-l mr-10 hidden-xs">v3.0</span>
+					<span class="logo navbar-slogan f-l mr-10 hidden-xs">v1.0</span>
 					<a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
-					<!-- <nav class="nav navbar-nav">
-				<ul class="cl">
-					 <li class="dropDown dropDown_hover"><a href="javascript:;" class="dropDown_A"><i class="Hui-iconfont">&#xe600;</i> 新增 <i class="Hui-iconfont">&#xe6d5;</i></a> 
-						<ul class="dropDown-menu menu radius box-shadow">
-							<li><a href="javascript:;" onclick="article_add('添加资讯','article-add.html')"><i class="Hui-iconfont">&#xe616;</i> 资讯</a></li>
-							<li><a href="javascript:;" onclick="picture_add('添加资讯','picture-add.html')"><i class="Hui-iconfont">&#xe613;</i> 图片</a></li>
-							<li><a href="javascript:;" onclick="product_add('添加资讯','product-add.html')"><i class="Hui-iconfont">&#xe620;</i> 产品</a></li>
-							<li><a href="javascript:;" onclick="member_add('添加用户','member-add.html','','510')"><i class="Hui-iconfont">&#xe60d;</i> 用户</a></li>
-				</ul>
-			</li>
-		</ul> 
-	</nav>-->
+
 					<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 						<ul class="cl">
 							<li>超级管理员</li>
-							<li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A">admin <i
-										class="Hui-iconfont">&#xe6d5;</i></a>
-								<ul class="dropDown-menu menu radius box-shadow">
-									<li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
-									<li><a href="#">切换账户</a></li>
-									<li><a href="#">退出</a></li>
-								</ul>
-							</li>
-					
+							
+
 							<li id="Hui-skin" class="dropDown right dropDown_hover"> <a href="javascript:;"
 									class="dropDown_A" title="换肤"><i class="Hui-iconfont"
 										style="font-size:18px">&#xe62a;</i></a>
@@ -98,14 +109,7 @@
 		<aside class="Hui-aside">
 
 			<div class="menu_dropdown bk_2">
-				<!-- <dl id="menu-article">
-			<dt><i class="Hui-iconfont">&#xe616;</i> 资讯管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a href="article-list.html" title="资讯管理">资讯管理</a></li>
-		</ul>
-	</dd>
-</dl> -->
+
 				<dl id="menu-picture">
 					<dt><i class="Hui-iconfont">&#xe613;</i> 订单管理<i
 							class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
@@ -124,19 +128,15 @@
 						</ul>
 					</dd>
 				</dl>
-				
+
 				<dl id="menu-member">
 					<dt><i class="Hui-iconfont">&#xe60d;</i> 用户管理<i
 							class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 					<dd>
 						<ul>
-							<!-- <li><a href="member-list.html" title="会员列表">会员列表</a></li> -->
+
 							<li><a href="member-del.html" title="删除的会员">用户列表</a></li>
-							<!-- <li><a href="member-level.html" title="等级管理">等级管理</a></li>
-			<li><a href="member-scoreoperation.html" title="积分管理">积分管理</a></li>
-			<li><a href="member-record-browse.html" title="浏览记录">浏览记录</a></li>
-			<li><a href="member-record-download.html" title="下载记录">下载记录</a></li>
-			<li><a href="member-record-share.html" title="分享记录">分享记录</a></li> -->
+
 						</ul>
 					</dd>
 				</dl>
@@ -154,8 +154,9 @@
 					title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 			<div class="Hui-article">
 				<article class="cl pd-20">
-					
-					<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="r">共有数据：<strong>{{userdata.length}}</strong> 条</span>
+
+					<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="r">共有数据：<strong>{{userdata.length}}</strong>
+							条</span>
 					</div>
 					<div class="mt-20">
 						<table class="table table-border table-bordered table-hover table-bg table-sort">
@@ -163,13 +164,14 @@
 								<tr class="text-c">
 									<!-- <th width="25"><input type="checkbox" name="" value=""></th> -->
 									<th width="30">ID</th>
-									<th width="70">用户名</th>									
+									<th width="70">用户名</th>
 									<th width="60">手机</th>
 									<th width="100">地址</th>
 									<th width="130">身份证</th>
 									<th width="30">用户等级</th>
 									<th width="30">性别</th>
-									
+									<th width="30">贵宾卡</th>
+									<th width="30">操作</th>
 
 								</tr>
 							</thead>
@@ -182,6 +184,15 @@
 									<td>{{list.userid}}</td>
 									<td>{{list.userlevel}}</td>
 									<td>{{list.sex}}</td>
+									<td>
+										<div class="caozuo" @click="faka($event)" :id="list.id"
+											v-if="list.userlevel=='1'">发卡</div>
+										<span v-else>已发</span>
+									</td>
+									<td>
+											<div class="caozuo" @click="deleteit(list.id)">删除</div>
+											<div class="caozuo" @click="updateit(list.id)">修改</div>
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -202,80 +213,100 @@
 	<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
 	<script type="text/javascript">
-		$(function () {
-			// 	$('.table-sort').dataTable({
-			// 		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
-			// 		"bStateSave": true,//状态保存
-			// 		"aoColumnDefs": [
-			// 		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-			// 		  {"orderable":false,"aTargets":[0,11]}// 制定列不参与排序
-			// 		]
-			// 	});
-			$('.table-sort tbody').on('click', 'tr', function () {
-				if ($(this).hasClass('selected')) {
-					$(this).removeClass('selected');
-				} else {
-					table.$('tr.selected').removeClass('selected');
-					$(this).addClass('selected');
-				}
-			});
-		});
-
-		/*用户-还原*/
-		function member_huanyuan(obj, id) {
-			layer.confirm('确认要还原吗？', function (index) {
-
-				$(obj).remove();
-				layer.msg('已还原!', {
-					icon: 6,
-					time: 1000
-				});
-			});
-		}
-
-		/*用户-删除*/
-		function member_del(obj, id) {
-			layer.confirm('确认要删除吗？', function (index) {
-				$(obj).parents("tr").remove();
-				layer.msg('已删除!', {
-					icon: 1,
-					time: 1000
-				});
-			});
-		}
-
 		var Linn = new Vue({
 
 			el: '#app',
 			data: {
-				lists: {},
-				number: 0,
-				userdata:''
+				userdata: '',
+				user: {},
+				messhow: false,
+				delshow:false,
+				delname:'',
+				fakaname:'',
 			},
 			methods: {
+				faka: function (e) {
+					if (e.path) {
+						this.user.id = e.path[0].id
+					} else {
+						this.user.id = e.originalTarget.id
+					}
+					this.user.userlevel = "2"
+					// console.log(this.user)
+					for (let index = 0; index < this.userdata.length; index++) {
+						if (this.userdata[index].id == this.user.id) {
+							this.fakaname=this.userdata[index].username
+						} 
+					}
 
+					var updatedata = JSON.stringify(this.user)
+					axios({
+						method: 'post',
+						url: 'http://localhost:8888/users/updateByPrimaryKeySelective',
+						headers: {
+							"Content-Type": "application/json"
+						},
+						data: updatedata
+					}).then((result) => {
+						// console.log(result)
+						this.messhow = true
+						setTimeout(() => {
+							window.location.reload();  
+						}, 2000)
+					})
+
+				},
+				deleteit:function(id){
+					for (let index = 0; index < this.userdata.length; index++) {
+						if (this.userdata[index].id == id) {
+							this.delname=this.userdata[index].username
+						} 
+					}
+					axios({
+						method: 'post',
+						url: 'http://localhost:8888/users/deleteByPrimaryKey',
+						headers: {
+							"Content-Type": "application/json"
+						},
+						params: {
+							id: id
+						}
+
+					}).then((result) => {
+						console.log(result)
+						this.delshow = true
+					})
+
+					setTimeout(() => {
+						// this.delshow=false
+						window.location.reload();
+					}, 2000)
+				},
+				updateit: function (id) {
+					window.location.href = "menber-update.html?updateid=" + id;
+				}
 			},
 
 			mounted() {
 				axios({
-                method: 'post',
-                url: 'http://localhost:8888/users/selectAll',
-                headers: {
-                    "Content-Type": "application/json"
-                },
+					method: 'post',
+					url: 'http://localhost:8888/users/selectAll',
+					headers: {
+						"Content-Type": "application/json"
+					},
 
-            }).then((result) => {
-                this.userdata = result.data
-				console.log(this.userdata)
-				for (let index = 0; index < this.userdata.length; index++) {
-					if(this.userdata[index].sex=='0'){
-						this.userdata[index].sex='男'
-					}else{
-						this.userdata[index].sex='女'
-					}					
-				}
-            })
-				
+				}).then((result) => {
+					this.userdata = result.data
+					console.log(this.userdata)
+					for (let index = 0; index < this.userdata.length; index++) {
+						if (this.userdata[index].sex == '0') {
+							this.userdata[index].sex = '男'
+						} else {
+							this.userdata[index].sex = '女'
+						}
+					}
+				})
+
 			}
 		})
 	</script>

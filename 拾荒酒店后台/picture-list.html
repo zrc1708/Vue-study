@@ -33,31 +33,56 @@
 	[v-cloak] {
 		display: none;
 	}
+
+	.caozuo {
+		display: inline-block;
+		background-color: rgba(233, 47, 47, 0.55);
+		width: 40px;
+		height: 20px;
+		border-radius: 5px;
+		line-height: 20px;
+		text-align: center;
+		cursor: pointer;
+	}
+
+
+	#showmessage {
+		z-index: 3;
+		position: absolute;
+		left: 43%;
+		top: 50%;
+		margin-top: -150px;
+		margin-left: -50px;
+		border-radius: 10px;
+		background-color: rgba(204, 204, 204, 0.815);
+		width: 350px;
+		height: 190px;
+
+		font-size: 50px;
+		text-align: center;
+
+		padding-top: 30px;
+	}
 </style>
 
 <body>
 	<div class="Linn" v-cloak>
+		<div id="showmessage" v-show="delshow">
+			订单：{{this.deleteid}}<br>已被删除
+		</div>
 		<!--_header 作为公共模版分离出去-->
 		<header class="navbar-wrapper">
 			<div class="navbar navbar-fixed-top">
-				<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs"
-						href="/aboutHui.shtml">酒店管理系统</a> <a class="logo navbar-logo-m f-l mr-10 visible-xs"
-						href="/aboutHui.shtml">H-ui</a>
-					<span class="logo navbar-slogan f-l mr-10 hidden-xs">v3.0</span>
+				<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" href="#">拾荒酒店管理系统</a>
+					<a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/aboutHui.shtml">H-ui</a>
+					<span class="logo navbar-slogan f-l mr-10 hidden-xs">v1.0</span>
 					<a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
 
 					<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 						<ul class="cl">
 							<li>超级管理员</li>
-							<li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A">admin <i
-										class="Hui-iconfont">&#xe6d5;</i></a>
-								<ul class="dropDown-menu menu radius box-shadow">
-									<li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
-									<li><a href="#">切换账户</a></li>
-									<li><a href="#">退出</a></li>
-								</ul>
-							</li>
 							
+
 							<li id="Hui-skin" class="dropDown right dropDown_hover"> <a href="javascript:;"
 									class="dropDown_A" title="换肤"><i class="Hui-iconfont"
 										style="font-size:18px">&#xe62a;</i></a>
@@ -113,13 +138,9 @@
 							class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 					<dd>
 						<ul>
-							<!-- <li><a href="member-list.html" title="会员列表">会员列表</a></li> -->
+
 							<li><a href="member-del.html" title="删除的会员">用户列表</a></li>
-							<!-- <li><a href="member-level.html" title="等级管理">等级管理</a></li>
-			<li><a href="member-scoreoperation.html" title="积分管理">积分管理</a></li>
-			<li><a href="member-record-browse.html" title="浏览记录">浏览记录</a></li>
-			<li><a href="member-record-download.html" title="下载记录">下载记录</a></li>
-			<li><a href="member-record-share.html" title="分享记录">分享记录</a></li> -->
+
 						</ul>
 					</dd>
 				</dl>
@@ -153,6 +174,7 @@
 									<th width="100">入住时间</th>
 									<th width="100">离开时间</th>
 									<th width="40">订单状态</th>
+									<th width="30">操作</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -168,7 +190,10 @@
 									<td>{{list.usetime}}</td>
 									<td>{{list.leavetime}}</td>
 									<td>{{list.orderstatus}}</td>
-
+									<td :id="list.id">
+										<div class="caozuo" @click="deleteit($event)">删除</div>
+										<div class="caozuo" @click="updateit($event)">修改</div>
+									</td>
 							</tbody>
 						</table>
 					</div>
@@ -188,58 +213,20 @@
 	<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
 	<script type="text/javascript">
-		// $('.table-sort').dataTable({
-		// 	"aaSorting": [
-		// 		[1, "desc"]
-		// 	], //默认第几个排序
-		// 	"bStateSave": true, //状态保存
-		// 	"aoColumnDefs": [
-		// 		//{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-		// 		{
-		// 			"orderable": false,
-		// 			"aTargets": [0, 13]
-		// 		} // 制定列不参与排序
-		// 	]
-		// });
-
-		/*图片-下架*/
-		function picture_stop(obj, id) {
-			layer.confirm('确认要下架吗？', function (index) {
-				$(obj).parents("tr").find(".td-manage").prepend(
-					'<a style="text-decoration:none" onClick="picture_start(this,id)" href="javascript:;" title="发布"><i class="Hui-iconfont">&#xe603;</i></a>'
-				);
-				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已下架</span>');
-				$(obj).remove();
-				layer.msg('已下架!', {
-					icon: 5,
-					time: 1000
-				});
-			});
-		}
-
-
-		/*图片-删除*/
-		function picture_del(obj, id) {
-			layer.confirm('确认要删除吗？', function (index) {
-				$(obj).parents("tr").remove();
-				layer.msg('已删除!', {
-					icon: 1,
-					time: 1000
-				});
-			});
-		}
-
 		// axios.defaults.withCredentials = true;
 		var nico = new Vue({
 
 			el: '.Linn',
 			data: {
 				lists: {},
-				orderdata: ''
+				orderdata: '',
+				deleteid: '',
+				updateid: '',
+				delshow: false,
 			},
 			methods: {
 				timestampToTime(timestamp) {
-					var date = new Date(timestamp ); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+					var date = new Date(timestamp); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
 					Y = date.getFullYear() + '-';
 					M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
 					D = date.getDate() + ' ';
@@ -247,12 +234,50 @@
 					m = date.getMinutes() + ':';
 					s = date.getSeconds();
 					return Y + M + D + h + m + s;
+				},
+				deleteit: function (e) {
+					if (e.path) {
+						this.deleteid = e.path[1].id
+					} else {
+						this.deleteid = e.srcElement.offsetParent.id
+					}
+
+					console.log(this.deleteid)
+
+					axios({
+						method: 'post',
+						url: 'http://localhost:8888/order/deleteByPrimaryKey',
+						headers: {
+							"Content-Type": "application/json"
+						},
+						params: {
+							id: this.deleteid.toString()
+						}
+
+					}).then((result) => {
+						console.log(result)
+						this.delshow = true
+					})
+
+					setTimeout(() => {
+						// this.delshow=false
+						window.location.reload();
+					}, 2000)
+				},
+				updateit: function (e) {
+					if (e.path) {
+						this.updateid = e.path[1].id
+					} else {
+						this.updateid = e.srcElement.offsetParent.id
+					}
+					console.log(this.updateid)
+					window.location.href = "picture-update.html?updateid=" + this.updateid;
 				}
-				
+
 			},
 
 			mounted() {
-				// console.log("检测登录")
+				
 				axios({
 					method: 'post',
 					url: 'http://localhost:8888/order/selectAll',
@@ -264,14 +289,20 @@
 					this.orderdata = result.data
 
 					for (let index = 0; index < this.orderdata.length; index++) {
-						let time1 = this.orderdata[index].ordertime
-						this.orderdata[index].ordertime=this.timestampToTime(Number(time1))		
+						if (this.orderdata[index].ordertime) {
+							let time1 = this.orderdata[index].ordertime
+							this.orderdata[index].ordertime = this.timestampToTime(Number(time1))
+						}
 
-						let time2 = this.orderdata[index].usetime
-						this.orderdata[index].usetime=this.timestampToTime(Number(time2))	
+						if (this.orderdata[index].usetime) {
+							let time2 = this.orderdata[index].usetime
+							this.orderdata[index].usetime = this.timestampToTime(Number(time2))
+						}
 
-						let time3 = this.orderdata[index].leavetime
-						this.orderdata[index].leavetime=this.timestampToTime(Number(time3))	
+						if (this.orderdata[index].leavetime) {
+							let time3 = this.orderdata[index].leavetime
+							this.orderdata[index].leavetime = this.timestampToTime(Number(time3))
+						}
 
 						if (this.orderdata[index].orderstatus == '0') {
 							this.orderdata[index].orderstatus = '已支付'

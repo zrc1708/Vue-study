@@ -25,6 +25,10 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script> -->
 </head>
 <style>
+    [v-cloak] {
+		display: none;
+	}
+
     .rad {
         display: block;
         margin-left: 26px;
@@ -47,7 +51,7 @@
 
 <body>
 
-    <div id="app">
+    <div id="app" v-cloak>
 
         <div class="head">
             <div class="wrapper clearfix">
