@@ -6,6 +6,7 @@
 	<title>个人信息</title>
 	<link rel="stylesheet" type="text/css" href="css/public.css" />
 	<link rel="stylesheet" type="text/css" href="css/mygrxx.css" />
+	<link rel="stylesheet" type="text/css" href="css/home.css" />
 	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
 	<script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
 	<script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
@@ -43,8 +44,17 @@
 		<!------------------------------Bott------------------------------>
 		<div class="Bott">
 			<div class="wrapper clearfix">
+                <div class="zuo fl" style="float:left;width: 200px;height: 140px;border: 1px solid #e4e4e4;background-color: white;">
+					<div style="position: relative;">
+						<ul>
+							<li style="margin-top: 20px;" @click="Information">我的信息</li>
+							<li style="margin-top: 30px;" @click="Order">我的订单</li>
+						</ul>
+						<div style="position: absolute;top:50px;left:10px;border:1px solid #e4e4e4;width: 180px;"></div>
+					</div>
+				</div>
 
-				<div class="you fl">
+				<div class="you fl" style="float:left;" v-show="showinformation">
 					<h2>填充信息</h2>
 					<div class="gxin">
 						<!-- <div class="tx" style="margin-top: 0%"><a href="#"><img src="img/tx.png" />
@@ -52,7 +62,7 @@
 							</a></div> -->
 						<div class="xx">
 							<h3 class="clearfix"><strong class="fl">基础资料</strong><a href="#" class="fr"
-									id="edit1">填充</a></h3>
+									id="edit1" v-show="showwrite">填充</a></h3>
 							<div>姓名：{{name}}</div>
 							<div>性别：{{chinasex}}</div>
 							<div>身份证号：{{information.a1}}</div>
@@ -64,6 +74,26 @@
 						</div>
 					</div>
 				</div>
+
+				<div class="you fl"  style="float:left;" v-show="showinformation2">
+					<h2>我的订单</h2>
+					<div class="Li_3" style="border: 1px solid #e4e4e4;width: 100%;margin-left: 0px;padding-left: 30px;">
+						<div class="Li_4" v-for="list in list2">
+							<div><img :src="list.img" style="width: 210px;height:140px;"></div>
+							<div class="Li_5">
+								<label>{{list.roomname}}&nbsp;&nbsp;|&nbsp;&nbsp;{{list.roomcategory}}</label>
+								<div class="Li_6">
+									<img src="img/标签.png" alt="" style="width: 80px;height:30px;">
+									<span>￥{{list.price}}</span>
+								</div>
+								<p>{{list.roomdetail}}&nbsp;&nbsp;|&nbsp;&nbsp;房间号:{{list.roomid}}</p>
+								<button style="width: 85px;" @click="clickupdate(list.roomid)">可退订</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
 			</div>
 			<!--footer-->
 			<div class="footer">
@@ -114,8 +144,9 @@
 				</div>
 			</form>
 		</div>
-		<!--高级设置修改-->
-		<div class="xg">
+		
+		
+		<!-- <div class="xg">
 			<div class="clearfix"><a href="#" class="fr gb"><img src="img/icon4.png" /></a></div>
 			<h3>切换账号地区</h3>
 			<form action="#" method="get">
@@ -125,7 +156,7 @@
 					<input type="button" value="取消" />
 				</div>
 			</form>
-		</div>
+		</div> -->
 
 	</div>
 
@@ -137,6 +168,9 @@
 			data: {
 				loginCheck: false,
 				show:false,
+				showinformation:true,
+				showinformation2:false,
+				showwrite:true,
 				name: null,
 				userdata: '',
 				reallname: '',
@@ -156,8 +190,18 @@
 					  a1:'',
 					  a2:'',
 					  a3:''
-				}
-
+				},
+                room:{
+				   roomid:'',
+				   roomstatus:''
+				},
+				order:{
+				   id:'',
+				  
+				},
+				list:[],
+				list2:[],
+				img:''
 			},
 			mounted() {
 				this.userdata = UrlParam.paramValues("username");
@@ -167,18 +211,104 @@
 				this.name = this.array[0]
 				this.user.id = this.array[1]
 				this.getData()
+				
+				
 
 			},
 			methods: {
 
+				clickupdate(id){
+					  console.log(id)
+
+					 this.room.roomid=id
+					 this.room.roomstatus='0'
+                     var updateroom = JSON.stringify(this.room);
+					 axios({
+						method: 'post',
+						url: 'http://localhost:8888/room/updateByPrimaryKeySelective',
+						headers: {
+							"Content-Type": "application/json"
+
+						},
+
+						data: updateroom
+
+					}).then((result) => {
+						  console.log(result)
+
+					})
+									
+					setTimeout( () =>{
+
+					var orderinform = JSON.stringify(this.orderinform);
+					axios({
+					method: 'post',
+					url: 'http://localhost:8888/order/selectAll',
+					headers: {
+					"Content-Type": "application/json"
+
+					},
+
+					}).then((result) => {
+					this.orderinform = result.data
+					// console.log(this.orderinform)
+					for(let q=0;q<this.orderinform.length;q++){
+						if(id==this.orderinform[q].roomid){
+							this.order.id=this.orderinform[q].id
+							this.order.roomid=this.orderinform[q].roomid
+						}
+					}
+                      console.log(this.order.id)
+
+					})
+
+					 }, 200)
+
+					 setTimeout( () =>{
+					 
+					axios({
+					method: 'post',
+					url: 'http://localhost:8888/order/deleteByPrimaryKey',
+					headers: {
+					    "Content-Type": "application/json"
+					},
+					params: {id: this.order.id}
+					}).then((result) => {
+						//  console.log(result.data)                     
+					})
+
+
+                    }, 300)
+                   
+                    setTimeout(function(){
+
+                    location.reload("mygrxx.html");
+
+                    },400)
+					
+					 
+				},
+
+				Information(){
+                    this.showinformation2=false
+					this.showinformation=true
+				},
+				Order(){
+                    this.showinformation2=true
+					this.showinformation=false
+				},
+
+
 				TOhome() {
 
 					this.upDate()
+					
 					setTimeout(function(){
 
 						location.reload("mygrxx.html");
 
 					},500)
+
 				},
 				
 				TO(){
@@ -187,6 +317,8 @@
 						 this.show=false;
 						 window.location.href = "home.html?name="+this.name;}
 					 else{this.show=true; }
+
+					 
 				},
 
 				checksex() {
@@ -237,11 +369,77 @@
 						this.information.a3=this.login.phone
 						if(this.login.sex=='0'){this.chinasex='男'}
 						else{this.chinasex='女'}
+
+						if(this.information.a1.length==18){
+					      this.showwrite=false
+				           }
 					})
 
+					setTimeout( () =>{
+					var orderinfor = JSON.stringify(this.orderinfor);
+					axios({
+					method: 'post',
+					url: 'http://localhost:8888/order/selectAll',
+					headers: {
+					"Content-Type": "application/json"
+
+					},
+
+					}).then((result) => {
+					this.orderinfor = result.data
+					for(let i=0;i<this.orderinfor.length;i++){ if(this.information.a1==this.orderinfor[i].userid){
+						this.list.push(this.orderinfor[i]) } }  }) }, 200)
+
+					setTimeout( () =>{
+                      this.getinfor()
+                       }, 300)
 				},
 
+                getinfor(){
+					
+					
+					
+					var roominfor = JSON.stringify(this.roominfor);
+					axios({
+						method: 'post',
+						url: 'http://localhost:8888/room/selectAll',
+						headers: {
+							"Content-Type": "application/json"
 
+						},
+
+					}).then((result) => {
+						this.roominfor = result.data
+						for(let j=0;j<this.list.length;j++){
+                            for(let k=0;k<this.roominfor.length;k++){
+								if(this.list[j].roomid==this.roominfor[k].roomid){
+									this.list2.push(this.roominfor[k])
+									
+								}
+							}
+						}
+						
+
+						for(let p=0;p<this.list2.length;p++){ 
+							if (this.list2[p].roomcategory=="单人" ) { 
+								if(this.list2[p].roomname=="标准" ) 
+								  { this.list2[p].img='./img/1.jpg' } 
+								else if(this.list2[p].roomname=="商务" ) 
+								  { this.list2[p].img='./img/4.jpg' } 
+							    else 
+								  {this.list2[p].img='./img/2.jpg' } 
+							} 
+							else { 
+								if (this.list2[p].roomname=="标准" ) 
+								  {this.list2[p].img='./img/5.jpg' } 
+								else if (this.list2[p].roomname=="商务" ) 
+								  {this.list2[p].img='./img/3.jpg' } 
+								else 
+								  { this.list2[p].img='./img/6.jpg' } 
+							} 
+						}
+					})
+				},
 
 
 

@@ -5,10 +5,10 @@
 .Bott .zuo{
 	margin: 20px 20px 20px 0;
 	width: 180px;
-	background: #fff;
+	background: white;
 	text-align: center;
 	line-height: 40px; 
-	border: 1px solid #e4e4e4;
+	border: 1px solid white;
 }
 .Bott .zuo h3{
 	border-bottom: 1px solid #A10000;
@@ -35,13 +35,13 @@
 	border-bottom: 1px solid #A10000;
 }
 .Bott .zuo div{
-	background: #fcfcff;
+	background: white;
 }
 .Bott .zuo  h4{
 	cursor: pointer;
 	width: 90%;
 	color: #444;
-	font-size: 14px;
+	font-size: 20px;
 }
 .Bott .zuo ul li a{
 	display: inline-block;
@@ -50,13 +50,13 @@
 	text-align: left;
 	font-size: 14px;
 }
-.Bott .zuo ul li.on a,.Bott .zuo ul li a:hover{
+.Bott .zuo ul li:hover{
 	color: #A10000;
 }
 
 .Bott .you{
 	background: #fff;
-	width: 1046px;
+	width: 825px;
 	padding: 50px;
 	margin: 20px auto;
 	border: 1px solid #e4e4e4;
