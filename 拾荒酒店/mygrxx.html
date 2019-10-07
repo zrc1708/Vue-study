@@ -162,7 +162,7 @@
 
 	<script>
 		// axios.defaults.withCredentials = true
-
+        
 		var vm = new Vue({
 			el: '#app',
 			data: {
@@ -219,10 +219,11 @@
 			methods: {
 
 				clickupdate(id){
-					  console.log(id)
+					//   console.log(id)
 
 					 this.room.roomid=id
 					 this.room.roomstatus='0'
+					 
                      var updateroom = JSON.stringify(this.room);
 					 axios({
 						method: 'post',
@@ -235,7 +236,7 @@
 						data: updateroom
 
 					}).then((result) => {
-						  console.log(result)
+						//   console.log(result)
 
 					})
 									
@@ -252,15 +253,19 @@
 
 					}).then((result) => {
 					this.orderinform = result.data
-					// console.log(this.orderinform)
+					 console.log(this.orderinform)
+
 					for(let q=0;q<this.orderinform.length;q++){
 						if(id==this.orderinform[q].roomid){
 							this.order.id=this.orderinform[q].id
 							this.order.roomid=this.orderinform[q].roomid
 						}
-					}
-                      console.log(this.order.id)
 
+				    
+					}
+                    //   console.log(this.order.id)
+                       
+					
 					})
 
 					 }, 200)
@@ -280,13 +285,31 @@
 
 
                     }, 300)
+
+					setTimeout( () =>{
+					 
+					 axios({
+					 method: 'post',
+					 url: 'http://localhost:8888/order/deleteByPrimaryKey',
+					 headers: {
+						 "Content-Type": "application/json"
+					 },
+					 params: {id: this.order.id}
+					 }).then((result) => {
+						 //  console.log(result.data)                     
+					 })
+ 
+ 
+					 }, 400)
                    
                     setTimeout(function(){
 
                     location.reload("mygrxx.html");
 
-                    },400)
+                    },500)
+					 
 					
+
 					 
 				},
 

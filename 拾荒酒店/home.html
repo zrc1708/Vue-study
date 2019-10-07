@@ -25,6 +25,10 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script> -->
 </head>
 <style>
+    [v-cloak] {
+		display: none;
+	}
+
     .rad {
         display: block;
         margin-left: 26px;
@@ -47,7 +51,7 @@
 
 <body>
 
-    <div id="app">
+    <div id="app" v-cloak>
 
         <div class="head">
             <div class="wrapper clearfix">
@@ -207,6 +211,8 @@
             },
             object: [],
             array: [],
+            array2:[],
+            max:0
         },
 
         methods: {
@@ -425,7 +431,7 @@
                 }
 
                 this.orders.ordertime = Date.parse(new Date())
-
+               
                 this.insertorder()
 
                 setTimeout(() => {
@@ -498,8 +504,26 @@
 
                 }).then((result) => {
                     this.Order = result.data
-                    this.orders.id = this.Order.length + 1
-                    // console.log(this.orders.id)
+                    // console.log(this.Order)
+                    if(this.Order.length==0){
+                        this.orders.id = this.Order.length + 1
+                        // console.log(this.orders.id)
+                    }else{
+                        for(let d=0;d<this.Order.length;d++){
+                        this.array2.push(this.Order[d].id)}
+                        // console.log(this.array2)
+                        // console.log(this.array2.length)
+                        for(let index=0;index<this.array2.length;index++){
+                           
+                            if(this.max<this.array2[index]){
+                                this.max=this.array2[index]
+                            }
+                        }
+                        // console.log(this.max)
+                        this.orders.id = parseInt(this.max) + 1
+                        // console.log(this.orders.id)
+                    }
+  
                 })
 
 
@@ -532,9 +556,9 @@
                 this.addimg()
                 // console.log(this.showdata)
             })
-            this.getorder()
+           
             this.getData()
-            
+            this.getorder()
             // this.address="mygrxx.html?username="+nico
         }
 
