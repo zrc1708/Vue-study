@@ -21,10 +21,17 @@ function get(key){
                 console.error(err)
                 return
             }
-            console.log('val ',val)
-        
-            //退出
-            redisClient.quit()
+            if(val==null){
+                resolve(null)
+                return
+            }
+            try{
+                resolve(
+                    JSON.parse(val)
+                )
+            }catch(ex){
+                resolve(val)
+            }
         })
     })
     return promise
