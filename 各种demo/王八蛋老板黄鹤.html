@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .big {
+        width: 760px;
+        height: 170px;
+        background-color: rgba(255, 0, 0, 0.267);
+    }
+
+    .thing,.name {
+        float: left;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+
+    div.name {
+        border: 1px solid rgba(0, 0, 0, 0.164);
+        width: 180px;
+
+    }
+
+    .result {
+        margin-top: 15px;
+        width: 760px;
+        height: 170px;
+        background-color: rgba(255, 0, 0, 0.267);
+
+    }
+
+    .anniu {
+        width: 60px;
+        height: 30px;
+        margin-left: 300px;
+        margin-top: 10px;
+    }
+
+     #result {
+         margin-top: 10px;
+         margin-left: 10px;
+        width: 600px;
+        height: 140px;
+    } 
+</style>
+
+<body>
+    <div class="big">
+        <div class="name" >地名</div>
+        <div class="thing"><input type="text" id="a" value=""></div>
+        <div class="name" >公司类型</div>
+        <div class="thing"><input type="text" id="b" value=""></div>
+        <div class="name" >公司名称</div>
+        <div class="thing"><input type="text" id="c" value=""></div>
+        <div class="name" >老板姓名</div>
+        <div class="thing"><input type="text" id="d" value=""></div>
+        <div class="name" >钱</div>
+        <div class="thing"><input type="text" id="e" value=""></div>
+        <div class="name" >产品</div>
+        <div class="thing"><input type="text" id="f" value=""></div>
+        <div class="name" >价格计量单位</div>
+        <div class="thing"><input type="text" id="g" value=""></div>
+
+        <input class="anniu" type="button" value="生成" onclick="re()">
+    </div>
+    <div class="result">
+       <textarea name="" id="result" cols="30" rows="10"></textarea>
+
+    </div>
+</body>
+<script>
+    
+    function re() {
+        
+        var a = document.getElementById("a").value;
+        var b = document.getElementById("b").value;
+        var c = document.getElementById("c").value;
+        var d = document.getElementById("d").value;
+        var e = document.getElementById("e").value;
+        var f = document.getElementById("f").value;
+        var g = document.getElementById("g").value;
+        
+        document.getElementById("result").value =a+"最大"+b+"倒闭了，王八蛋老板"+"吃喝嫖赌，欠下了"+b+"亿，带着他的小姨子跑了!我们没有办法，拿着"+
+                                                  c+"抵工资!原价都是一"+d+"多、两"+e+"多、三"+f+"多的贴膜，现在全部只卖二十块，统统只要二十块!"+g
+                                                  +"王八蛋，你不是人!我们辛辛苦苦给你干了大半年，你不发工资，你还我血汗钱，还我血汗钱!";
+        
+    }
+    
+</script>
+
+</html>

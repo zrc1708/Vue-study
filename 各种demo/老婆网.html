@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=div, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>老婆网</title>
+</head>
+<style>
+    div {
+        /* border: 1px solid black; */
+    }
+
+    .big {
+        margin: 0 auto;
+        width: 60%;
+    }
+
+    .one {
+        height: 50px;
+        display: flex;
+        font-size: 25px;
+    }
+
+    .oneone {
+        flex-basis: 20%;
+        text-align: center;
+        background-color: rgba(86, 86, 248, 0.582);
+        border-radius: 32px;
+    }
+
+    .yi,
+    .er,
+    .san,
+    .si,
+    .wu {
+        height: 500px;
+        display: none;
+
+    }
+    .flex{
+        display: flex;
+    }
+    .flex div{
+        flex-basis: 50%;
+        height: 600px;
+    }
+</style>
+
+<body>
+    <div class="big">
+        <div class="one">
+            <div class="oneone" onclick="one()">妮可</div>
+            <div class="oneone" onclick="two()">姑获鸟</div>
+            <div class="oneone" onclick="three()">天之圣杯</div>
+            <div class="oneone" onclick="four()">库巴姬</div>
+            <div class="oneone" onclick="five()">尼娅</div>
+        </div>
+        <div class="yi" style="display:block">
+            <div class="flex">
+                    <div><img src="/img/妮可.png" alt="" width="100%" height="100%"></div>
+                    <div><img src="/img/妮可2.png" alt="" width="100%" height="100%"></div>
+            
+            </div>
+        </div>
+        <div class="er">
+            <div class="flex">
+                    <div><img src="/img/姑获鸟.jpg" alt="" width="100%" height="100%"></div>
+                    <div><img src="/img/姑获鸟2.png" alt="" width="100%" height="100%"></div>
+                    
+                    </div>
+        </div>
+        <div class="san">
+            <div class="flex">
+                    <div><img src="/img/吼姆拉.png" alt="" width="100%" height="100%"></div>
+                    <div><img src="/img/希卡利.jpg" alt="" width="100%" height="100%"></div>
+                    
+                    </div>
+        </div>
+        <div class="si">
+            <div class="flex">
+                    <div><img src="/img/库巴姬.jpg" alt="" width="100%" height="100%"></div>
+                    <div><img src="/img/库巴姬2.jpg" alt="" width="100%" height="100%"></div>
+                    
+                    </div>
+        </div>
+        <div class="wu">
+            <div class="flex">
+                    <div><img src="/img/尼娅2.jpg" alt="" width="100%" height="100%"></div>
+                    <div><img src="/img/尼娅.png" alt="" width="100%" height="100%"></div>
+                    
+                    </div>
+        </div>
+
+    </div>
+</body>
+<script>
+    function one() {
+        document.querySelector(".yi").style.display = "block";
+        document.querySelector(".er").style.display = "none";
+        document.querySelector(".san").style.display = "none";
+        document.querySelector(".si").style.display = "none";
+        document.querySelector(".wu").style.display = "none";
+    }
+
+    function two() {
+        document.querySelector(".yi").style.display = "none";
+        document.querySelector(".er").style.display = "block";
+        document.querySelector(".san").style.display = "none";
+        document.querySelector(".si").style.display = "none";
+        document.querySelector(".wu").style.display = "none";
+    }
+
+    function three() {
+        document.querySelector(".yi").style.display = "none";
+        document.querySelector(".er").style.display = "none";
+        document.querySelector(".san").style.display = "block";
+        document.querySelector(".si").style.display = "none";
+        document.querySelector(".wu").style.display = "none";
+    }
+
+    function four() {
+        document.querySelector(".yi").style.display = "none";
+        document.querySelector(".er").style.display = "none";
+        document.querySelector(".san").style.display = "none";
+        document.querySelector(".si").style.display = "block";
+        document.querySelector(".wu").style.display = "none";
+    }
+
+    function five() {
+        document.querySelector(".yi").style.display = "none";
+        document.querySelector(".er").style.display = "none";
+        document.querySelector(".san").style.display = "none";
+        document.querySelector(".si").style.display = "none";
+        document.querySelector(".wu").style.display = "block";
+    }
+</script>
+
+</html>

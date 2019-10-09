@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Title Page</title>
+
+    </head>
+    <body>
+                    <table width="50%" border = "1" cellspacing="0" id="heroTable">
+                    
+                    <tr >
+                       <td width="50%">英雄名称</td>
+                       <td>
+                           操作
+                       </td>
+                    </tr>
+                    
+                    <tr >
+                       <td>盖伦</td>
+                       <td>
+                          <a href="#" onclick="deleteRow(this)">删除</a>     
+                        </td>
+                    </tr>
+                    
+                    <tr >
+                       <td>提莫</td>
+                       <td>
+                          <a href="#" onclick="deleteRow(this)">删除</a>     
+                        </td>
+                    </tr>
+                    
+                    <tr >
+                       <td>祈求者</td>
+                       <td>
+                          <a href="#" onclick="deleteRow(this)">删除</a>     
+                        </td>
+                    </tr>
+                    
+                    </table>
+                    
+    </body>
+    <script>
+            function deleteRow(link){
+             var b =  confirm("确定删除？")
+             if(!b)
+               return;
+            
+            var table = document.getElementById("heroTable");
+            var td = link.parentNode;
+            var tr = td.parentNode;
+            var index=tr.rowIndex;
+            table.deleteRow(index);
+            
+            }
+            </script>
+</html>

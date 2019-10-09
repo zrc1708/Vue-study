@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    body {
+
+        background: url(img/大海.jfif) no-repeat center center;
+        background-size: cover;
+        background-attachment: fixed;
+        background-color: #CCCCCC;
+
+        margin: 0px;
+        padding: 0px;
+    }
+
+    div {
+        border: 1px solid gray;
+        margin: 0px auto;
+        width: 1000px;
+    }
+
+    .one {
+        height: 130px;
+    }
+
+    .two {
+        height: 50px;
+        border: 0;
+    }
+
+    .three {
+        height: 330px;
+        border: 0;
+    }
+
+
+
+    .two ul li {
+        text-align: center;
+        float: left;
+        width: 190px;
+        list-style: none;
+        display: block;
+        height: 50px;
+        font-size: 30px;
+
+    }
+
+    .anniu {
+        background: url(img/按钮.png) no-repeat;
+    }
+
+    .bianhuaanniu {
+        background: url(img/变化按钮.png) no-repeat;
+    }
+
+    .two {
+        display: flex;
+    }
+
+    .chapter-item {
+        text-align: center;
+        flex-basis: 20%;
+        border-radius: 50px;
+        background-color: cornflowerblue;
+        /* margin-left: 5px; */
+        font-size: 30px;
+    }
+    .chapter-item:hover{
+        background-color: rgb(236, 118, 230);
+    }
+</style>
+
+<body>
+    <div class="one">
+        <form action="http://www.google.com/search" method="get" name="searchform" target="_blank">
+            <input autocomplete="on" name="q" required="required" type="text">
+            <button class="button" type="submit">Search</button>
+        </form>
+        <form action="https://www.baidu.com/s" method="get" name="searchform" target="_blank">
+            <input autocomplete="on" name="wd" required="required" type="text">
+            <button class="button" type="submit">Search</button>
+        </form>
+    </div>
+    <div class="two">
+        <div class="chapter-item" id="control-item1"  onclick="one()">精品工具</div>
+        <div class="chapter-item" id="control-item2" onclick="two()">资源搜索</div>
+        <div class="chapter-item" id="control-item3"  onclick="three()">前端开发</div>
+        <div class="chapter-item" id="control-item4"  onclick="four()">后端开发</div>
+        <div class="chapter-item" id="control-item5" onclick="five()">移动开发</div>
+        
+    </div>
+
+    <div class="three">
+        <iframe src="table01.html" width=100%; height=100%; scrolling="no" frameborder="0" id="nico"></iframe>
+
+    </div>
+</body>
+<script>
+    function one() {
+        document.querySelector("#nico").src = "table01.html";
+    }
+
+    function two() {
+        document.querySelector("#nico").src = "table02.html";
+    }
+
+    function three() {
+        document.querySelector("#nico").src = "table03.html";
+    }
+
+    function four() {
+        document.querySelector("#nico").src = "table04.html";
+    }
+
+    function five() {
+        document.querySelector("#nico").src = "table05.html";
+    }
+
+    function bianhua(x) {
+        console.log("nico");
+        x.parentNode.removeClass('anniu').addClass('bianhuaanniu');
+    }
+</script>
+
+</html>

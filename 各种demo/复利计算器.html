@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>复利计算器</title>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<style>
+    body {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .big {
+        width: 300px;
+        height: 270px;
+        background-color: rgba(255, 0, 0, 0.205);
+    }
+
+    div {
+        border: 1px solid grey;
+        width: 130px;
+        height: 25px;
+        float: left;
+    }
+
+    .one {
+        width: 100px;
+    }
+
+    .qipa {
+        width: 232px;
+    }
+
+    input {
+        width: 100px;
+    }
+
+    #anniu {
+        display: block;
+        margin: 0 auto;
+    }
+</style>
+
+<body>
+    <div class="big">
+        <div class="one">起始资金</div>
+        <div><input type="text" value="0" id="p">￥</div>
+        <div class="one">每年收益</div>
+        <div><input type="text" value="0" id="r">%</div>
+        <div class="one">复利年数</div>
+        <div><input type="text" value="1" id="n">年</div>
+        <div class="one">每年追加资金</div>
+        <div><input type="text" value="0" id="pp">￥</div>
+        <div class="qipa"><input type="button" value="计算" id="anniu" onclick="nico()"></div>
+        <div class="one">本金和</div>
+        <div><input type="text" value="0" id="a">￥</div>
+        <div class="one">利息和</div>
+        <div><input type="text" value="0" id="b">￥</div>
+        <div class="one">本息和</div>
+        <div><input type="text" value="0" id="c">￥</div>
+    </div>
+</body>
+<script>
+    function nico() {
+        var p = document.querySelector("#p").value;
+        var r = document.querySelector("#r").value;
+        var n = document.querySelector("#n").value;
+        var pp = document.querySelector("#pp").value;
+        var x;
+        document.querySelector("#a").value = parseInt(p) + (parseInt(n)-1) * parseInt(pp);
+        for(var i =0; i<parseInt(n);i++){
+             if(i==0){
+              x=p*(1+0.01*parseInt(r));
+             }else{
+              x=(x+parseInt(pp))*(1+0.01*parseInt(r));
+             }
+        }
+        document.querySelector("#c").value=x;
+        document.querySelector("#b").value=x-(parseInt(p) + (parseInt(n)-1) * parseInt(pp));
+
+    }
+</script>
+
+</html>
