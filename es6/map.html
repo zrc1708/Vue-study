@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //创建一个map        
+        const map = new Map([
+            ['a',1],
+            ['b',2],
+        ])
+        console.log(map)
+
+        map.set('nico','new').set('ni','niconiconi')
+        console.log(map)
+
+        //读取对应的键值
+        console.log(map.get('nico'))
+
+        //删除某个键   返回true  失败返回false
+        map.delete('a')
+        console.log(map)
+
+        //某个键是否在map中
+        console.log(map.has('nico'))
+
+        //清除所有数据
+        // map.clear()
+
+        console.log(map.keys())            //键名的遍历器
+        console.log(map.values())            //值的遍历器
+        console.log(map.entries())            //键值对的遍历器
+
+        //使用回调函数遍历每个成员
+        map.forEach(function(key,value,map){
+            console.log(key+':'+value)
+        })
+
+        //key的排列顺序是按照添加顺序排列的
+
+    </script>
+</body>
+</html>

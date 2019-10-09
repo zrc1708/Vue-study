@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //对象的合并(浅拷贝)
+        let obj1 = Object.assign({},{x:1,y:2},{z:100})    //改前面，不改后面
+        console.log(obj1)
+
+        let obj2 = {x:1}
+        obj2.y=2
+        Object.defineProperty(obj2,'z',{
+            //描述了该属性的的一些详细细节
+            value:100,
+            writable:true,  //可写
+            enumerable:true,  //可枚举
+            
+        })
+        console.log(obj2)
+    </script>
+</body>
+</html>

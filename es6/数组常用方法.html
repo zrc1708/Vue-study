@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+         let arr = [2,3,5,7,9]
+         let rs = arr.every(v=>{
+             return v > 5
+         })
+         console.log(rs)
+
+         let rs2 = arr.some(v=>{
+             return v > 5
+         })
+         console.log(rs2)
+
+         let rs3 = arr.filter(v=>{
+             return v > 5
+         })
+         console.log(rs3)
+
+         //新数组值可以和原数组不一致，但是长度一致
+         let rs4 = arr.map(v=>{
+            //  return v > 5
+            return v*10
+         })
+         console.log(rs4)
+
+         let rs5 = arr.reduce((prev,current)=>{
+             return prev + current
+         },0)  //0为初始值
+         console.log(rs5)
+    </script>
+</body>
+</html>
