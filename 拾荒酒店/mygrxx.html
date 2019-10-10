@@ -212,7 +212,11 @@
 				this.name = this.array[0]
 				this.user.id = this.array[1]
 				this.getData()
-				
+				if(this.information.a1==''){
+							this.showwrite=true
+						}else{
+							this.showwrite=false		      
+				        }
 				
 
 			},
@@ -393,10 +397,7 @@
 						this.information.a3=this.login.phone
 						if(this.login.sex=='0'){this.chinasex='男'}
 						else{this.chinasex='女'}
-
-						if(this.information.a1.length==18){
-					      this.showwrite=false
-				           }
+						
 					})
 
 					setTimeout( () =>{

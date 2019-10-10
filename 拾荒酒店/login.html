@@ -101,6 +101,7 @@
 			username:'',
             id:'',
             flag:Number, 
+			flag2:Number
 		},
 
 		mounted() {
@@ -160,16 +161,16 @@
 
 			 clickcheck(){
                  this.getid()
+				 this.flag2=0
                  for(var j=0;j<this.array.length;j++){
 
 					 if(this.array[j]==this.loginName+this.password){
                         window.location.href = "mygrxx.html?username="+this.loginName+'?'+this.id;
-						
-					 }else{
-						this.loginError=true;
+						this.flag2=1;
 					 }
 				 }
-  			 }
+				 if(this.flag2==0){this.loginError=true;}
+  			 },
 
 		},
 		

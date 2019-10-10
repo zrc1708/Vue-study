@@ -14,4 +14,38 @@
 <body>
     <canvas id="canvas"></canvas>
 </body>
+<script>
+    const canvas = document.querySelector('#canvas') 
+    const ctx = canvas.getContext('2d')
+
+    const w = canvas.width = 600
+    const h = canvas.height = 400
+
+    class Ball{
+        constructor(x,y,r){
+            this.x = x
+            this.y = y
+            this.r = r
+            this.color = `rgb(${~~Ball.rpFn([55,255])},${~~Ball.rpFn([55,255])},${~~Ball.rpFn([55,255])})`
+            return this
+        }
+        render(ctx) {
+            ctx.save()//保存绘图环境
+            ctx.translate(this.x,this.y)
+            ctx.fillStyle=this.color//指定填充颜色
+            ctx.beginPath()//起始路径
+            ctx.arc(0,0,this.r,0,2*Math.PI)//绘制路径
+            ctx.fill()//给小球填充颜色
+            ctx.restore()//恢复绘图环境
+            return this
+        }
+        static rpFn(arr){
+            let max = Math.max(...arr)
+            let min = Math.min(...arr)
+            return Math.random()*(max-min)+min
+        }
+    }
+
+    const ball1 = new Ball(100,100,30).render(ctx)
+</script>
 </html>
