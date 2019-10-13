@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        //symbol 是js中的第七种数据类型
+        //基本数据类型 null undefined number boolean string symbel
+        //引用数据类型 object
+
+
+        //作为对象的属性名
+        let ss = Symbol('ss')
+
+        const data = {
+            [ss] :'nico',
+            [Symbol()]:'123'
+        }
+
+        console.log(data)
+        console.log(data[ss])
+        console.log(Object.getOwnPropertySymbols(data))
+
+        console.log(data[Object.getOwnPropertySymbols(data)[1]])
+    </script>
+</body>
+</html>

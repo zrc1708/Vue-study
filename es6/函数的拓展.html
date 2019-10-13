@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+            /*
+                函数的拓展
+                1 为函数指定默认值
+                2 函数的rest参数
+                3 箭头函数
+            */
+           function fn(a,b){
+               a = a||10
+               b = b||20
+               console.log(a+b)
+           }
+           fn()
+           fn(0,10)   //0默认为了10
+
+           function fn2(a=10,b=20){
+               console.log(a+b)
+           }
+           fn2()
+           fn2(0,10)
+
+
+           function sum(){
+               var args = arguments
+               var res = 0
+               for (let index = 0; index < args.length; index++) {
+                    res+=args[index]
+               }
+               console.log(res)
+           }
+           sum(1,2,3,4,5)
+
+           function sum(a,...arr){  //arr后无法再传参数
+               var res = a
+               for (let index = 0; index < arr.length; index++) {
+                    res+=arr[index]
+               }
+               console.log(res)
+           }
+           sum(10,1,2,3,4,5)
+
+
+           const fn3 = (a,b)=>{
+               return a+b
+           }
+           console.log(fn3(50,15))
+
+
+           var arr = [5,2,3,4,1]
+        //    arr.sort(function(a,b){
+        //        return a-b
+        //    })
+            arr.sort((a,b)=>a-b)
+           console.log(arr)
+    </script>
+</body>
+</html>

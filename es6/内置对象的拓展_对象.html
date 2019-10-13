@@ -8,7 +8,15 @@
 </head>
 <body>
     <script>
-        //对象的合并(浅拷贝)
+        /*
+            对象的拓展
+        */
+
+        //Object.is()
+        console.log(Object.is(NaN,NaN))
+        console.log(Object.is(+0,-0))
+
+        //Object.assign  对象的合并(浅拷贝)  将源对象所有可枚举属性，复制到目标对象
         let obj1 = Object.assign({},{x:1,y:2},{z:100})    //改前面，不改后面
         console.log(obj1)
 

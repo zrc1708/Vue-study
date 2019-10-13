@@ -46,6 +46,59 @@
         }
     }
 
-    const ball1 = new Ball(100,100,30).render(ctx)
+
+
+    class SuperBall extends Ball{
+        constructor(x,y,r){
+            super(x,y,r)
+            this.vy = SuperBall.rpFn([2,4])
+            this.g = SuperBall.rpFn([0.2,0.4])
+            this.a = 0
+            return this
+        }
+        move(){
+            this.y +=this.vy
+            this.vy += this.g
+
+            let current = this.vy * -0.75
+
+            if(this.y + this.r >= ctx.canvas.height){
+                this.y = ctx.canvas.height - this.r
+
+                if(Math.abs(current - this.a) < 0.08) //速度过小
+                    return false
+
+                this.a = this.vy *= -0.75
+            }
+
+            ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height)
+            super.render(ctx)
+
+            return true
+        }
+    }
+
+    // const ball1 = new SuperBall(100,100,30).render(ctx)
+
+    let ball,timer
+
+    canvas.onclick = function(e){
+        let x = e.offsetX, y = e.offsetY
+
+        let r = ~~Ball.rpFn([25,55])
+
+        ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height)
+        ball = new SuperBall(x,y,r).render(ctx)
+
+        ballMove()
+    }
+
+    function ballMove(){
+        timer = window.requestAnimationFrame(ballMove)
+
+        if(!ball.move()){
+            window.cancelAnimationFrame(timer)
+        }
+    }
 </script>
 </html>

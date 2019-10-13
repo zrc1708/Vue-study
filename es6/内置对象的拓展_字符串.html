@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            字符串的拓展
+        */    
+
+        //模板字符串
+        let nico = 'niconiconi'
+        let flag = true
+        let html = `
+            <ul>
+                <li>${nico}</li>    
+                <li></li>    
+                <li class = "${flag ? 'show':'hide'}"></li>    
+                <li></li>    
+            </ul>`
+
+        console.log(html)
+
+        //repeat
+        let str1 = 'a'
+        let str2 = str1.repeat(3)
+        console.log(str2) 
+
+        //includes() startsWith() endsWith()
+        let str = 'qwertyuio'
+        console.log(str.includes('ert'))
+        console.log(str.includes('asd'))
+        console.log(str.startsWith('qw'))
+        console.log(str.endsWith('io'))
+
+    </script>
+</body>
+</html>
