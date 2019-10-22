@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+</head>
+<style>
+    li{
+        display: flex;
+    }
+    .nico1{
+        width: 20px;
+        height: 20px;
+        background: red;
+    }
+</style>
+<body>
+    <div id="app">
+
+            <h1>{{name}}</h1>
+            <button @click = closeApp()>关闭应用</button>
+            <button @click = miniApp()>最小化应用</button>
+
+            <ul>
+                <li v-for="todo of todos" style="list-style-type:none">
+                    <div class="nico1"></div>
+                    <label for="">{{todo.title}}</label>
+                    <span></span>
+                </li>
+            </ul>
+            <div>
+                <input type="text" placeholder="在这里输入内容" v-model="newTodo" @keydown.enter = 'addTodo'>
+            </div>
+    </div>
+</body>
+<script>
+
+// const Vue = require('vue')
+
+const {remote} = require("electron")
+let id = 0
+new Vue({
+        el:'#app',
+        data:{
+            name:'nico',
+            newTodo:'',
+            todos:[]
+        },
+        methods: {
+            closeApp(){
+                //App对象只能通过主线程调用
+                remote.app.exit()
+            },
+            miniApp(){
+                //通过remote下的一个方法来获取当前窗口对象
+                remote.getCurrentWindow().minimize()
+            },
+            //添加任务
+            addTodo(){
+                this.todos.push({
+                    id:id++,
+                    title:this.newTodo,
+                    done:false
+                })
+                 this.newTodo = ''
+            }
+        },
+    })
+</script>
+</html>
