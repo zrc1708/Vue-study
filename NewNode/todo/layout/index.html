@@ -16,7 +16,21 @@
     .nico1{
         width: 20px;
         height: 20px;
+    }
+    .done{
+        background: gray;
+    }
+    .checked{
+        border: 1px solid gray;
+        box-sizing: border-box;
         background: red;
+    }
+    .nochecked{
+        border: 1px solid gray;
+        box-sizing: border-box;
+    }
+    .selected{
+        color: grey;
     }
 </style>
 <body>
@@ -27,13 +41,21 @@
             <button @click = miniApp()>最小化应用</button>
 
             <ul>
-                <li v-for="todo of todos" style="list-style-type:none">
-                    <div class="nico1"></div>
+                <li :class="{'done':todo.done}"  
+                v-for="todo of showtodos" 
+                style="list-style-type:none;width: 150px;" 
+                @click="click(todo)">
+                    <div class="nico1" :class="todo.done?'checked':'nochecked'"></div>
                     <label for="">{{todo.title}}</label>
-                    <span></span>
+                    <button @click.stop="deleteit(todo)">移除</button>
                 </li>
             </ul>
-            <div>
+            <div class="b">
+                <div class="box">
+                    <b @click="choose('done')" :class={'selected':type=='done'}>查看已完成</b>
+                    <b @click="choose('undone')" :class={'selected':type=='undone'}>查看未完成</b>
+                    <b @click="choose('all')" :class={'selected':type=='all'}>查看全部任务</b>
+                </div>
                 <input type="text" placeholder="在这里输入内容" v-model="newTodo" @keydown.enter = 'addTodo'>
             </div>
     </div>
@@ -47,9 +69,25 @@ let id = 0
 new Vue({
         el:'#app',
         data:{
-            name:'nico',
+            name:'待办事项',
+            type:'all',  //all,done,undone
             newTodo:'',
             todos:[]
+        },
+        computed: {
+            showtodos(){
+                return this.todos.filter(todo=>{
+                    switch(this.type){
+                        default:
+                        case 'all':
+                            return true
+                        case 'done':
+                            return todo.done
+                        case 'undone':
+                            return !todo.done
+                    }
+                })
+            }
         },
         methods: {
             closeApp(){
@@ -68,6 +106,20 @@ new Vue({
                     done:false
                 })
                  this.newTodo = ''
+            },
+            //任务状态切换
+            click(todo){
+                todo.done=!todo.done
+            },
+            deleteit(todo){
+                console.log(todo)   //todo为被点击的对象
+                this.todos = this.todos.filter(item=>{
+                    return item!=todo
+                })
+            },
+            //更改查看的任务类型
+            choose(type){
+                this.type = type
             }
         },
     })

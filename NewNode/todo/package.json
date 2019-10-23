@@ -11,7 +11,27 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "electron": "^7.0.0",
     "vue": "^2.6.10"
+  },
+  "devDependencies": {
+    "electron": "^7.0.0"
+  },
+  "build": {
+    "appId": "com.nico.zrc",
+    "productName": "妮可待办助手",
+    "copyright": "Copyright ©2019 zrc",
+    "directories": {
+      "output": "./dist"
+    },
+    "mac": {
+      "icon": "./img/鸟.icns"
+      
+    },
+    "win": {
+      "icon": "./img/Bird_128px_1183395_easyicon.net.ico",
+      "target": [
+        "zip"
+      ]
+    }
   }
 }

@@ -10,7 +10,7 @@ app.on('ready',()=>{
          }
     })
 
-    win.webContents.openDevTools()
+    // win.webContents.openDevTools()
 
     win.loadFile('./layout/index.html')
 })
