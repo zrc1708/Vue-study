@@ -10,9 +10,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "vue": "^2.6.10"
-  },
+  "dependencies": {},
   "devDependencies": {
     "electron": "^7.0.0"
   },
@@ -25,7 +23,6 @@
     },
     "mac": {
       "icon": "./img/鸟.icns"
-      
     },
     "win": {
       "icon": "./img/Bird_128px_1183395_easyicon.net.ico",
