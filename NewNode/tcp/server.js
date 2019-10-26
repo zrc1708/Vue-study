@@ -2,7 +2,8 @@
  * 在node中，tcp协议，基于 net模块来实现的
  */
  
- const net = require('net')
+ const net = require('net') 
+ const fs = require('fs')
 
  /**
   * 创建一个服务器端
@@ -27,10 +28,20 @@
 
     //   socket.write('Hello')
 
-    //   socket.on('data',(data)=>{
-    //     socket.write('show me the money')
-    //   })
-    socket.on()
+
+    //发送一个图片给客户端
+    let data2 = fs.readFileSync('./server/yao.png')
+    console.log(data2)
+    socket.write(data2)
+    // socket.write()
+
+
+      socket.on('data',(data)=>{
+        // socket.write('show me the money')
+
+        
+      })
+
   })
 
   /**
