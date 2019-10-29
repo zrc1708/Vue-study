@@ -1,35 +1,42 @@
-const Koa = require('koa')  //包装过的HTTP
+const Koa = require('koa')  
+const koaStaticCache = require('koa-static-cache')
+const Router = require('koa-router')
+const Swig = require('koa-swig')
+const co = require('co')
 
-/**
- * 热重载  :   supervisor
- * npm i -g supervisor
- * supervisor app
- */
-
-
-//创建一个HTTP服务器，监听请求 http.createServer()
 const app = new Koa()
 
-/**
- * Koa : request->middleware->response
- * Kao帮我们做了第一第三步，我们只要做中间件
- */
+let users = [
+    {username:'nico'},
+    {username:'zhangsan'},
+    {username:'lisi'},
+    {username:'wagnwu'},
+]
 
-//next :中间件函数->迭代器
+// 只要有请求，则通过koastaticcache进行处理
+app.use(koaStaticCache(__dirname+'/static',{
+    prefix:'/public'  
+}))
 
-//注册中间件函数
-app.use((ctx,next)=>{
-    //ctx:koa处理过的对象
-    ctx.body = 'Hello '
-    next()
+const router = new Router()
+
+//使用模板引擎
+const render = Swig({
+    root:__dirname+'/views',  //文件模板
+    autoescape:true,
+    cache:false,      //是否启用缓存
+    ext:'.html'
+})
+app.context.render = co.wrap(render)
+
+//通过get方式发送
+router.get('/list',async(ctx,next)=>{
+    ctx.body = await ctx.render('list.html',{
+        users:users
+    })
 })
 
-app.use((ctx,next)=>{
-    //ctx:koa处理过的对象
-    ctx.body += 'Koa'
-})
+app.use(router.routes())
 
 
-
-//监听当前机器的地址，端口
 app.listen(8888)
