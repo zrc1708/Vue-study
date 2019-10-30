@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <h1>{{datas.appName}}</h1>
+        <a href="/add">添加新任务</a>
+        <hr>
+        <!-- 
+            通过URL中的querystring传递地址以外的数据
+
+            当通过表单发送一个请求的时候：
+                当method为get的时候，表单会把表单中的
+                数据通过表单name=表单值的形式添加到action地址的？后面
+
+                /posttask?title=123
+
+                但是：URL的长度是有限制的，所以querystring的长度也是有限制的
+                     所以打的内容是不推荐使用querystring的方式进行传输的
+                     这个querystring是URL中的一部分，所以问题最终是URL中的问题，不是get
+
+                    get请求会缓存URL，所以get请求的时候，URL上的内容也会被缓存
+            
+            get:请求，如果当前请求是以获取为主，用get
+            post:提交，如果当前请求是以数据提交为主，用post
+         -->
+        <form action="/posttask" method="POST">
+            <input type="text" name="title"> 
+            <button>添加</button>
+        </form>
+</body>
+</html>
