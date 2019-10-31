@@ -1,26 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="/static/css/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
+
 <body>
-    <h1>TodoList</h1>
-    <hr>
-    <ul></ul>
-    <button>获取数据</button>
+    <div id="app">
+        <h1>TodoList</h1>
+        <div>
+            <input type="text" v-model = "newTask">
+            <button @click="add">提交</button>
+        </div>
+        <hr>
+        <ul>
+            <li v-for="(todo, index) in todos" :key="index">
+                <input type="checkbox" :checked="todo.done" @click.prevent="toggle(todo.id)">
+                <span>{{todo.title}}</span>
+                <button @click = "remove(todo.id)">删除</button>
+            </li>
+        </ul>
+        <!-- <button>获取数据</button> -->
+    </div>
+
 </body>
 <script>
     var button = document.querySelector('button')
 
-    button.onclick = function(){
-        fetch('/').then(res =>{
-            return res.text()
-        }).then(data =>{
-            console.log(data)
-        })
-    }
+    // button.onclick = function(){
+    //     fetch('/').then(res =>{
+    //         return res.text()
+    //     }).then(data =>{
+    //         //拿到数据后，通过ajax操作改变HTML结构
+    //         console.log(data)
+    //     })
+    // }
+
+    var nico = new Vue({
+        el: '#app',
+        data: {
+            todos: [],
+            newTask:''
+        },
+        created() {
+            //页面初始化的时候就发送一个请求，请求任务列表数据
+            fetch('/todos').then(res => {
+                return res.json()
+            }).then(data => {
+                // console.log(data)
+                if (!data.code) {
+                    this.todos = data.data
+                }
+            })
+
+        },
+        methods: {
+            toggle(id) {
+                //发送请求到后端修改当前数据的状态
+                fetch('/toggle', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({
+                        id: id
+                    }),
+                }).then(res => {
+                    return res.json()
+                }).then(data => {
+                        // console.log(data)
+                        if(data.code){
+                            alert(data.data)
+                        }else{
+                            // console.log(data)
+                            let todo = this.todos.find(todo => todo.id == id)
+                            todo.done = data.data.done
+                        }
+                    }
+                )
+            },
+            remove(id){
+                fetch('/remove', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({
+                        id: id
+                    }),
+                }).then(res => {
+                    return res.json()
+                }).then(data => {
+                        if(data.code){
+                            alert(data.data)
+                        }else{
+                            this.todos = this.todos.filter( todo => todo.id != id)
+                        }
+                    }
+                )
+            },
+            add(){
+                fetch('/add', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({
+                        title: this.newTask
+                    }),
+                }).then(res => {
+                    return res.json()
+                }).then(data => {
+                        if(data.code){
+                            alert(data.data)
+                        }else{
+                            this.todos.push(data.data)
+                        }
+                    }
+                )
+                this.newTask=''
+            }
+        },
+    })
 </script>
+
 </html>
