@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <button @click="butt">获取数据</button>
+        <hr>
+        <input type="text" v-model="newpeople.id">
+        <input type="text" v-model="newpeople.username">
+        <input type="text" v-model="newpeople.address">
+        <input type="text" v-model="newpeople.phone">
+        <input type="text" v-model="newpeople.sex">
+        <button @click="add">增加</button>
+        <hr>
+        <input type="text" v-model="delid">
+        <button @click="del">删除</button>
+        <hr>
+        <input type="text" v-model="updatepeople.id">
+        <input type="text" v-model="updatepeople.username">
+        <input type="text" v-model="updatepeople.address">
+        <input type="text" v-model="updatepeople.phone">
+        <input type="text" v-model="updatepeople.sex">
+        <button @click="up">更新</button>
+    </div>
+
+</body>
+<script>
+    var nico = new Vue({
+        el: '#app',
+        data: {
+            users: [],
+            newpeople: {
+                id: '',
+                username: '',
+                address: '',
+                phone: '',
+                sex:''
+            },
+            delid:'',
+            updatepeople:{
+                id: '',
+                username: '',
+                address: '',
+                phone: '',
+                sex:''
+            }
+        },
+        created() {
+            //页面初始化的时候就发送一个请求，请求任务列表数据
+            fetch('http://127.0.0.1:8888/selectAll').then(res => {
+                return res.json()
+            }).then(data => {
+                // console.log(data)
+                this.users = data
+            })
+
+        },
+        methods: {
+            butt() {
+                console.log(this.users)
+            },
+            add() {
+                fetch('http://127.0.0.1:8888/add', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({
+                        id: this.newpeople.id,
+                        username:this.newpeople.username,
+                        address:this.newpeople.address,
+                        phone:this.newpeople.phone,
+                        sex:this.newpeople.sex
+                    }),
+                }).then(res => {
+                    return res.json()
+                }).then(data => {
+                    console.log(data)
+                })
+            },
+            del(){
+                fetch('http://127.0.0.1:8888/delete', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({
+                        id: this.delid
+                    }),
+                }).then(res => {
+                    return res.json()
+                }).then(data => {
+                    console.log(data)
+                })
+            },
+            up(){
+                fetch('http://127.0.0.1:8888/update', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({
+                        id: this.updatepeople.id,
+                        username:this.updatepeople.username,
+                        address:this.updatepeople.address,
+                        phone:this.updatepeople.phone,
+                        sex:this.newpeople.sex
+                    }),
+                }).then(res => {
+                    return res.json()
+                }).then(data => {
+                    console.log(data)
+                })
+            }
+
+        },
+    })
+</script>
+
+</html>
