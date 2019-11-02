@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
+
+</head>
+<style>
+    .caozuo {
+        display: inline-block;
+        width: 40px;
+        height: 20px;
+        border-radius: 5px;
+        line-height: 20px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .tr {
+        background: rgba(0, 0, 0, 0.479);
+    }
+
+    html,
+    body {
+        height: 100%;
+    }
+
+    #app {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    .top{
+        display: flex;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+    }
+    .top > div:nth-child(1){
+        flex-basis: 50%;
+    }
+    .top > div:nth-child(2){
+        flex-basis: 50%;
+        display: flex;
+    }
+    .top > div:nth-child(1)>div{
+        border-radius: 20px 20px 0 0;
+        background-color: rgba(0, 162, 255, 0.753);
+        width: 100px;
+        margin-left: 20%;
+    }
+    .tr{
+        color: white;
+    }
+    .top > div:nth-child(2)>div{
+        border-radius: 20px 20px 0 0;
+        width: 100px;
+        margin-left: 5%;
+        cursor: pointer;
+    }
+    .body{
+        display: flex;
+    }
+    .body > div:nth-child(1){
+        flex-basis: 50%;
+    }
+    .body > div:nth-child(2){
+        flex-basis: 50%;
+    }
+    .table {
+        width: 70%;
+        padding: 3%;
+        text-align: center;
+        margin-left: 20%;
+        background-color: rgba(0, 162, 255, 0.753);
+        border-radius: 0 20px 20px 20px;
+    }
+    .gengxing {
+        background: rgba(0, 162, 255, 0.753);
+        padding: 3%;
+        margin-left: 5%;
+        width: 300px;
+        border-radius: 0 20px 20px 20px;
+    }
+    .tianjia{
+        background: rgba(0, 162, 255, 0.753);
+        padding: 3%;
+        margin-left: 5%;
+        width: 300px;
+        border-radius: 0 20px 20px 20px;
+    }
+   
+    .tianjia p,.gengxing p {
+        display: inline-block;
+    }
+    .nico{
+        background-color: rgba(143, 211, 250, 0.753);        
+    }
+    .clicked{
+        background-color: rgba(0, 162, 255, 0.753); 
+    }
+    
+</style>
+
+<body>
+    <div id="app">
+        <div class="top">
+            <div>
+                    <div>通讯录列表</div>
+            </div>
+            <div>
+                    <div class="nico" @click="click($event)" :class="{'clicked':show.one}">增加人员</div>
+                    <div class="nico" @click="click($event)" :class="{'clicked':show.two}">修改人员</div>
+            </div>
+        </div>
+        <div class="body">
+            <div>
+                    <div class="table" >
+                            <table>
+                                <tr class="tr">
+                                    <th width="50">ID</td>
+                                    <th width="70">用户名</td>
+                                    <th width="160">地址</td>
+                                    <th width="100">手机</td>
+                                    <th width="70">性别</td>
+                                    <th width="150">操作</td>
+                                </tr>
+                                <tr v-for="(item, index) in userdata" :key="index">
+                                    <td>{{item.ID}}</td>
+                                    <td>{{item.username}}</td>
+                                    <td>{{item.address}}</td>
+                                    <td>{{item.phone}}</td>
+                                    <td>{{item.sex}}</td>
+                                    <td>
+                                        <div class="caozuo" @click="del(item.ID)">删除</div>
+                                        <div class="caozuo" @click="updateit(item.ID)">修改</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+            </div>
+            <div>
+                    <div class="tianjia" v-show="show.one" >
+                            <div>
+                                <p>ID:</p>
+                                <input type="text" v-model="p.ID">
+                            </div>
+                            <div>
+                                <p>姓名:</p>
+                                <input type="text" v-model="p.username">
+            
+                            </div>
+                            <div>
+                                <p>电话:</p>
+                                <input type="text" v-model="p.phone">
+            
+                            </div>
+                            <div>
+                                <p>地址:</p>
+                                <input type="text" v-model="p.address">
+            
+                            </div>
+                            <div>
+                                <p>性别:</p>
+                                <input type="text" v-model="p.sex">
+                            </div>
+                            <button @click="add">增加</button>
+                            <p v-show="addflag">
+                                添加成功
+                            </p>
+                    </div>
+                    <div class="gengxing" v-show="show.two" >
+                            <div>
+                                <p>ID:</p>
+                                <input type="text" v-model="updatep.ID">
+                            </div>
+                            <div>
+                                <p>姓名:</p>
+                                <input type="text" v-model="updatep.username">
+            
+                            </div>
+                            <div>
+                                <p>电话:</p>
+                                <input type="text" v-model="updatep.phone">
+            
+                            </div>
+                            <div>
+                                <p>地址:</p>
+                                <input type="text" v-model="updatep.address">
+            
+                            </div>
+                            <div>
+                                <p>性别:</p>
+                                <input type="text" v-model="updatep.sex">
+                            </div>
+                            <button @click="updatetosql">更新</button>
+                            <p v-show="updateflag">
+                                更新成功
+                            </p>
+                    </div> 
+            </div>    
+
+        </div>
+   
+    </div>
+</body>
+<script>
+    var nico = new Vue({
+        el: '#app',
+        data: {
+            userdata: '',
+            p: {
+                ID: '',
+                username: '',
+                phone: '',
+                address: '',
+                sex: '',
+            },
+            updatep: {
+                id: '',
+                username: '',
+                phone: '',
+                address: '',
+                sex: '',
+            },
+            user: {},
+            addflag: false,
+            delflag: false,
+            updateflag: false,
+            show: {
+                one: true,
+                two: false
+            }
+
+        },
+        mounted() {
+            axios({
+                method: 'get',
+                url: 'http://localhost:8888/selectAll',
+                headers: {
+                    "Content-Type": "application/json;charset=utf-8"
+                },
+
+            }).then((result) => {
+                this.userdata = result.data
+            })
+
+        },
+        methods: {
+            add() {
+                console.log(this.p)
+                var product = JSON.stringify(this.p)
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:8888/add',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    data: product
+
+                }).then((result) => {
+                    console.log(result)
+                    this.addflag = true
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000)
+                })
+            },
+            del: function (id) {
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:8888/delete',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    data: JSON.stringify({
+                        id: id
+                    })
+                }).then((result) => {
+                    console.log(result)
+                    this.delflag = true
+                })
+                setTimeout(() => {
+                    // this.delshow=false
+                    window.location.reload();
+                }, 100)
+            },
+            updateit(id) {
+                for (let index = 0; index < this.userdata.length; index++) {
+                    if (this.userdata[index].ID == id) {
+                        this.updatep = this.userdata[index]
+                    }
+                }
+                this.show.one = false
+                this.show.two = true
+            },
+            updatetosql() {
+                var product = JSON.stringify(this.updatep)
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:8888/update',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    data: product
+
+                }).then((result) => {
+                    // console.log(result)
+                    this.updateflag = true
+                    setTimeout(() => {
+                        window.location.reload();
+                    })
+                })
+            },
+            click(e) {
+                var el = e.currentTarget;
+                if (el.innerHTML == '增加人员') {
+                    this.show.one = true,
+                    this.show.two = false
+
+                } else {
+                    this.show.one = false,
+                    this.show.two = true
+                }
+                // console.log(this.show)
+            }
+
+        },
+    })
+</script>
+
+</html>
