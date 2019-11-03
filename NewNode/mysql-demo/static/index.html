@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<style>
+    .done{
+        text-decoration: line-through;
+        color: #cccccc;
+    }
+    .pages a{
+        margin-right: 15px;
+    }
+</style>
+<body>
+    <div id="app">
+        <h1>todos</h1>
+        <hr>
+        <div>
+            <input type="text" v-model='title'>
+            <button @click="add">添加任务</button>
+        </div>
+        <hr>
+        <ul>
+            <li v-for="(item, index) in todos" :key="item.id" :class="{'done':item.done}">
+                <span>#{{item.id}} - {{item.title}}</span>
+            </li>
+        </ul>
+        <div class="pages">
+            <a href="" v-for="n of pages" @click.prevent="changePage(n)">{{n}}</a>
+        </div>
+    </div>
+</body>
+<script>
+    var nico = new Vue({
+        el: "#app",
+        data: {
+            todos: [],
+            title: '',
+            pages:'',
+            page:1
+        },
+        // computed: {
+        //     async todos(){
+        //         return await getdata(this.page)
+        //     }
+        // },
+        methods: {
+            getdata() {
+                fetch('/todos?page='+this.page).then(res => {
+                    return res.json()
+                }).then(data => {
+                    // console.log(data)
+                    this.todos = data.data.data
+                    this.pages = data.data.pages
+                })
+            },
+            add() {
+                fetch('/add', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        title: this.title
+                    })
+                }).then(res => {
+                    return res.json()
+                }).then(data => {
+                    // this.todos = data.data
+                    if(!data.code){
+                        this.getdata()
+                    }
+                })
+                this.title = ''
+            },
+            changePage(n){
+                // console.log(n)
+                this.page = n
+                this.getdata()
+            }
+        },
+        created() {
+            this.getdata()
+        }
+    })
+</script>
+
+</html>
