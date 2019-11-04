@@ -51,25 +51,38 @@
      *      当前的页码   offset
      * 
      * 如果页码从1开始算，name对应的记录应该  limit 3 offset 1(页码-1*3)
+     * offset必须与limit一起使用，并且limit在前
      * 
-     * 总页码
+     * 查询参数占位符   ？？：字段名，表明
+     *                  ？：值 
+     *              where ??=?             
      */
 
     router.get('/todos',async ctx => {
-        const prepage = 4
+        let prepage  = ctx.query.prepage || 1 
+        prepage = Number(prepage)
         let page = ctx.query.page || 1    //这个page由前端来决定是多少
         page = Number(page)
+        let type = ctx.query.type
+        let where = ''
+        if(type){
+            where = 'where done = '+type
+        }
         //查询总的记录条数
-        const sql1 = `select * from todos`
+        const sql1 = `select * from todos  ${where}`
         const [dataAll] = await connection.query(sql1)
         //总的数据量/每页显示条数，注意小数
         const pages = Math.ceil(dataAll.length/prepage)   //向上取整
 
-        const sql2 =`
-        select * from todos 
-        order by done desc,id asc limit ${prepage} offset ${(page-1)*prepage}
+        // const sql2 =`
+        // select * from todos ${where}
+        // order by done desc,id asc limit ${prepage} offset ${(page-1)*prepage}
+        // `
+        const sql2 = `
+        select * from todos ${where} limit ? offset ?
         `
-        const [data] = await connection.query(sql2)
+        // const [data] = await connection.query(sql2)
+        const [data] = await connection.query(sql2,[prepage,(page-1)*prepage])
         ctx.body = {
             code:0,
             data:{
@@ -104,6 +117,41 @@
             ctx.body={
                 code:2,
                 data:'添加失败'
+            }
+        }
+    })
+
+    router.post('/toggle',async ctx=>{
+        let id = ctx.request.body.id || 0
+        let todo = Number(ctx.request.body.todo) || 0
+        let sql = `update todos set ??=? where ??=?`
+        let [rs] = await connection.query(sql,['done',todo,'id',id])
+        if(rs.affectedRows>0){
+            ctx.body={
+                code:0,
+                data:'修改成功'
+            }
+        }else{
+            ctx.body={
+                code:2,
+                data:'修改失败'
+            }
+        }
+    })
+
+    router.post('/remove',async ctx=>{
+        let id = ctx.request.body.id || 0
+        let sql = `delete from todos where ??=?`
+        let [rs] = await connection.query(sql,['id',id])
+        if(rs.affectedRows>0){
+            ctx.body={
+                code:0,
+                data:'修改成功'
+            }
+        }else{
+            ctx.body={
+                code:2,
+                data:'修改失败'
             }
         }
     })

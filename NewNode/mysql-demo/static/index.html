@@ -9,14 +9,31 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <style>
-    .done{
+    li{
+        line-height: 40px;
+    }
+    .done {
         text-decoration: line-through;
         color: #cccccc;
     }
-    .pages a{
-        margin-right: 15px;
+
+    .pages a {
+        margin-left: 15px;
+    }
+
+    .pages a.active {
+        color: red;
+    }
+
+    .footer {
+        margin: 10px;
+    }
+
+    .footer button.active {
+        background: yellow;
     }
 </style>
+
 <body>
     <div id="app">
         <h1>todos</h1>
@@ -28,11 +45,18 @@
         <hr>
         <ul>
             <li v-for="(item, index) in todos" :key="item.id" :class="{'done':item.done}">
+                <input type="checkbox" :checked="item.done" @click.prevent="toggle(item.id,!item.done)">
                 <span>#{{item.id}} - {{item.title}}</span>
+                <button @click="remove(item.id)">删除</button>
             </li>
         </ul>
         <div class="pages">
-            <a href="" v-for="n of pages" @click.prevent="changePage(n)">{{n}}</a>
+            <a href="" v-for="n of pages" @click.prevent="changePage(n)" :class="{'active': n==page}">{{n}}</a>
+        </div>
+        <div class="footer">
+            <button :class="{active:type===''}" @click="changetype('')">所有</button>
+            <button :class="{active:type===1}" @click="changetype(1)">已完成</button>
+            <button :class="{active:type===0}" @click="changetype(0)">未完成</button>
         </div>
     </div>
 </body>
@@ -41,9 +65,11 @@
         el: "#app",
         data: {
             todos: [],
+            type: '',
             title: '',
-            pages:'',
-            page:1
+            pages: '',
+            page: 1,
+            prepage: 3
         },
         // computed: {
         //     async todos(){
@@ -52,9 +78,10 @@
         // },
         methods: {
             getdata() {
-                fetch('/todos?page='+this.page).then(res => {
-                    return res.json()
-                }).then(data => {
+                fetch('/todos?page=' + this.page + '&prepage=' + this.prepage + '&type=' + this.type).then(
+                    res => {
+                        return res.json()
+                    }).then(data => {
                     // console.log(data)
                     this.todos = data.data.data
                     this.pages = data.data.pages
@@ -73,16 +100,57 @@
                     return res.json()
                 }).then(data => {
                     // this.todos = data.data
-                    if(!data.code){
+                    if (!data.code) {
                         this.getdata()
                     }
                 })
                 this.title = ''
             },
-            changePage(n){
+            changePage(n) {
                 // console.log(n)
                 this.page = n
                 this.getdata()
+            },
+            changetype(n) {
+                this.type = n
+                this.getdata()
+            },
+            toggle(id,todo){
+                fetch('/toggle', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id,
+                        todo
+                    })
+                }).then(res => {
+                    return res.json()
+                }).then(data => {
+                    // this.todos = data.data
+                    if (!data.code) {
+                        this.getdata()
+                    }
+                })
+            },
+            remove(id){
+                fetch('/remove', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id
+                    })
+                }).then(res => {
+                    return res.json()
+                }).then(data => {
+                    // this.todos = data.data
+                    if (!data.code) {
+                        this.getdata()
+                    }
+                })
             }
         },
         created() {
