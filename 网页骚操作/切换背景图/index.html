@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    //<!CDATA[
+        var bodyBgs = [];
+        bodyBgs[0] = "img/1.jpg";
+        bodyBgs[1] = "img/2.png";
+        bodyBgs[2] = "img/3.png";
+
+        var randomBgIndex = Math.round( Math.random() * 2 );
+
+    //输出随机的背景图
+        document.write('<style>body{background:url(' + bodyBgs[randomBgIndex] + ') no-repeat 50% 0}</style>');
+        // document.getElementsByTagName("body")[0].style.height = document.body.scrollHeight+"px";
+        let nico = document.getElementsByTagName("body")[0].style.background = "url('img/1.jpg')"
+        console.log(nico)
+    //]]>
+    </script>
+</html>
