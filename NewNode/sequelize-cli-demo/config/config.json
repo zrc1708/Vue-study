@@ -1,24 +1,35 @@
 {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "database_development",
+    "password": "password",
+    "database": "contect_development",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": false,
+    "seederStorage":"sequelize",
+    "seederStoragePath":"userTestdata.json",
+    "seederStorageTableName":"userTestData"
+  },
+  "home": {
+    "username": "root",
+    "password": "password",
+    "database": "contect_home",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": false
   },
   "test": {
     "username": "root",
-    "password": null,
-    "database": "database_test",
+    "password": "password",
+    "database": "contect_test",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": false
   },
   "production": {
     "username": "root",
-    "password": null,
-    "database": "database_production",
+    "password": "password",
+    "database": "contect_production",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": false
