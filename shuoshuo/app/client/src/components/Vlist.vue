@@ -8,13 +8,13 @@
         </div>
 
         <ul>
-            <li>《</li>
+            <li @click="getdata(Math.max(1,page-1))" :class="{disabled:page==1}">《</li >
 
             <li v-for="(item, index) in pages" :key="index" :class="{'active':item==page}" @click="getdata(item)">
                 {{item}}
             </li>
 
-            <li>》</li>
+            <li @click="getdata(Math.min(1,page+1))" :class="{disabled:page==pages}">》</li >
         </ul>
     </div>
 </template>
@@ -26,7 +26,7 @@
             return {
                 page: 1, //当前页
                 prepage: 2, //每页显示的记录条数
-                pages: 0, //总页数
+                pages: 1, //总页数
                 count: 0, //总技记录数
                 contents: []
             }
@@ -36,7 +36,12 @@
         },
         methods: {
             getdata(p) {
-                this.page = p || 1
+
+                if(p== this.page) return
+
+                this.page = p || this.page
+
+
                 axios({
                     method: 'get',
                     url: 'http://127.0.0.1:8888',
@@ -45,8 +50,9 @@
                     }
                 }).then(rs => {
                     if (!rs.code) {
-                        this.count = rs.data.count,
-                            this.pages = Math.ceil(this.count / this.prepage)
+                        this.count = rs.data.count
+                        this.prepage = rs.data.prepage
+                        this.pages = Math.ceil(this.count / this.prepage)
                         this.contents = rs.data.data
                     }
                 })
@@ -66,5 +72,10 @@
 
     .active {
         background-color: rgba(0, 153, 255, 0.685)
+    }
+    .disabled{
+        color: #cccccc;
+        cursor: not-allowed;   /* 禁止点击 */
+        pointer-events:none
     }
 </style>
