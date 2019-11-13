@@ -95,4 +95,49 @@ router.post('/register',async ctx=>{
     }
 })
 
+router.post('/login',async ctx=>{
+    let username = ctx.request.body.username
+    let password = ctx.request.body.password
+
+    let user = await Models.Users.findOne({
+        where:{
+            username
+        }
+    })
+
+    if(user === null){
+        return ctx.body={
+            code:1,
+            data:'不存在该用户'
+        }
+    }
+
+    if(user.password !==md5(password)){
+        return ctx.body={
+            code:1,
+            data:'密码错误'
+        }
+    }
+
+    ctx.cookies.set('uid',user.get('id'),{
+        httpOnly:false,
+        signed:true
+    })
+
+    ctx.body={
+        code:0,
+        data:{
+            id:user.id,
+            username:user.username
+        }
+    }
+    
+})
+
+// router.post('/like',async ctx=>{
+//     //让客户端请求的时候带过来一个凭证
+//     if( ){
+
+//     }
+// })
 module.exports = router
