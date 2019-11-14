@@ -117,6 +117,9 @@
                         this.modelName = ''
                         this.userInfo.id = res.data.data.id
                         this.userInfo.username = res.data.data.username
+
+                        //把用户登录成功后的uid，保存在本地，方便浏览器去获取的位置
+                        localStorage.setItem('uid',this.userInfo.id)
                     }
                 })
             }

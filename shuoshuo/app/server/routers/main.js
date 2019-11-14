@@ -121,8 +121,10 @@ router.post('/login',async ctx=>{
 
     ctx.cookies.set('uid',user.get('id'),{
         httpOnly:false,
-        signed:true
+        maxAge:10000
     })
+
+    
 
     ctx.body={
         code:0,
@@ -134,10 +136,18 @@ router.post('/login',async ctx=>{
     
 })
 
-// router.post('/like',async ctx=>{
-//     //让客户端请求的时候带过来一个凭证
-//     if( ){
+router.post('/like',async ctx=>{
+    //让客户端请求的时候带过来一个凭证
+    let contentid = ctx.request.body.contentid   //要点赞内容的id
+    let uid = ctx.request.body.uid          //当前点赞的用户
 
-//     }
-// })
+    console.log(contentid,uid)
+
+    //根据上面的cookie约定，如果当前
+
+    ctx.body={
+        code:0,
+        data:'点赞成功'
+    }
+})
 module.exports = router

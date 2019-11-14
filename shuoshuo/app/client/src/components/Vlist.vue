@@ -4,7 +4,10 @@
             <div class="title">{{content.title}}</div>
             <div>{{content.created_at}}</div>
             <div>{{content.content}}</div>
-            <div>赞（{{content.like_count}}） 回复（{{content.comment_count}}）<a href="">我要回复</a></div>
+            <div> 
+                <span @click="like(content.id)">赞（{{content.like_count}}）</span>  
+                回复（{{content.comment_count}}）<a href="">我要回复</a>
+            </div>
         </div>
 
         <ul>
@@ -54,6 +57,16 @@
                         this.prepage = rs.data.prepage
                         this.pages = Math.ceil(this.count / this.prepage)
                         this.contents = rs.data.data
+                    }
+                })
+            },
+            like(id){
+                axios({
+                    method:'post',
+                    url:'http://127.0.0.1:8888/like',
+                    data:{
+                        contentid:id,
+                        uid:localStorage.getItem('uid')
                     }
                 })
             }
