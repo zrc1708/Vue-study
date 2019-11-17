@@ -119,11 +119,18 @@ router.post('/login',async ctx=>{
         }
     }
 
-    ctx.cookies.set('uid',user.get('id'),{
-        httpOnly:false,
-        maxAge:10000
-    })
+    // ctx.cookies.set('uid',user.get('id'),{
+    //     httpOnly:true,    //表示当前的cookie是否允许客户端进行操作（js）,如果为true,就表示只能用于HTTP协议的数据传输
+    //     // maxAge:10000
+    //     signed:true
+    // })
+    // ctx.cookies.set('username',username,{
+    //     httpOnly:false,    
+    //     // maxAge:10000
+    //     signed:true
+    // })
 
+    ctx.session.uid = user.get('id')
     
 
     ctx.body={
@@ -139,11 +146,15 @@ router.post('/login',async ctx=>{
 router.post('/like',async ctx=>{
     //让客户端请求的时候带过来一个凭证
     let contentid = ctx.request.body.contentid   //要点赞内容的id
-    let uid = ctx.request.body.uid          //当前点赞的用户
+    // let uid = ctx.request.body.uid          //当前点赞的用户
+
+
+    //根据上面的cookie约定，如果当前请求的是一个登陆的用户，name头信息肯定会有当前这个登陆用户的id
+
+
+    let uid = ctx.session.uid
 
     console.log(contentid,uid)
-
-    //根据上面的cookie约定，如果当前
 
     ctx.body={
         code:0,

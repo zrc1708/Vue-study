@@ -2,7 +2,7 @@
     <div>
         <img src="../assets/img/4131241.png" alt="">
 
-        <div v-if="userInfo.id">
+        <div v-if="userInfo.username">
             <a href="">{{userInfo.username}}</a>
             <span>|</span>
             <a href="#" @click.prevent="login">退出</a>
@@ -77,12 +77,29 @@
             }
         },
         created() {
-          console.log(document.cookie)  
+            //   console.log(document.cookie)  
+            //从cookie中获取用户信息
+
+
+            let arr1 = document.cookie.split('; ')
+            arr1 = arr1.map(item => {
+                let arr2 = item.split('=')
+                return {
+                    [arr2[0]]: arr2[1]
+                }
+            })
+            let cookie = Object.assign({}, ...arr1)
+
+
+            this.userInfo = {
+                // id: cookie.uid,
+                username: cookie.username
+            }
+            console.log(this.userInfo)
         },
         methods: {
             register() {
                 this.modelName = 'register'
-
             },
             login() {
                 this.modelName = 'login'
@@ -109,7 +126,7 @@
                     method: 'post',
                     url: 'http://127.0.0.1:8888/login',
                     data: this.log,
-                    withCredentials:true
+                    withCredentials: true
                 }).then((res) => {
                     if (res.data.code) {
                         alert(res.data.data)
@@ -119,7 +136,7 @@
                         this.userInfo.username = res.data.data.username
 
                         //把用户登录成功后的uid，保存在本地，方便浏览器去获取的位置
-                        localStorage.setItem('uid',this.userInfo.id)
+                        // localStorage.setItem('uid',this.userInfo.id)   //使用cookie就不需要使用这个来存储
                     }
                 })
             }

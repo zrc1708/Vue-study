@@ -61,13 +61,15 @@
                 })
             },
             like(id){
+                // console.log(document.cookie)
                 axios({
                     method:'post',
                     url:'http://127.0.0.1:8888/like',
                     data:{
                         contentid:id,
-                        uid:localStorage.getItem('uid')
-                    }
+                        // uid:localStorage.getItem('uid')  //使用了cookie就没有必要再发送
+                    },
+                    withCredentials: true
                 })
             }
         }

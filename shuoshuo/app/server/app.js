@@ -2,10 +2,25 @@
     const Koa = require('koa')
     const KoaStaticCache = require('koa-static-cache')
     const KoaBodyParser = require('koa-bodyparser')
+    const Session = require('koa-session')
+
     const router = require('./routers/main')
     const cors = require('koa2-cors')
 
     const app = new Koa()
+
+    app.keys=['dajiahaowoshinico']
+
+    app.use(Session({
+        key:'koa:sess',
+        maxAge:1000*60*60*24,
+        autoCommit: true,
+        overwrite: true,
+        httpOnly: true,
+        signed: true,
+        rolling: false,
+        renew: false,
+    },app))
 
     // app.use(async (ctx, next) => {
     //     ctx.set('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');
