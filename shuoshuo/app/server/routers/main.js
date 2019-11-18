@@ -1,6 +1,7 @@
 const KoaRouter = require('koa-router')
 const md5  = require('md5')
 const Models  = require('../models/index')
+const Seuqelize = require('sequelize')
 
 const router  = new KoaRouter()
 
@@ -124,11 +125,11 @@ router.post('/login',async ctx=>{
     //     // maxAge:10000
     //     signed:true
     // })
-    // ctx.cookies.set('username',username,{
-    //     httpOnly:false,    
-    //     // maxAge:10000
-    //     signed:true
-    // })
+    ctx.cookies.set('username',username,{
+        httpOnly:false,    
+        // maxAge:10000
+        signed:true
+    })
 
     ctx.session.uid = user.get('id')
     
@@ -154,11 +155,59 @@ router.post('/like',async ctx=>{
 
     let uid = ctx.session.uid
 
-    console.log(contentid,uid)
+    // console.log(contentid,uid)
+    if(!uid){
+        return ctx.body={
+            code:1,
+            data:'你还没有登录'
+        }
+    }
+
+    //获取当前被点赞的内容
+    let content = await Models.Contents.findOne({
+        where:{
+            id : contentid
+        }
+    })
+
+    if(!content){
+        return ctx.body={
+            code:2,
+            data:'没有对应的内容'
+        }
+    }
+
+    // console.log(content)
+
+    //查询当前用户是否已经点过赞了
+    let like = await Models.Likes.findOne({
+        where:{
+            [Seuqelize.Op.and]:[
+                {'content_id':contentid},
+                {'user_id':uid}
+            ]
+        }
+    })
+    if(like){
+        return ctx.body={
+            code:3,
+            data:'你已经点过赞了'
+        }
+    }
+
+    //对内容的like数据进行增加
+    content.like_count = content.like_count+1
+    await content.save()
+    // content.set('like_count',content.get('like_count')+1)
+    // console.log(content)
+    await  Models.Likes.build({
+        content_id:contentid,
+        user_id:uid
+    }).save()
 
     ctx.body={
         code:0,
-        data:'点赞成功'
+        data:content
     }
 })
 module.exports = router

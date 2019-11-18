@@ -54,6 +54,10 @@ module.exports = (sequelize, Sequelize) => {
       foreignKey:'content_id'
     })
 
+    Contents.hasMany(models.Likes,{
+      foreignKey:'content_id'
+    })
+
   };
   return Contents;
 };

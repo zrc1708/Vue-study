@@ -70,6 +70,17 @@
                         // uid:localStorage.getItem('uid')  //使用了cookie就没有必要再发送
                     },
                     withCredentials: true
+                }).then(({data})=>{
+                    // console.log(data)
+                    if(!data.code){
+                        this.contents.forEach(content => {
+                            if(content.id==data.data.id){
+                                content.like_count = data.data.like_count
+                            }
+                        });
+                    }else{
+                        alert(data.data)
+                    }
                 })
             }
         }
