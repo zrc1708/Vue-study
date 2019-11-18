@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2017",
+        "outDir": "./dist/"
+        // "outFile": "./bundle.js"
+    },
+    "include": [
+        "./src/*"
+    ],
+    "exclude": [
+        
+    ]
+}
