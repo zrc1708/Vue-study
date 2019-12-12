@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
+
+
+</head>
+<style>
+    .yzm {
+        width: 100px;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <div>
+            <div v-html="img" @click="change" class="yzm"></div>
+            <input type="text" v-model="code" placeholder="请输入验证码" @blur='confirm'>
+            <button @click="yzm">获取</button>
+        </div>
+        <h1>{{jieguo}}</h1>
+    </div>
+</body>
+<script>
+    var nico = new Vue({
+        el: '#app',
+        data: {
+            code: '',
+            img: '',
+            jieguo: ''
+        },
+        mounted() {
+
+            axios({
+                method: 'get',
+                url: 'http://127.0.0.1:8888/code',
+            }).then((res) => {
+                this.img = res.data.data
+            })
+        },
+        methods: {
+            change() {
+                axios({
+                    method: 'get',
+                    url: 'http://127.0.0.1:8888/code',
+                }).then((res) => {
+                    // console.log(res.data)
+                    this.img = res.data.data
+                    // console.log(this.img)
+                })
+            },
+            yzm() {
+                // axios({
+                //     method: 'get',
+                //     url: 'http://127.0.0.1:8888/code',
+                // }).then((res) => {
+                //     // console.log(res.data)
+                //     this.img=res.data.data
+                //     // console.log(this.img)
+                // })
+
+                axios({
+                    method: 'get',
+                    url: 'http://127.0.0.1:8888/confirmcode',
+                }).then((res) => {
+                    console.log(res.data)
+                })              
+            },
+            confirm() {
+                if (this.code) {
+                    axios({
+                        method: 'get',
+                        url: 'http://127.0.0.1:8888/confirmcode',
+                    }).then((res) => {
+                        // console.log(this.code)
+                        if (this.code == res.data) {
+                            this.jieguo = '正确'
+                        } else {
+                            this.jieguo = '错误'
+                        }
+                    })
+                }
+            }
+        },
+    })
+</script>
+
+</html>
