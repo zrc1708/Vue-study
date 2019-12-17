@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>找回密码</title>
+	<link rel="stylesheet" type="text/css" href="css/public.css" />
+	<link rel="stylesheet" type="text/css" href="css/login.css" />
+	<link rel="stylesheet" type="text/css" href="css/index.css" />
+
+	<link rel="stylesheet" href="https://unpkg.com/element-ui@2.12.0/lib/theme-chalk/index.css">
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<script src="https://unpkg.com/element-ui@2.12.0/lib/index.js"></script>
+
+	<!-- <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script> -->
+	<script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+	<script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
+	<style>
+		#log {
+			font-family: Georgia;
+			font-size: 24px
+		}
+
+		.button {
+			/* color: red; */
+			background: #c10000;
+			border-color: #c10000;
+			width: 270px;
+			height: 42px;
+			border-radius: 7px;
+		}
+
+		.button:hover {
+			/* color: rgb(0, 0, 0); */
+			border-color: #a70000;
+			background: #a70000;
+
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<!-------------------login-------------------------->
+		<div class="head">
+			<div class="wrapper clearfix">
+				<div class="clearfix" id="top">
+					<h1 class="fl"><a href="index.html"><img src="img/logo.png" class="Linn" /></a></h1>
+					<div class="fr clearfix" id="top1" style="margin-top: 2%;">
+						<p v-if="loginCheck" class="fl">
+							<a href="login.html">登录</a>
+							<a href="reg.html">注册</a>
+						</p>
+						<p v-else class="fl">
+							欢迎您,{{username}}
+						</p>
+						<form action="#" method="get" class="fl">
+							<input type="text" placeholder="热门搜索：优质房间" />
+							<input type="button" />
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="login">
+			<form @submit.prevent="" v-show="checka">
+
+				<p style="margin-top: 30px" id="log">用户确认</p>
+				<p>
+					<el-input v-model="loginName" placeholder="请输入用户"></el-input>
+				</p>
+
+				<div class="msg-warn hide" style="margin-top: 10px" v-show="checkerror"><b></b>该用户不存在</div>
+
+
+				<div id="nicoyzm">
+					<el-input v-model="code" placeholder="请输入验证码" id="nicoone"></el-input>
+					<div v-html="img" @click="change" class="yzm"></div>
+				</div>
+
+
+
+				<p>
+					<button class="button" @click="clicknext"><span style="color:white">下一步</span></button>
+				</p>
+
+			</form>
+			<form @submit.prevent="" v-show="checkb">
+
+				<p style="margin-top: 30px" id="log">输入密码</p>
+				<p>
+					<!-- <input type="text" v-model="login.loginName" placeholder="账号"> -->
+					<el-input v-model="password" placeholder="请输入密码" type="password"></el-input>
+				</p>
+				<p>
+					<!-- <input type="password" v-model="login.password" placeholder="密码" style="padding-left: 10px;"> -->
+					<el-input v-model="samePassword" placeholder="请再次输入密码" type="password"></el-input>
+				</p>
+				<div class="msg-warn hide" style="margin-top: 10px" v-show="pwderror"><b></b>密码不一致</div>
+				<div class="msg-warn hide" style="margin-top: 10px" v-show="updatesucces"><b></b>修改成功,{{time}},秒后跳转</div>
+
+				<p>
+					<button type="submit" class="button" @click="clickcheck2"><span style="color:white">修改</span>
+					</button>
+				</p>
+			</form>
+		</div>
+	</div>
+</body>
+<script>
+	//  axios.defaults.withCredentials = true
+	new Vue({
+		el: '#app',
+		data: {
+			checkerror: false,
+			updatesucces: false,
+			pwderror: false,
+			loginName: '',
+			password: '',
+			id: '',
+			samePassword: '',
+			arrayname: [],
+			array: [],
+			array2: [],
+			array3: [],
+			loginCheck: true,
+			checka: true,
+			checkb: false,
+			username: '',
+			flag: Number,
+			updateuser: '',
+			code: '',
+			img: '',
+			time:3
+		},
+
+		mounted() {
+
+			axios({
+				method: 'get',
+				url: 'http://127.0.0.1:8888/code',
+			}).then((res) => {
+				this.img = res.data.data
+			})
+
+		},
+
+		methods: {
+
+			
+			clicknext() {
+				axios({
+					method: 'get',
+					url: 'http://127.0.0.1:8888/confirmcode',
+				}).then((res) => {
+					if (this.code == res.data) {
+						axios({
+							method: 'post',
+							url: 'http://localhost:8888/checkusername',
+							headers: {
+								"Content-Type": "application/json"
+							},
+							data: JSON.stringify({
+								username: this.loginName,
+							})
+
+						}).then((result) => {
+							// console.log(result.data.rs[0])
+							this.updateuser = result.data.rs[0]
+							if (result.data.rs[0]) {
+								this.checkerror = false;
+								this.checka = false;
+								this.checkb = true;
+							} else {
+								this.checkerror = true
+								this.change()
+							}
+
+						})
+					} else if (this.code == '') {
+						alert('请输入验证码')
+						this.change()
+					} else {
+						alert('验证码错误')
+						this.change()
+					}
+				})
+			},
+			clickcheck2() {
+				if (this.password == this.samePassword) {
+					this.pwderror = false;
+					this.update()
+				} else {
+					this.pwderror = true;
+				}
+			},
+			update() {
+				axios({
+					method: 'post',
+					url: 'http://localhost:8888/updateuser',
+					headers: {
+						"Content-Type": "application/json"
+					},
+
+					data: JSON.stringify({
+						username: this.loginName,
+						password: this.password
+					})
+
+				}).then((result) => {
+					console.log(result)
+					this.pwderror = false;
+					this.updatesucces = true;
+					setTimeout(() => {
+						this.time--
+					}, 1000);
+					setTimeout(() => {
+						this.time--
+					}, 2000);
+					setTimeout(() => {
+						window.location.href = "login.html";
+					}, 3000);
+				})
+			},
+			change() {
+				axios({
+					method: 'get',
+					url: 'http://127.0.0.1:8888/code',
+				}).then((res) => {
+					// console.log(res.data)
+					this.img = res.data.data
+					// console.log(this.img)
+				})
+			},
+		},
+
+
+	})
+</script>
+<script src="js/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+
+</html>
