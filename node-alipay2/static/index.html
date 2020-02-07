@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+    <!-- <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script> -->
+    <script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
+
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
+    </script>
+
+</head>
+<style>
+
+</style>
+
+<body>
+    <div id="app">
+        <table>
+            <tr>
+                <th>品名</th>
+                <th>单号</th>
+                <th>价格</th>
+                <th>操作</th>
+            </tr>
+            <tr>
+                <td>洛基</td>
+                <td>1111111</td>
+                <td>199</td>
+                <td><button @click="buy(111111111111,199,'洛基')">购买</button></td>
+                <td><button @click="chaxun(111111111111)">查询</button></td>
+            </tr>
+            <tr>
+                <td>电男</td>
+                <td>111112</td>
+                <td>299</td>
+                <td><button @click="buy(111111111112,299,'电男')">购买</button></td>
+                <td><button @click="chaxun(111111111112)">查询</button></td>
+            </tr>
+            <tr>
+                <td>鸟姐</td>
+                <td>111113</td>
+                <td>399</td>
+                <td><button @click="buy(111111111113,399,'鸟姐')">购买</button></td>
+                <td><button @click="chaxun(111111111113)">查询</button></td>
+            </tr>
+            <tr>
+                <td>瓦喵</td>
+                <td>111114</td>
+                <td>499</td>
+                <td><button @click="buy(111111111114,499,'瓦喵')">购买</button></td>
+                <td><button @click="chaxun(111111111114)">查询</button></td>
+            </tr>
+        </table>
+    </div>
+</body>
+<script>
+    var nico = new Vue({
+        el: '#app',
+        data: {
+
+        },
+        mounted() {
+
+        },
+        methods: {
+            buy(id, money, title) {
+                // console.log(id, money,title)
+                axios({
+                    method: 'get',
+                    url: 'http://localhost:8888/pay',
+                    headers: {
+                        "Content-Type": "application/json;charset=utf-8"
+                    },
+                    params: {
+                        'orderid': id,
+                        'orderprice': money,
+                        'title': title
+                    }
+
+                }).then((result) => {
+                    // console.log(result.data)
+                    // window.location.href=result.data.result;
+                    let winObj = window.open(result.data.result);
+                    let loop = setInterval(function () {
+                        console.log(1)
+                        if (winObj.closed) {
+                            clearInterval(loop);
+                            window.location.href=`http://127.0.0.1:8888/static/success.html?out_trade_no=${id}`;
+                            // console.log(123)
+                            // _this.setState({
+                            //     isLoading: false
+                            // })
+                        }
+                    }, 1000);
+                })
+            },
+            chaxun(id) {
+                axios({
+                    method: 'get',
+                    url: 'http://localhost:8888/inquire',
+                    headers: {
+                        "Content-Type": "application/json;charset=utf-8"
+                    },
+                    params: {
+                        'orderid': id
+                    }
+
+                }).then((result) => {
+                    console.log(result.data)
+                    // window.location.href=result.data.result;
+                })
+            }
+        },
+    })
+</script>
+
+</html>

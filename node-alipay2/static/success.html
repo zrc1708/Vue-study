@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
+
+
+</head>
+<body>
+    <div id="app">
+        <h1>{{show}}</h1>
+        <p>订单号：{{data}}</p>
+        <button @click="chaxun">查询此订单</button>
+    </div>
+    
+</body>
+<script>
+function getQueryVariable(variable)
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               console.log(pair[0]+'===='+pair[1])
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+}
+// console.log(getQueryVariable('charset'))
+
+var nico = new Vue({
+    el:'#app',
+    data:{
+        data:'',
+        show:''
+    },
+    mounted() {
+        this.data = getQueryVariable('out_trade_no')
+        this.chaxun()
+    },
+    methods: {
+        chaxun(){
+            axios({
+                    method: 'get',
+                    url: 'http://localhost:8888/inquire',
+                    headers: {
+                        "Content-Type": "application/json;charset=utf-8"
+                    },
+                    params: {
+                        'orderid': this.data
+                    }
+
+                }).then((result) => {
+                    console.log(result.data.alipay_trade_query_response)
+                    if(result.data.alipay_trade_query_response.code=='10000'){
+                        this.show = '支付成功'
+                    }else{
+                        this.show = '支付失败'
+                    }
+                    // window.location.href=result.data.result;
+                })
+        }
+    },
+})
+</script>
+</html>
