@@ -3,8 +3,8 @@
         "module": "commonjs",
         "target": "es2017",
         "outDir": "./dist/",
-        "strictNullChecks": true
-        // "outFile": "./bundle.js"
+        "strictNullChecks": true,
+        "noImplicitThis":true
     },
     "include": [
         "./src/*"
