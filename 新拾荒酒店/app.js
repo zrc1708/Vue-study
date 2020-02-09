@@ -88,6 +88,19 @@
         }
     });
 
+     //根据用户id查询用户信息接口
+     router.post('/checkuserbyid', async ctx => {
+        const id = ctx.request.body.id;        
+
+        const sql = `SELECT * FROM users where ID = '${id}'`;
+        const [rs] = await connection.query(sql);
+
+        //把数据传到前端
+        ctx.body = {
+            rs
+        }
+    });
+
     //查询所有订单信息接口
     router.post('/ordersearch', async ctx => {
 
@@ -160,7 +173,7 @@
         }
     });
 
-    //更新用户数据接口
+    //根据用户名更新用户数据接口
     router.post('/update', async ctx => {
 
         const update = ctx.request.body.userdata;
@@ -169,6 +182,57 @@
         let sql =
             `UPDATE users SET phone=${update.phone} , address='${update.address}', userID=${update.userid} , userlevel=${update.userlevel} ,
              sex=${update.sex} WHERE username='${name}';`
+
+        let [rs] = await connection.query(sql);
+
+        if (rs.affectedRows > 0) {
+            ctx.body = {
+                code: 0,
+                data: '修改成功'
+            }
+        } else {
+            ctx.body = {
+                code: 2,
+                data: '修改失败'
+            }
+        }
+
+    });
+
+     //根据用户id更新用户数据接口
+     router.post('/updateuserbyid', async ctx => {
+
+        const update = ctx.request.body.userdata;
+
+        let sql =
+            `UPDATE users SET phone='${update.phone}' , address='${update.address}', userID='${update.userID}' , userlevel='${update.userlevel}' ,
+             sex='${update.sex}' WHERE ID='${update.ID}';`
+
+
+        let [rs] = await connection.query(sql);
+
+        if (rs.affectedRows > 0) {
+            ctx.body = {
+                code: 0,
+                data: '修改成功'
+            }
+        } else {
+            ctx.body = {
+                code: 2,
+                data: '修改失败'
+            }
+        }
+
+    });
+
+    //用户发卡数据接口
+    router.post('/faka', async ctx => {
+
+        const userid = ctx.request.body.userid;
+        // console.log(name);
+        let sql =
+            `UPDATE users SET userlevel=2 
+             WHERE ID=${userid};`
 
         let [rs] = await connection.query(sql);
 
@@ -260,6 +324,27 @@
         let id = ctx.request.body.id;
         // console.log(id)
         let sql = "DELETE FROM orders WHERE ??=?";
+        let [rs] = await connection.query(sql, ['ID', id]);
+
+        if (rs.affectedRows > 0) {
+            ctx.body = {
+                code: 0,
+                data: '修改成功'
+            }
+        } else {
+            ctx.body = {
+                code: 2,
+                data: '修改失败'
+            }
+        }
+
+    });
+
+     //删除用户接口
+     router.post('/userdelete', async ctx => {
+        let id = ctx.request.body.id;
+        // console.log(id)
+        let sql = "DELETE FROM users WHERE ??=?";
         let [rs] = await connection.query(sql, ['ID', id]);
 
         if (rs.affectedRows > 0) {
