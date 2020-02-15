@@ -1,0 +1,48 @@
+html,body,#app{
+    height: 100%;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.el-header{
+    background: #545c64;
+}
+
+.fl{
+    float: left;
+}
+
+.fr{
+    float: right;
+    color: white;
+    font-size: 20px;
+}
+
+.clearfix:after{
+    display: block;
+    content:'';
+    clear:both;
+}
+
+.mt10{
+    margin-top: 10px !important;
+}
+
+.h1{
+    margin: 0;
+    padding: 0 20px 0 0;
+    text-align: center;
+    width: 160px;
+    height: 60px;
+    font-size: 20px;
+    line-height: 60px;
+}
+.el-container{
+    height: 100%;
+}
+.el-aside{
+    background: #545c64;
+}
