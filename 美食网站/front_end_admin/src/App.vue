@@ -17,7 +17,9 @@
       </el-header>
 
       <el-container>
-        <el-aside>aside</el-aside>
+        <el-aside>
+          <AppAsideMenu></AppAsideMenu>
+        </el-aside>
         <el-main>main</el-main>
       </el-container>
 
@@ -26,12 +28,14 @@
 </template>
 
 <script lang="ts">
-  import {
-    Vue,
-    Component
-  } from 'vue-property-decorator'
+  import {Vue,Component} from 'vue-property-decorator'
+  import AppAsideMenu from '@/components/AppAsideMenu.vue'
 
-  @Component
+  @Component({
+    components:{
+      AppAsideMenu
+    }
+  })
   export default class App extends Vue {
     name: string = '后台管理'
   }
