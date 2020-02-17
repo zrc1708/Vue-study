@@ -7,7 +7,7 @@
                 active-text-color="#ffd04b"
                 mode="vertical"
 
-                default-active='/'
+                :default-active="routeName"
                 :router="true"
             >
                 <el-menu-item v-for="(menu,n) of menus"  :key="n" :index="menu.name">
@@ -24,6 +24,7 @@
     
     import {Vue,Component} from 'vue-property-decorator'
     import AsideMenuData from '../data/AsideMenuData'
+    import {ISTATE} from '../store/index'
 
     @Component
     export default  class AppAsideMenu extends Vue{
@@ -32,6 +33,12 @@
 
         created() {
             this.menus = AsideMenuData
+        }
+
+        //计算属性
+        get routeName(){
+            let data:ISTATE = this.$store.state
+            return data.routeName
         }
     }
 </script>

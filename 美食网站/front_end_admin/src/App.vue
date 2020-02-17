@@ -20,7 +20,11 @@
         <el-aside>
           <AppAsideMenu></AppAsideMenu>
         </el-aside>
-        <el-main>main</el-main>
+        <el-main>
+          <router-view>
+            
+          </router-view>
+        </el-main>
       </el-container>
 
     </el-container>
