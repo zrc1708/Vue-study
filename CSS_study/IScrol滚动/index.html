@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="//ossweb-img.qq.com/images/js/iscroll_library/iscroll-5.2.0.js"></script> -->
+    <script src="https://cdn.bootcss.com/iScroll/5.2.0/iscroll-probe.min.js"></script>
+</head>
+<style>
+    #wrap {
+        width: 200px;
+        height: 200px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    #wrap>ul {
+        /* display: block; */
+        margin: 0;
+        padding: 0;
+        background-color: #d4d8e6;
+    }
+
+    #wrap li {
+        display: block;
+        width: 100px;
+        height: 30px;
+        background-color: blue;
+        padding: 10px;
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+</style>
+
+<body>
+    <div id="wrap">
+        <ul>
+            <li onclick="nico()">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>10</li>
+            <li>11</li>
+            <li>12</li>
+        </ul>
+    </div>
+</body>
+<script>
+
+    var myScroll = new IScroll('#wrap', {
+        mouseWheel: true,   //鼠标滚轮支持,默认false
+        bounce:true, //当滚动器到达容器边界时他将执行一个小反弹动画,老设备可禁用提升性能，默认true
+        click:true,//iScroll禁止了一些默认的浏览器行为，比如鼠标的点击
+        scrollbars: true,   //滚动条支持
+        interactiveScrollbars:true, //让滚动条能拖动 
+        fadeScrollbars:true,//滚动条淡入淡出
+        scrollX: false,
+        scrollY: true,
+
+        tap:true,//iscroll很人性化的内置了tap事件，只要开启tap，就可以在元素上响应tap
+
+        //配置侦听滚动事件的方式(需要换成引入iscroll-probe.js)
+        probeType: 3//可取值：1,2,3
+        //1,scroll执行缓慢,惯性的滚动不执行
+        //2,scroll执行较快,惯性的滚动不执行
+        //3,scroll执行较快,惯性的滚动执行
+    });
+
+    function nico(){
+        console.log('123')
+    }
+</script>
+
+</html>

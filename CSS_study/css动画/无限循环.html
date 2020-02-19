@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/animate.css@3.5.2/animate.min.css">
+    <style>
+        .box {
+            height: 100px;
+            width: 100px;
+            background-color: lightblue
+        }
+
+        .infinite {
+            animation-iteration-count: infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn1">添加循环的动画效果</button>
+    <button id="btn2">移除</button>
+    <div id="box" class="box"></div>
+    <script>
+        var oBtn1 = document.getElementById('btn1');
+        var oBtn2 = document.getElementById('btn2');
+        var oBox = document.getElementById('box');
+        oBtn1.onclick = function () {
+            oBox.classList.add('animated');
+            oBox.classList.add('flash');
+            oBox.classList.add('infinite');
+        }
+        oBtn2.onclick = function () {
+            oBox.classList.remove('flash');
+        }
+    </script>
+</body>
+
+</html>
