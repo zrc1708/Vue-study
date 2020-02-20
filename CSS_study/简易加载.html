@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    dot {
+    display: inline-block; 
+    height: 1em;
+    line-height: 1;
+    text-align: left;
+    vertical-align: -.25em;
+    overflow: hidden;
+}
+dot::before {
+    display: block;
+    content: '...\A..\A.';
+    white-space: pre-wrap;
+    animation: dot 3s infinite step-start both;
+    /* step-start属性，用于 速度 位置，这个属性，变成以一帧一帧的方式进行动画（没有过度效果) */
+    /* none	不改变默认行为
+       forwards	forwards当动画完成后，保持最后一帧的状态（也就是最后一个关键帧中定义的状态）
+       backwards	在animation-delay指定动画延迟的一段时间内，元素保持为第一帧中的状态（也就是第一帧中所定义的状态）
+       both	表示上面两者模式都被应用*/
+}
+@keyframes dot {
+    33% { transform: translateY(-2em); }
+    66% { transform: translateY(-1em); }
+}
+</style>
+<body>
+    正在加载中<dot>...</dot>
+</body>
+</html>

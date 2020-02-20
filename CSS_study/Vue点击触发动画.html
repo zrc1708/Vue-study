@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.10/vue.min.js"></script>
+</head>
+<style>
+    .div1{
+        width: 100px;
+        height: 100px;
+        background-color: #6ae0f5;
+    }
+    .div2{
+        width: 100px;
+        height: 40px;
+        border-radius: 5px;
+        background-color: blue;
+        text-align: center;
+        line-height: 40px;
+        /* 设置文字无法被选中 */
+        -webkit-user-select:none;
+        -moz-user-select:none;
+        -ms-user-select:none;
+        user-select:none;
+    }
+    .Anim{
+    animation: switchColor .5s linear;
+    }
+    @keyframes switchColor {
+        from{
+            background-color: #6ae0f5;
+        }to{
+            background-color: blue;
+        }
+    }
+    .big{
+        /* alternate 动画轮流反向播放
+        
+        linear	动画从头到尾的速度是相同的。	
+        ease	默认。动画以低速开始，然后加快，在结束前变慢。
+        ease-in	动画以低速开始。
+        ease-out	动画以低速结束。
+        ease-in-out	动画以低速开始和结束。 
+        
+        infinite 无限次播放
+        */
+        animation: switchsize 0.1s alternate linear
+    }
+    @keyframes switchsize {
+        0% {width: 100px;
+            height: 40px;
+            line-height: 40px;
+            background-color: rgb(1, 1, 134);}
+        50% {width: 105px;
+            height: 45px;
+            background-color: rgb(1, 1, 134);
+            line-height: 45px;}
+        100% {width: 100px;
+            height: 40px;
+            line-height: 40px;
+            background-color: blue;}
+    }
+</style>
+<body>
+    <div id="app">
+        <!-- animationstart - CSS 动画开始后触发
+            animationiteration - CSS 动画重复播放时触发
+            animationend - CSS 动画完成后触发 -->
+        <div class="div1"
+        @click="inAnimation=true"
+        :class="inAnimation?'Anim':''"
+        @animationend="inAnimation = false"
+        >点击触发动画</div>
+        <div class="div2" @click="div2 = true" 
+        :class="div2?'big':''" @animationend="div2=false">特效按钮</div>
+    </div>
+    
+</body>
+<script>
+    var nico = new Vue({
+        el:'#app',
+        data:{
+            inAnimation:false,
+            div2:false
+        }
+    })
+</script>
+</html>
