@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .container {
+        max-width: 1920px;
+        height: 500px;
+        background: url('./testImage/back.jpg') no-repeat center;
+        /* overflow: hidden; */
+        /* 父级要使用这条块状格式化上下文来避免因margin合并导致的图片下移 */
+    }
+
+    .container>h2 {
+        font-size: 128px;
+        margin-top: 100px;
+        color: #fff;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h2>margin合并</h2>
+    </div>
+</body>
+
+</html>
