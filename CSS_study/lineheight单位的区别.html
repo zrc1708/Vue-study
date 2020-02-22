@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width='device-width', initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .box   { font-size: 14px; }
+    .box-1 { line-height: 1.5; }
+    .box-2 { line-height: 150%; }
+    .box-3 { line-height: 1.5em; }
+
+    h3, p {
+        margin: 0;
+    }
+    h3 { font-size: 32px; }
+    p  { font-size: 20px; }
+</style>
+<body>
+    <div class="box box-1">
+        <h3>标题</h3>
+        <p>内容</p>
+    </div>
+    <div class="box box-2">
+        <h3>标题</h3>
+        <p>内容</p>
+    </div>
+<!-- 150%和1.5em文字重叠的原因在于h3和p继承的并不是150%和1.5em，而是body元素计算值21px -->
+<!-- 1.5则是属性1.5 -->
+
+    <div class="box box-3">
+        <h3>标题</h3>
+        <p>内容</p>
+    </div>
+</body>
+</html>
