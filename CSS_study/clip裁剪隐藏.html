@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .logo h1{
+        position: absolute;
+        clip: rect(0 0 0 0);
+    }
+    /* 即满足了SEO和无障碍识别，又满足了logo的美观性 */
+    /* 用clip是最接可访问性隐藏，既满足视觉性隐藏，屏幕阅读设备等也支持很好 */
+</style>
+<body>
+    <a href="/" class="logo">
+        <h1>nico</h1>
+        <img src="./testImage/logo.png" alt="">
+    </a>
+</body>
+</html>
