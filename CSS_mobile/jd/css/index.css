@@ -1,3 +1,15 @@
+*{
+    -webkit-tap-highlight-color: transparent;
+    /* 去除点击高亮 */
+}
+input{
+    -webkit-appearance: none;
+    /* 去除按钮默认样式 */
+}
+img,a{
+    -webkit-touch-callout: none;
+    /* 禁用长按页面时的弹出菜单 */
+}
 body{
     width: 100%;
     min-width: 320px;
@@ -7,7 +19,7 @@ body{
     font-family: -apple-system, Helvetica, sans-serif;
     color: #666;
     line-height: 1.5;
-    background-color: #cccccc;
+    /* background-color: #cccccc; */
     height: 2000px;
 }
 ul{
@@ -178,11 +190,13 @@ nav::after{
 }
 .news a {
     float: left;
+    box-sizing: border-box;
 }
 .news a:nth-child(1){
     width: 50%;
 }
 .news a:nth-child(n+2){
     width: 25%;
+    border-left: 1px solid #ccc;
 }
 
