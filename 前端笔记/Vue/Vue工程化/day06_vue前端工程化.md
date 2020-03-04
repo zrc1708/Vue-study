@@ -1,4 +1,4 @@
-###今日目标
+### 今日目标
 1.能够了解模块化的相关规范 
 2.了解webpack
 3.了解使用Vue单文件组件
@@ -386,7 +386,7 @@ webpack提供了模块化支持，代码压缩混淆，解决js兼容问题，�
         }
     }
 
-###12.Vue单文件组件
+### 12.Vue单文件组件
 传统Vue组件的缺陷：
 全局定义的组件不能重名，字符串模板缺乏语法高亮，不支持css(当html和js组件化时，css没有参与其中)
 没有构建步骤限制，只能使用H5和ES5，不能使用预处理器（babel）
@@ -425,11 +425,14 @@ webpack提供了模块化支持，代码压缩混淆，解决js兼容问题，�
 补充：安装Vetur插件可以使得.vue文件中的代码高亮
 
 配置.vue文件的加载器
-A.安装vue组件的加载器
+A.安装vue组件的加载器  
+```
     npm install vue-loader vue-template-compiler -D
-B.配置规则：更改webpack.config.js的module中的rules数组
-    const VueLoaderPlugin = require("vue-loader/lib/plugin");
-    const vuePlugin = new VueLoaderPlugin();
+```
+B.配置规则：更改webpack.config.js的module中的rules数组 
+``` 
+    const VueLoaderPlugin = require("vue-loader/lib/plugin");  
+    const vuePlugin = new VueLoaderPlugin();  
     module.exports = {
         ......
         plugins:[ htmlPlugin, vuePlugin  ],
@@ -444,62 +447,62 @@ B.配置规则：更改webpack.config.js的module中的rules数组
             ]
         }
     }
-
+```
 ### 13.在webpack中使用vue
-上一节我们安装处理了vue单文件组件的加载器，想要让vue单文件组件能够使用，我们必须要安装vue
-并使用vue来引用vue单文件组件。
-A.安装Vue
-    npm install vue -S
-B.在index.js中引入vue：import Vue from "vue"
-C.创建Vue实例对象并指定el，最后使用render函数渲染单文件组件
-    const vm = new Vue({
-        el:"#first",
-        render:h=>h(app)
-    })
+    上一节我们安装处理了vue单文件组件的加载器，想要让vue单文件组件能够使用，我们必须要安装vue
+    并使用vue来引用vue单文件组件。
+    A.安装Vue
+        npm install vue -S
+    B.在index.js中引入vue：import Vue from "vue"
+    C.创建Vue实例对象并指定el，最后使用render函数渲染单文件组件
+        const vm = new Vue({
+            el:"#first",
+            render:h=>h(app)
+        })
 
 ### 14.使用webpack打包发布项目
-在项目上线之前，我们需要将整个项目打包并发布。
-A.配置package.json
-    "scripts":{
-        "dev":"webpack-dev-server",
-        "build":"webpack -p"
-    }
-B.在项目打包之前，可以将dist目录删除，生成全新的dist目录
+    在项目上线之前，我们需要将整个项目打包并发布。
+    A.配置package.json
+        "scripts":{
+            "dev":"webpack-dev-server",
+            "build":"webpack -p"
+        }
+    B.在项目打包之前，可以将dist目录删除，生成全新的dist目录
 
 ### 15.Vue脚手架
-Vue脚手架可以快速生成Vue项目基础的架构。
-A.安装3.x版本的Vue脚手架：
-    npm install -g @vue/cli
-B.基于3.x版本的脚手架创建Vue项目：
-    1).使用命令创建Vue项目
-        命令：vue create my-project
-        选择Manually select features(选择特性以创建项目)
-        勾选特性可以用空格进行勾选。
-        是否选用历史模式的路由：n
-        ESLint选择：ESLint + Standard config
-        何时进行ESLint语法校验：Lint on save
-        babel，postcss等配置文件如何放置：In dedicated config files(单独使用文件进行配置)
-        是否保存为模板：n
-        使用哪个工具安装包：npm
-    2).基于ui界面创建Vue项目
-        命令：vue ui
-        在自动打开的创建项目网页中配置项目信息。
-    3).基于2.x的旧模板，创建Vue项目
-        npm install -g @vue/cli-init
-        vue init webpack my-project
+    Vue脚手架可以快速生成Vue项目基础的架构。
+    A.安装3.x版本的Vue脚手架：
+        npm install -g @vue/cli
+    B.基于3.x版本的脚手架创建Vue项目：
+        1).使用命令创建Vue项目
+            命令：vue create my-project
+            选择Manually select features(选择特性以创建项目)
+            勾选特性可以用空格进行勾选。
+            是否选用历史模式的路由：n
+            ESLint选择：ESLint + Standard config
+            何时进行ESLint语法校验：Lint on save
+            babel，postcss等配置文件如何放置：In dedicated config files(单独使用文件进行配置)
+            是否保存为模板：n
+            使用哪个工具安装包：npm
+        2).基于ui界面创建Vue项目
+            命令：vue ui
+            在自动打开的创建项目网页中配置项目信息。
+        3).基于2.x的旧模板，创建Vue项目
+            npm install -g @vue/cli-init
+            vue init webpack my-project
 
-C.分析Vue脚手架生成的项目结构
-    node_modules:依赖包目录
-    public：静态资源目录
-    src：源码目录
-    src/assets:资源目录
-    src/components：组件目录
-    src/views:视图组件目录
-    src/App.vue:根组件
-    src/main.js:入口js
-    src/router.js:路由js
-    babel.config.js:babel配置文件
-    .eslintrc.js:
+    C.分析Vue脚手架生成的项目结构
+        node_modules:依赖包目录
+        public：静态资源目录
+        src：源码目录
+        src/assets:资源目录
+        src/components：组件目录
+        src/views:视图组件目录
+        src/App.vue:根组件
+        src/main.js:入口js
+        src/router.js:路由js
+        babel.config.js:babel配置文件
+        .eslintrc.js:
 
 ### 16.Vue脚手架的自定义配置
     A.通过 package.json 进行配置 [不推荐使用]
@@ -519,12 +522,12 @@ C.分析Vue脚手架生成的项目结构
 
 
 ### 17.Element-UI的基本使用
-Element-UI:一套基于2.0的桌面端组件库
-官网地址：http://element-cn.eleme.io/#/zh-CN
-A.安装：
-    npm install element-ui -S
-B.导入使用：
-    import ElementUI from "element-ui";
-    import "element-ui/lib/theme-chalk/index.css";
-    
-    Vue.use(ElementUI)
+    Element-UI:一套基于2.0的桌面端组件库
+    官网地址：http://element-cn.eleme.io/#/zh-CN
+    A.安装：
+        npm install element-ui -S
+    B.导入使用：
+        import ElementUI from "element-ui";
+        import "element-ui/lib/theme-chalk/index.css";
+        
+        Vue.use(ElementUI)
