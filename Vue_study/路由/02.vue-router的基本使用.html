@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <!-- 导入 vue 文件 -->
+    <script src="./lib/vue_2.5.22.js"></script>
+    <script src="./lib/vue-router_3.0.2.js"></script>
+  </head>
+  <body>
+    <!-- 被 vm 实例所控制的区域 -->
+    <div id="app">
+      <!-- router-link是vue中提供的标签，默认会被渲染为a标签 -->
+      <!-- to属性会默认渲染为href属性 -->
+      <!-- to的属性值会被渲染为#开头的hash地址 -->
+      <router-link to="/user">User</router-link>
+      <router-link to="/register">Register</router-link>
+
+      <!-- 路由占位符 -->
+      <!-- 将来通过路由规则匹配到的组件，会渲染到router-view所在位置 -->
+      <router-view></router-view>
+    </div>
+
+    <script>
+      const User = {
+        template: '<h1>User 组件</h1>'
+      }
+
+      const Register = {
+        template: '<h1>Register 组件</h1>'
+      }
+
+      // 创建路由实例对象
+      const router = new VueRouter({
+        // 所有的路由规则
+        // path表示当前路由规则匹配的hash地址
+        // compoment表示当前路由规则对应要展示的组件
+        routes: [
+          { path: '/user', component: User },
+          { path: '/register', component: Register }
+        ]
+      })
+
+      // 创建 vm 实例对象
+      const vm = new Vue({
+        // 指定控制的区域
+        el: '#app',
+        data: {},
+        // 挂载路由实例对象
+        // router: router
+        router
+      })
+    </script>
+  </body>
+</html>
