@@ -243,7 +243,7 @@ webpack提供了模块化支持，代码压缩混淆，解决js兼容问题，�
                 ]
             }
         }
-    C.安装sass-loader,node-sass处理less文件
+    C.安装sass-loader,node-sass处理sass文件
         1).安装包
             npm install sass-loader node-sass -D
         2).配置规则：更改webpack.config.js的module中的rules数组
