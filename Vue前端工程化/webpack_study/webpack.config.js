@@ -8,6 +8,9 @@ const htmlPlugin = new HtmlWebpackPlugin({
     filename:"index.html"
 })
 
+const VueLoaderPlugin = require("vue-loader/lib/plugin");  
+const vuePlugin = new VueLoaderPlugin();  
+
 module.exports = {
     // 编译模式
     mode :'development',//development production
@@ -16,7 +19,7 @@ module.exports = {
         path:path.join(__dirname,'./dist/'),//输出文件的存放路径
         filename:'bundle.js'//输出文件的名称
     },
-    plugins:[htmlPlugin],
+    plugins:[htmlPlugin,vuePlugin],
     module : {
         rules:[//test设置需要匹配的文件类型，支持正则 use表示该文件类型需要调用的loader loader从后往前调用
             {
@@ -36,6 +39,16 @@ module.exports = {
                 //limit用来设置字节数，只有小于limit值的图片，才会转换
                 //为base64图片
                 use:"url-loader?limit=16940"
+            },
+            {
+                test:/\.js$/,
+                use:"babel-loader",
+                //exclude为排除项，意思是不要处理node_modules中的js文件
+                exclude:/node_modules/
+            },
+            { 
+                test:/\.vue$/,
+                loader:"vue-loader",
             }
         ]
     }
