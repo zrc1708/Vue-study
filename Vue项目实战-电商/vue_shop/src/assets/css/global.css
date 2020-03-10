@@ -24,3 +24,10 @@ html,body,#app{
     margin-top: 15px;
     text-align: center;
 }
+
+.el-cascader-menu{
+    height: 300px;
+}
+.el-cascader{
+    width: 100%;
+}
