@@ -31,3 +31,13 @@ html,body,#app{
 .el-cascader{
     width: 100%;
 }
+.el-steps{
+    margin: 10px 0;
+    justify-content: center;
+}
+.el-step__title{
+    font-size: 13px;
+}
+.ql-editor{
+    min-height: 300px;
+}
