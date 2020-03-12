@@ -19,16 +19,31 @@ import 'quill/dist/quill.bubble.css' // for bubble theme
 // 全局注册
 Vue.use(VueQuillEditor)
 
+// Nprogress
+import NProgress from 'nprogress'
+import 'nprogress/nprogress'
+
+// 简单配置
+// NProgress.inc(0.2)
+// NProgress.configure({ easing: 'ease', speed: 500, showSpinner: false })
+
 
 import axios from 'axios'
 //配置请求根路径
 axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
 
 axios.interceptors.request.use(config=>{
+    // request拦截器中，展示进度条
+    NProgress.start()
     // console.log(config)
     config.headers.Authorization = window.sessionStorage.getItem('token')
     // 在最后必须 return config
     return config
+})
+axios.interceptors.response.use(config=>{
+  // response拦截器,隐藏进度条
+  NProgress.done()
+  return config
 })
 
 Vue.prototype.$http = axios
