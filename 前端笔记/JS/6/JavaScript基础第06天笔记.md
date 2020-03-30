@@ -139,7 +139,7 @@ function getRandom(min, max) {
 
 - 数组中有进行增加、删除元素的方法，部分方法如下表
 
-  ![](images\图片2.png)
+  ![](images/图片2.png)
 
   注意：push、unshift为增加元素方法；pop、shift为删除元素的方法
 
@@ -147,7 +147,7 @@ function getRandom(min, max) {
 
 - 数组中有对数组本身排序的方法，部分方法如下表
 
-  ![](images\图片3.png)
+  ![](images/图片3.png)
 
   注意：sort方法需要传入参数来设置升序、降序排序
 
@@ -158,13 +158,13 @@ function getRandom(min, max) {
 
 - 数组中有获取数组指定元素索引值的方法，部分方法如下表
 
-  ![](images\图片4.png)
+  ![](images/图片4.png)
 
 #### 数组转换为字符串
 
 - 数组中有把数组转化为字符串的方法，部分方法如下表
 
-  ![](images\图片5.png)
+  ![](images/图片5.png)
 
   注意：join方法如果不传入参数，则按照 “ , ”拼接元素
 
@@ -172,7 +172,7 @@ function getRandom(min, max) {
 
 - 数组中还有其他操作方法，同学们可以在课下自行查阅学习
 
-	![](images\图片6.png)
+	![](images/图片6.png)
 
 ### 1.6 字符串对象
 
@@ -284,19 +284,19 @@ temp = null;
 
 　　2、堆（操作系统）：存储复杂类型(对象)，一般由程序员分配释放，若程序员不释放，由垃圾回收机制回收。
 
-![](images\图片11.png)
+![](images/图片11.png)
 
 - 简单数据类型的存储方式
 
   ​		值类型变量的数据直接存放在变量（栈空间）中
 
-![](images\图片12.png)
+![](images/图片12.png)
 
 - 复杂数据类型的存储方式
 
   ​		引用类型变量（栈空间）里存放的是地址，真正的对象实例存放在堆空间中
 
-  ![](images\图片13.png)
+  ![](images/图片13.png)
 
 ### 2.4 简单类型传参
 
@@ -314,7 +314,7 @@ console.log(x)；
 
 ​		运行结果如下：
 
-![](images\图片14.png)
+![](images/图片14.png)
 
 ### 2.5 复杂数据类型传参
 
@@ -337,4 +337,4 @@ console.log(p.name);    // 4. 这个输出什么 ?
 
 ​		运行结果如下：
 
-![](images\图片15.png)
+![](images/图片15.png)
