@@ -570,7 +570,7 @@ DOM 事件流会经历3个阶段：
 > 	而target指向的是子元素，因为他是触发事件的那个具体元素对象。
 > ```
 
-```js
+```html
     <div>123</div>
     <script>
         var div = document.querySelector('div');
@@ -585,7 +585,7 @@ DOM 事件流会经历3个阶段：
 
 事件冒泡下的e.target和this
 
-```js
+```html
     <ul>
         <li>abc</li>
         <li>abc</li>
@@ -607,7 +607,7 @@ DOM 事件流会经历3个阶段：
 
 > html中一些标签有默认行为，例如a标签被单击后，默认会进行页面跳转。
 
-```js
+```html
     <a href="http://www.baidu.com">百度</a>
     <script>
         // 2. 阻止默认行为 让链接不跳转 
@@ -722,7 +722,7 @@ DOM 事件流会经历3个阶段：
 
 ![1551172755484](images/1551172755484.png)
 
-```js
+```html
 <body>
     我是一段不愿意分享的文字
     <script>
@@ -744,7 +744,7 @@ DOM 事件流会经历3个阶段：
 
 ### 1.4.3 获取鼠标在页面的坐标
 
-```js
+```html
     <script>
         // 鼠标事件对象 MouseEvent
         document.addEventListener('click', function(e) {

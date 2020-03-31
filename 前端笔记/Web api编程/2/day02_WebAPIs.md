@@ -433,7 +433,7 @@ H5给我们新增了自定义属性：
 
 ![1550973558511](images/1550973558511.png)
 
-```js
+```html
     <div>我是div</div>
     <span>我是span</span>
     <script>
