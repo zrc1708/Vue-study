@@ -312,7 +312,7 @@ window 对象给我们提供了 2 个非常好用的方法-定时器。
 
 ![1551321064154](images/1551321064154.png)
 
-```js
+```html
     <button>点击停止定时器</button>
     <script>
         var btn = document.querySelector('button');
@@ -336,7 +336,7 @@ window 对象给我们提供了 2 个非常好用的方法-定时器。
 
 ![1551321162158](images/1551321162158.png)
 
-```js
+```html
     <script>
         // 1. setInterval 
         setInterval(function() {
@@ -351,7 +351,7 @@ window 对象给我们提供了 2 个非常好用的方法-定时器。
 
 ![1551321322188](images/1551321322188.png)
 
-```js
+```html
     <div>
         <span class="hour">1</span>
         <span class="minute">2</span>
@@ -397,7 +397,7 @@ window 对象给我们提供了 2 个非常好用的方法-定时器。
 
 ![1551321564247](images/1551321564247.png)
 
-```js
+```html
     手机号码： <input type="number"> <button>发送</button>
     <script>
         var btn = document.querySelector('button');
@@ -437,7 +437,7 @@ window 对象给我们提供了 2 个非常好用的方法-定时器。
 2. 方法调用中谁调用this指向谁
 3. 构造函数中this指向构造函数的实例
 
-```js
+```html
     <button>点击</button>
     <script>
         // this 指向问题 一般情况下this的最终指向的是那个调用它的对象
@@ -495,7 +495,7 @@ window 对象给我们提供了 2 个非常好用的方法-定时器。
 
 ![1551322517605](images/1551322517605.png)
 
-```js
+```html
     <button>点击</button>
     <div></div>
     <script>
@@ -543,7 +543,7 @@ window 对象给我们提供了 2 个非常好用的方法-定时器。
 
 ![1551322750241](images/1551322750241.png)
 
-```js
+```html
     <button>点击</button>
     <script>
         var btn = document.querySelector('button');

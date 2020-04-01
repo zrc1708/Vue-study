@@ -338,7 +338,7 @@ eventTarget.addEventListener()方法将指定的监听器注册到 eventTarget�
 
 ![1551165843912](images/1551165843912.png)
 
-```js
+```html
 <button>传统注册事件</button>
 <button>方法监听注册事件</button>
 <button>ie9 attachEvent</button>
@@ -541,7 +541,7 @@ DOM 事件流会经历3个阶段：
 只要“||”前面为true, 不管“||”后面是true 还是 false，都返回 “||” 前面的值。
 ```
 
-```js
+```html
     <div>123</div>
     <script>
         var div = document.querySelector('div');

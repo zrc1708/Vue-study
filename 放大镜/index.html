@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .preview_img {
+        position: relative;
+        height: 200px;
+        width: 200px;
+        /* border: 1px solid #ccc; */
+    }
+    .smallimg{
+        width: 200px;
+    }
+    .mask {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 45px;
+        height: 45px;
+        background: #FEDE4F;
+        opacity: .5;
+        border: 1px solid #ccc;
+        cursor: move;
+    }
+    .big {
+        display: none;
+        position: absolute;
+        left: 210px;
+        top: 0;
+        width: 200px;
+        height: 200px;
+        background-color: pink;
+        z-index: 999;
+        /* border: 1px solid #ccc; */
+        overflow: hidden;
+    }
+    .big img {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+</style>
+
+<body>
+    <div class="preview_img">
+        <img class="smallimg" src="./bigjibei.jpg" alt="">
+        <div class="mask"></div>
+        <div class="big">
+            <img src="./bigjibei.jpg" alt="" class="bigimg">
+        </div>
+    </div>
+
+</body>
+<script>
+    var preview_img = document.querySelector('.preview_img')
+    var mask = document.querySelector('.mask')
+    var big = document.querySelector('.big')
+    // 鼠标经过，就显示隐藏的盒子
+    preview_img.addEventListener('mouseover', function () {
+        // console.log('进入');
+        mask.style.display = 'block'
+        big.style.display = 'block'
+    })
+    preview_img.addEventListener('mouseout', function () {
+        // console.log('离开');
+        mask.style.display = 'none'
+        big.style.display = 'none'
+    })
+    // 鼠标移动是，mask盒子跟随鼠标
+    preview_img.addEventListener('mousemove', function (e) {
+        // 先计算出鼠标在盒子内的坐标
+        var x = e.clientX - this.offsetLeft
+        var y = e.clientY - this.offsetTop
+        // console.log(x,y);
+        var maskX = x - mask.offsetWidth/2
+        var maskY = y - mask.offsetHeight/2
+        var maskMax = preview_img.offsetWidth-mask.offsetWidth
+        if(maskX<=0){
+            maskX = 0
+        }else if(maskX>=maskMax){
+            maskX = maskMax
+        }
+        if(maskY<=0){
+            maskY = 0
+        }else if(maskY>=maskMax){
+            maskY = maskMax
+        }
+        mask.style.left = maskX + 'px'
+        mask.style.top = maskY + 'px'
+        // 大图片移动距离 = 遮挡层移动距离*大图片最大移动距离/遮挡层的最大移动距离
+        var bigimg = document.querySelector('.bigimg')
+        var bigmax = bigimg.offsetWidth - big.offsetWidth
+        var bigX = maskX*bigmax/maskMax
+        var bigY = maskY*bigmax/maskMax
+        bigimg.style.left = -bigX +'px'
+        bigimg.style.top = -bigY +'px'
+    })
+</script>
+
+</html>
