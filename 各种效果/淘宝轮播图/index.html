@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .box{
+        position: relative;
+        width: 520px;
+        height: 280px;
+    }
+    a{
+        position: absolute;
+        display: block;
+        text-decoration: none;
+        font-size: 30px;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        line-height: 36px;
+        background-color: #504f4f;
+        opacity: .5;
+    }
+    .left{
+        left: 0;
+        top: 50%;
+        margin-top: -25px;
+        border-radius: 0 50% 50% 0;
+    }
+    .left span{
+        margin-left: -8px;
+        color: white;
+    }
+    .right{
+        right: 0;
+        top: 50%;
+        margin-top: -25px;
+        border-radius: 50% 0 0 50%;
+    }
+    .right span{
+        margin-right: -8px;
+        color: white;
+    }
+    .left span:hover,
+    .right span:hover{
+        color: red;
+    }
+    ul{
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        margin-left: -50px;
+        list-style: none;
+        margin-bottom: 10px;
+        padding-left: 0;
+    }
+    ul li{
+        float: left;
+        border-radius: 50%;
+        width: 15px;
+        height: 15px;
+        margin-right: 5px;
+        background-color: white;
+    }
+    .selected{
+        background-color: red;
+    }
+</style>
+<body>
+    <div class="box">
+        <a class="left" href="javascript:;"><span><</span></a>
+        <a class="right" href="javascript:;"><span>></span></a>
+        <img src="./img/1.jpg" alt="">
+        <ul>
+            <li class="selected"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            position: absolute;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+        
+        span {
+            position: absolute;
+            left: 0;
+            top: 200px;
+            display: block;
+            width: 150px;
+            height: 150px;
+            background-color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="btn500">点击夏雨荷走到500</button>
+    <button class="btn800">点击夏雨荷走到800</button>
+    <span>夏雨荷</span>
+</body>
+<script>
+    function animate(obj, target, callback) {
+        // 先清除以前的定时器，只保留当前的一个定时器执行
+        clearInterval(obj.timer);
+        obj.timer = setInterval(function() {
+            var step = (target - obj.offsetLeft)/10
+            step = step > 0 ? Math.ceil(step) : Math.floor(step)  
+            if (obj.offsetLeft == target) {
+                // 停止动画 本质是停止定时器
+                clearInterval(obj.timer);
+                if(callback){
+                    // 调用回调函数
+                    callback()
+                }
+            }
+            // 慢慢变小实现缓动效果 步长公式：（目标值-现在位置）/10
+            obj.style.left = obj.offsetLeft + step + 'px';
+
+        }, 15);
+    }
+
+    var span = document.querySelector('span');
+    var btn500 = document.querySelector('.btn500');
+    var btn800 = document.querySelector('.btn800');
+    // 调用函数
+    btn500.addEventListener('click', function() {
+        animate(span, 500);
+    })
+    btn800.addEventListener('click', function() {
+        animate(span, 800, function(){
+            span.style.backgroundColor = 'red'
+        });
+    })
+</script>
+</html>
