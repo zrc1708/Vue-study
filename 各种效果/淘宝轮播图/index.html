@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <style>
-    .box{
+    .box {
         position: relative;
         width: 520px;
         height: 280px;
+        overflow: hidden;
     }
-    a{
+
+    .advbutton {
         position: absolute;
-        display: block;
         text-decoration: none;
         font-size: 30px;
         width: 40px;
@@ -22,32 +24,51 @@
         line-height: 36px;
         background-color: #504f4f;
         opacity: .5;
+        z-index: 2;
     }
-    .left{
+
+    .left {
+        display: none;
         left: 0;
         top: 50%;
         margin-top: -25px;
         border-radius: 0 50% 50% 0;
     }
-    .left span{
+
+    .left span {
         margin-left: -8px;
         color: white;
     }
-    .right{
+
+    .right {
+        display: none;
         right: 0;
         top: 50%;
         margin-top: -25px;
         border-radius: 50% 0 0 50%;
     }
-    .right span{
+
+    .right span {
         margin-right: -8px;
         color: white;
     }
+
     .left span:hover,
-    .right span:hover{
+    .right span:hover {
         color: red;
     }
-    ul{
+
+    .imgul{
+        position: absolute;
+        left: 0px;
+        top: 0;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+    }
+
+    .bottom {
         position: absolute;
         bottom: 0;
         left: 50%;
@@ -56,30 +77,151 @@
         margin-bottom: 10px;
         padding-left: 0;
     }
-    ul li{
+
+    .bottom li {
         float: left;
         border-radius: 50%;
-        width: 15px;
-        height: 15px;
+        width: 12px;
+        height: 12px;
         margin-right: 5px;
         background-color: white;
     }
-    .selected{
-        background-color: red;
+
+    .selected {
+        background-color: red!important;
     }
 </style>
+
 <body>
     <div class="box">
-        <a class="left" href="javascript:;"><span><</span></a>
-        <a class="right" href="javascript:;"><span>></span></a>
-        <img src="./img/1.jpg" alt="">
-        <ul>
-            <li class="selected"></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+        <a class="advbutton left" href="javascript:;"><span><</span> </a> 
+        <a class="advbutton right" href="javascript:;"><span>></span></a>
+        <ul class="imgul">
+            <li>
+                <a href="#"><img src="./img/1.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="./img/2.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="./img/3.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="./img/4.webp" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="./img/5.webp" alt=""></a>
+            </li>
+        </ul>
+        <ul class="bottom">
+            
         </ul>
     </div>
 </body>
+<script>
+    function animate(obj, target, callback) {
+        // 先清除以前的定时器，只保留当前的一个定时器执行
+        clearInterval(obj.timer);
+        obj.timer = setInterval(function () {
+            var step = (target - obj.offsetLeft) / 10
+            step = step > 0 ? Math.ceil(step) : Math.floor(step)
+            if (obj.offsetLeft == target) {
+                // 停止动画 本质是停止定时器
+                clearInterval(obj.timer);
+                if (callback) {
+                    // 调用回调函数
+                    callback()
+                }
+            }
+            // 慢慢变小实现缓动效果 步长公式：（目标值-现在位置）/10
+            obj.style.left = obj.offsetLeft + step + 'px';
+        }, 15);
+    }
+    var btnleft = document.querySelector('.left')
+    var btnright = document.querySelector('.right')
+    var box = document.querySelector('.box')
+    // 鼠标进入，显示左右按钮
+    box.addEventListener('mouseenter',function(){
+        btnleft.style.display = 'block'
+        btnright.style.display = 'block'
+    })
+    // 鼠标离开，隐藏左右按钮
+    box.addEventListener('mouseleave',function(){
+        btnleft.style.display = 'none'
+        btnright.style.display = 'none'
+    })
+
+    // 根据图片数量动态生成底部小圆圈
+    var ul = document.querySelector('.imgul')
+    var bottomul = document.querySelector('.bottom')
+    var boxwidth = box.offsetWidth
+    // 控制图片的移动
+    var num = 0
+    // 控制小圆圈的样式
+    var selected = 0
+    for (let index = 0; index < ul.children.length; index++) {
+        var li = document.createElement('li')
+        // 通过自定义属性记录当前小圆圈的索引号
+        li.setAttribute('index',index)
+        bottomul.appendChild(li)
+        // 小圆圈点击变色
+        li.addEventListener('click',function(){
+            for (let index = 0; index < bottomul.children.length; index++) {
+                bottomul.children[index].className = ''
+            }
+            this.className = 'selected'
+            // 点击小圆圈，就拿到点击圆圈的索引号
+            var index = this.getAttribute('index')
+            num = index
+            selected = index
+            // 点击小圆圈移动图片
+            animate(ul,-index*boxwidth)
+        })
+    }
+    // 把第一个小圆点设为选中
+    bottomul.children[0].className = 'selected'
+
+    // 克隆第一张图片，放到ul最后面，无限滚动用
+    var first = ul.children[0].cloneNode(true)
+    ul.appendChild(first)
+
+    // 右侧按钮
+    btnright.addEventListener('click',function(){
+        // 走到最后一张复制的图片，将left改为0
+        if(num==ul.children.length-1){
+            ul.style.left = 0
+            num = 0
+        }
+        num++
+        animate(ul,-num*boxwidth)
+        selected++
+        // 走到最后克隆的图片，就复原
+        if(selected==ul.children.length-1){
+            selected = 0
+        }
+        bottomchange()
+    })
+    // 左侧按钮
+    btnleft.addEventListener('click',function(){
+        // 走到最后一张复制的图片，将left改为0
+        if(num==0){
+            ul.style.left = -(ul.children.length-1)*boxwidth+ 'px'
+            num = ul.children.length-1
+        }
+        num--
+        animate(ul,-num*boxwidth)
+        selected--
+        // 如果selected<0，说明走到第一张图片，该为最后一张图片（不是复制的那张图片）
+        selected = selected< 0 ? ul.children.length-2:selected
+        bottomchange()
+    })
+
+    function bottomchange(){
+        for (let index = 0; index < bottomul.children.length; index++) {
+            bottomul.children[index].className = ''
+        }
+        bottomul.children[selected].className = 'selected'
+    }
+</script>
+
 </html>
