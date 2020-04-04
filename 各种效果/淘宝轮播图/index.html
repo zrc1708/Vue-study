@@ -128,10 +128,11 @@
             if (obj.offsetLeft == target) {
                 // 停止动画 本质是停止定时器
                 clearInterval(obj.timer);
-                if (callback) {
-                    // 调用回调函数
-                    callback()
-                }
+                // if (callback) {
+                //     // 调用回调函数
+                //     callback()
+                // }
+                callback && callback()
             }
             // 慢慢变小实现缓动效果 步长公式：（目标值-现在位置）/10
             obj.style.left = obj.offsetLeft + step + 'px';
@@ -140,15 +141,20 @@
     var btnleft = document.querySelector('.left')
     var btnright = document.querySelector('.right')
     var box = document.querySelector('.box')
-    // 鼠标进入，显示左右按钮
+    // 鼠标进入，显示左右按钮,停止自动滚动
     box.addEventListener('mouseenter',function(){
         btnleft.style.display = 'block'
         btnright.style.display = 'block'
+        clearInterval(timer)
+        timer = null
     })
-    // 鼠标离开，隐藏左右按钮
+    // 鼠标离开，隐藏左右按钮，开始自动滚动
     box.addEventListener('mouseleave',function(){
         btnleft.style.display = 'none'
         btnright.style.display = 'none'
+        timer = setInterval(function(){
+            btnright.click()
+        },2000)
     })
 
     // 根据图片数量动态生成底部小圆圈
@@ -185,35 +191,47 @@
     var first = ul.children[0].cloneNode(true)
     ul.appendChild(first)
 
+    // 节流阀，防止多次点击导致图片移动过快
+    var flag = true
     // 右侧按钮
     btnright.addEventListener('click',function(){
-        // 走到最后一张复制的图片，将left改为0
-        if(num==ul.children.length-1){
-            ul.style.left = 0
-            num = 0
+        if(flag){
+            flag = false  //关闭节流阀
+            // 走到最后一张复制的图片，将left改为0
+            if(num==ul.children.length-1){
+                ul.style.left = 0
+                num = 0
+            }
+            num++
+            animate(ul,-num*boxwidth,function(){
+                flag = true //打开节流阀，允许再次移动
+            })
+            selected++
+            // 走到最后克隆的图片，就复原
+            if(selected==ul.children.length-1){
+                selected = 0
+            }
+            bottomchange()
         }
-        num++
-        animate(ul,-num*boxwidth)
-        selected++
-        // 走到最后克隆的图片，就复原
-        if(selected==ul.children.length-1){
-            selected = 0
-        }
-        bottomchange()
     })
     // 左侧按钮
     btnleft.addEventListener('click',function(){
-        // 走到最后一张复制的图片，将left改为0
-        if(num==0){
-            ul.style.left = -(ul.children.length-1)*boxwidth+ 'px'
-            num = ul.children.length-1
+        if(flag){
+            flag = false  //关闭节流阀
+            // 走到最后一张复制的图片，将left改为0
+            if(num==0){
+                ul.style.left = -(ul.children.length-1)*boxwidth+ 'px'
+                num = ul.children.length-1
+            }
+            num--
+            animate(ul,-num*boxwidth,function(){
+                flag = true //打开节流阀，允许再次移动
+            })
+            selected--
+            // 如果selected<0，说明走到第一张图片，改为最后一张图片（不是复制的那张图片）
+            selected = selected< 0 ? ul.children.length-2:selected
+            bottomchange()
         }
-        num--
-        animate(ul,-num*boxwidth)
-        selected--
-        // 如果selected<0，说明走到第一张图片，该为最后一张图片（不是复制的那张图片）
-        selected = selected< 0 ? ul.children.length-2:selected
-        bottomchange()
     })
 
     function bottomchange(){
@@ -222,6 +240,11 @@
         }
         bottomul.children[selected].className = 'selected'
     }
+
+    // 自动轮播图
+    var timer = setInterval(function(){
+        btnright.click()
+    },2000)
 </script>
 
 </html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .daohang{
+        position: relative;
+        margin: 0 auto;
+        background-color: #e0e0e0;
+        width: 1000px;
+        height: 40px;
+    }
+    .cloud{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        display: block;
+        background-color: lightskyblue;
+        width: 100px;
+        height: 5px;
+    }
+    ul{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    ul li{
+        float: left;
+        width: 100px;
+        text-align: center;
+        line-height: 40px;
+    }
+    a{
+        text-decoration: none;
+        color: black;
+    }
+</style>
+<body>
+    <div class="daohang">
+        <span class="cloud"></span>
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">导航一</a></li>
+            <li><a href="#">导航二</a></li>
+            <li><a href="#">导航三</a></li>
+            <li><a href="#">导航四</a></li>
+            <li><a href="#">导航五</a></li>
+            <li><a href="#">导航六</a></li>
+            <li><a href="#">导航七</a></li>
+        </ul>
+    </div>
+</body>
+<script>
+    var cloud = document.querySelector('.cloud')
+    var daohang = document.querySelector('.daohang')
+    var lis = document.querySelectorAll('li')
+
+    function animate(obj, target, callback) {
+        // 先清除以前的定时器，只保留当前的一个定时器执行
+        clearInterval(obj.timer);
+        obj.timer = setInterval(function () {
+            var step = (target - obj.offsetLeft) / 10
+            step = step > 0 ? Math.ceil(step) : Math.floor(step)
+            if (obj.offsetLeft == target) {
+                // 停止动画 本质是停止定时器
+                clearInterval(obj.timer);
+                // if (callback) {
+                //     // 调用回调函数
+                //     callback()
+                // }
+                callback && callback()
+            }
+            // 慢慢变小实现缓动效果 步长公式：（目标值-现在位置）/10
+            obj.style.left = obj.offsetLeft + step + 'px';
+        }, 15);
+    }
+
+    // 筋斗云的起始位置
+    var current = 0 
+    for (let index = 0; index < lis.length; index++) {
+        // 鼠标经过，移动到当前目标
+        lis[index].addEventListener('mouseenter',function(){
+            animate(cloud, this.offsetLeft)
+        })
+        // 鼠标离开，回到起始位置
+        lis[index].addEventListener('mouseleave',function(){
+            animate(cloud, current)
+        })
+        // 鼠标点击，修改初始位置
+        lis[index].addEventListener('click',function(){
+            current = this.offsetLeft
+        })
+    }
+</script>
+</html>
