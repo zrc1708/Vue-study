@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        width: 100%;
+        min-width: 320px;
+        /* max-width: 540px; */
+        margin: 0 auto;
+        font-size: 14px;
+        color: #000;
+        line-height: 1.5;
+        overflow-x: hidden;
+    }
+
+    .adv {
+        overflow: hidden;
+        position: relative;
+    }
+    .adv ul{
+        margin: 0;
+        padding: 0;
+        width: 500%;
+        margin-left: -100%;
+    }
+    .adv ul li{
+        float: left;
+        list-style: none;
+        width: 20%;
+    }
+    .adv img {
+        width: 100%;
+        vertical-align: bottom;
+    }
+    .adv ol{
+        position: absolute;
+        bottom: 0px;
+        right: 5px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    .adv ol li{
+        display: inline-block;
+        width: 5px;
+        height: 4px;
+        background-color: #fff;
+        border-radius: 2px;
+        transition: all .2s;
+    }
+    .selected{
+        width: 10px!important;
+    }
+</style>
+
+<body>
+    <div class="adv">
+        <ul>
+            <li><img src="./img/focus3.jpg" alt=""></li>
+            <li><img src="./img/focus1.jpg" alt=""></li>
+            <li><img src="./img/focus2.jpg" alt=""></li>
+            <li><img src="./img/focus3.jpg" alt=""></li>
+            <li><img src="./img/focus1.jpg" alt=""></li>
+        </ul>
+        <ol>
+            <li class="selected"></li>
+            <li></li>
+            <li></li>
+        </ol>
+    </div>
+    <div style="background-color: rgb(183, 243, 240);height: 500px;">
+        内容
+    </div>
+</body>
+<script>
+    var adv = document.querySelector('.adv')
+    var ul = adv.children[0]
+    var ol = adv.children[1]
+    var w = adv.offsetWidth
+
+    // 利用定时器自动轮播图片
+    var index = 0
+    var timer = setInterval(function(){
+        index++
+        var translateX = - index * w
+        ul.style.transition = 'all .3s'
+        ul.style.transform = 'translateX('+translateX+'px)'
+    },2000)
+    // 过度完成之后，进行判断
+    ul.addEventListener('transitionend',function(){
+        // 无缝滚动
+        if(index>=3){
+            index = 0
+            ul.style.transition = 'none'
+            var translateX = - index * w
+            ul.style.transform = 'translateX('+translateX+'px)'
+        }else if(index<0){
+            index = 2
+            ul.style.transition = 'none'
+            var translateX = - index * w
+            ul.style.transform = 'translateX('+translateX+'px)'
+        }
+        // 底部圆点
+        ol.querySelector('li.selected').classList.remove('selected')
+        ol.children[index].classList.add('selected')
+    })
+    // 手指滑动轮播图
+    var startX = 0
+    var moveX = 0
+    var flag = false
+    ul.addEventListener('touchstart',function(e){
+        startX = e.targetTouches[0].pageX
+        clearInterval(timer)
+    })
+    ul.addEventListener('touchmove',function(e){
+        // 计算移动距离
+        moveX = e.targetTouches[0].pageX - startX
+        // 移动盒子
+        var translatex = -index * w +moveX
+        ul.style.transition = 'none'
+        ul.style.transform = 'translateX('+translatex+'px)'
+        // 用户手指拖动了，才执行效果
+        flag = true
+        // 阻止屏幕滚动默认行为
+        e.preventDefault()
+    })
+    ul.addEventListener('touchend',function(e){
+        // 拖动距离大于50px就播放上一张或者下一张
+       if(flag){
+            if(Math.abs(moveX) > 50){
+                // 右划，播放上一张，左划，播放下一张
+                if(moveX>0){
+                    index--
+                }else{
+                    index++
+                }
+                var translatex = -index * w 
+                ul.style.transition = 'all .3s'
+                ul.style.transform = 'translateX('+translatex+'px)'
+            }else{
+                // 小于50px回弹
+                var translatex = -index * w 
+                ul.style.transition = 'all .3s'
+                ul.style.transform = 'translateX('+translatex+'px)'
+            }
+       }
+        clearInterval(timer)
+        timer = setInterval(function(){
+            index++
+            var translateX = - index * w
+            ul.style.transition = 'all .3s'
+            ul.style.transform = 'translateX('+translateX+'px)'
+        },2000)
+    })
+</script>
+</html>
