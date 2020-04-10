@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>面向对象 Tab</title>
+    <link rel="stylesheet" href="./styles/tab.css">
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<body>
+
+    <main>
+        <h4>
+            Js 面向对象 动态添加标签页
+        </h4>
+        <div class="tabsbox" id="tab">
+            <!-- tab 标签 -->
+            <nav class="fisrstnav">
+                <ul>
+                    <li class="liactive"><span>测试1</span><span class="iconfont icon-guanbi"></span></li>
+                    <li><span>测试2</span><span class="iconfont icon-guanbi"></span></li>
+                    <li><span>测试3</span><span class="iconfont icon-guanbi"></span></li>
+                </ul>
+                <div class="tabadd">
+                    <span>+</span>
+                </div>
+            </nav>
+
+            <!-- tab 内容 -->
+            <div class="tabscon">
+                <section class="conactive">测试1</section>
+                <section>测试2</section>
+                <section>测试3</section>
+            </div>
+        </div>
+    </main>
+</body>
+<script>
+    var that
+    class Tab {
+        constructor(id){
+            that = this
+            this.main = document.querySelector(id);
+            this.add = this.main.querySelector('.tabadd');
+            
+            this.ul = this.main.querySelector('.fisrstnav ul:first-child');
+            this.fsection = this.main.querySelector('.tabscon');
+            this.init()
+        }
+        init(){
+            // 初始化操作，让相关的元素绑定事件
+            this.updatedNote()
+            this.add.onclick = this.addTab
+            for (let index = 0; index < this.lis.length; index++) {
+                this.lis[index].index = index
+                this.lis[index].onclick = this.toggleTab
+                this.remove[index].onclick = this.removeTab
+                this.spans[index].ondblclick = this.editTab
+                this.sections[index].ondblclick = this.editTab
+            }
+        }
+        // 获取所有会变化的元素
+        updatedNote() {
+            this.lis = this.main.querySelectorAll('li');
+            this.sections = this.main.querySelectorAll('section');
+            this.remove = this.main.querySelectorAll('.icon-guanbi');
+            this.spans = this.main.querySelectorAll('.fisrstnav li span:first-child')
+        }
+        // 切换功能
+        toggleTab(){
+            that.clearClass()
+            this.className = 'liactive'
+            that.sections[this.index].className = 'conactive'
+        }
+        // 清除样式
+        clearClass(){
+            for (let index = 0; index < this.lis.length; index++) {
+                this.lis[index].className = ''
+                this.sections[index].className = ''
+            }
+        }
+        // 添加
+        addTab(){
+            that.clearClass()
+            var random = Math.random()
+            var li = '<li class="liactive"><span>new</span><span class="iconfont icon-guanbi"></span></li>'
+            var section = '<section class="conactive">测试'+random+'</section>'
+            that.ul.insertAdjacentHTML('beforeend',li)
+            that.fsection.insertAdjacentHTML('beforeend',section)
+            that.init()
+        }
+        // 删除
+        removeTab(e){
+            // 阻止冒泡
+            e.stopPropagation();
+            var index = this.parentNode.index
+            that.lis[index].remove()
+            that.sections[index].remove()
+            that.init()
+            // 删除的元素不是选中元素，li不变
+            if(document.querySelector('.liactive')){
+                return
+            }
+            // 删除了选中的元素，让前一个li处于选中状态
+            index--
+            that.lis[index] && that.lis[index].click()
+        }
+        // 修改
+        editTab(){
+            var str = this.innerHTML
+            // 双击禁止选中文字
+            window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+            this.innerHTML = '<input type="text"/>'
+            var input = this.children[0]
+            input.value = str
+            // 让文本框的文字处于选定
+            input.select()
+            // 离开文本框，赋值给span
+            input.onblur = function(){
+                this.parentNode.innerHTML = this.value 
+            }
+            // 回车
+            input.onkeyup = function(e){
+                if(e.keyCode===13){
+                    // 手动调用失焦事件
+                    this.blur()
+                }
+            }
+        }
+    }
+    var tab = new Tab('#tab')
+</script>
+</html>
