@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>登录</title>
+	<link rel="stylesheet" type="text/css" href="./css/public.css" />
+	<link rel="stylesheet" type="text/css" href="./css/login.css" />
+	<link rel="stylesheet" type="text/css" href="./css/index.css" />
+
+	<link rel="stylesheet" href="https://unpkg.com/element-ui@2.12.0/lib/theme-chalk/index.css">
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<script src="https://unpkg.com/element-ui@2.12.0/lib/index.js"></script>
+
+	<!-- <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script> -->
+	<script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+	<script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
+
+
+
+</head>
+
+<body>
+	<div id="app">
+		<!-------------------login-------------------------->
+		<div class="head">
+			<div class="wrapper clearfix">
+				<div class="clearfix" id="top">
+					<h1 class="fl"><a href="index.html"><img src="img/logo.png" class="Linn" /></a></h1>
+					<div class="fr clearfix" id="top1" style="margin-top: 2%;">
+						<p v-if="loginCheck" class="fl">
+							<a href="login.html">登录</a>
+							<a href="reg.html">注册</a>
+						</p>
+						<p v-else class="fl">
+							欢迎您,{{username}}
+						</p>
+
+						<form action="#" method="get" class="fl">
+							<input type="text" placeholder="热门搜索：优质房间" />
+							<input type="button" />
+						</form>
+
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="login">
+
+			<form @submit.prevent="handleSubmit">
+
+				<p style="margin-top: 30px" id="log">用户登录</p>
+				<p>
+					<!-- <input type="text" v-model="login.loginName" placeholder="账号"> -->
+					<el-input v-model="loginName" placeholder="请输入账号"></el-input>
+				</p>
+				<p>
+					<!-- <input type="password" v-model="login.password" placeholder="密码" style="padding-left: 10px;"> -->
+					<el-input v-model="password" placeholder="请输入密码" type="password"></el-input>
+				</p>
+
+				<div id="nicoyzm">
+					<el-input v-model="code" placeholder="请输入验证码" id="nicoone"></el-input>
+					<div v-html="img" @click="change" class="yzm"></div>
+				</div>
+
+				<div class="msg-warn hide" style="margin-top: 10px" v-show="loginError"><b></b>登录失败,账号或密码错误</div>
+
+
+				<p>
+					<el-button type="submit" id="button" @click="clickcheck"><span style="color:white">登录</span>
+					</el-button>
+				</p>
+				<p class="txt"><a class="" href="reg.html">免费注册</a><a href="forgetpwd.html">忘记密码？</a></p>
+
+			</form>
+		</div>
+	</div>
+</body>
+<script>
+	// 设置cookie
+	function setCookie(name, value, seconds) {
+		seconds = seconds || 0; //seconds有值就直接赋值，没有为0，这个根php不一样。
+		var expires = "";
+		if (seconds != 0) { //设置cookie生存时间
+			var date = new Date();
+			date.setTime(date.getTime() + (seconds * 1000));
+			expires = "; expires=" + date.toGMTString();
+		}
+		document.cookie = name + "=" + escape(value) + expires + "; path=/"; //转码并赋值
+	}
+
+
+
+	new Vue({
+		el: '#app',
+		data: {
+			loginError: false,
+			loginName: '',
+			password: '',
+			array: [],
+			array2: [],
+			loginCheck: true,
+			username: '',
+			id: '',
+			flag: 0,
+			img: '',
+			code: ''
+		},
+		mounted() {
+
+			axios({
+				method: 'get',
+				url: 'http://127.0.0.1:8888/code',
+			}).then((res) => {
+				this.img = res.data.data
+			})
+		},
+		methods: {
+
+			clickcheck() {
+
+				axios({
+					method: 'get',
+					url: 'http://127.0.0.1:8888/confirmcode',
+				}).then((res) => {
+					// console.log(res.data)
+					// console.log(this.code.toLowerCase())
+					if (res.data == this.code.toLowerCase()) {
+
+						axios({
+							method: 'post',
+							url: 'http://localhost:8888/checkuser',
+							headers: {
+								"Content-Type": "application/json"
+							},
+							data: JSON.stringify({
+								username: this.loginName,
+								password: this.password
+							})
+
+						}).then((result) => {
+							// console.log(result.data.rs[0])
+
+							console.log(result.data.rs[0])
+							if (result.data.rs[0]) {
+								setCookie("username", this.loginName, 100000)
+								setCookie('userid', result.data.rs[0].ID, 100000)
+
+								window.location.href = "mygrxx.html"
+							} else {
+								// console.log('登录失败')
+								this.loginError = true
+								this.change()
+							}
+
+						})
+
+					} else {
+						alert('验证码错误')
+						this.change()
+					}
+
+				})
+
+
+			},
+
+			change() {
+				axios({
+					method: 'get',
+					url: 'http://127.0.0.1:8888/code',
+				}).then((res) => {
+					// console.log(res.data)
+					this.img = res.data.data
+					// console.log(this.img)
+				})
+			},
+		},
+
+	})
+</script>
+
+<script src="./js/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/public.js" type="text/javascript" charset="utf-8"></script>
+
+</html>
