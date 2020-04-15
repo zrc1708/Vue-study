@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif,"PingFang SC","Microsoft Yahei",sans-serif;
-
+    font-size: 14px;
 }
 img{
     width: 100%;
@@ -72,6 +72,9 @@ header{
             color: var(--text-color-lightest);
             text-align: center;
             max-width: 60vw;
+            &>*{
+                opacity: 0;
+            }
             h1{
                 font-size: 54px;
                 font-weight: 600;
@@ -106,6 +109,404 @@ header{
             left: 0;
             top: 0;
             opacity: .5;
+        }
+    }
+}
+// 内容区域
+.content-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    // 内容区域通用样式
+    section{
+        display: grid;
+        // 每一列的内容居中
+        justify-items: center;
+        max-width: 1180px;
+        padding: 0 80px;
+        .tittle1{
+            font-size: 34px;
+            color: (var(--text-color-darker));
+            &::after{
+                content: '';
+                display: block;
+                width: 80%;
+                height: 4px;
+                background-color: var(--primary-color);
+                margin-top: 14px;
+                transform: translateX(10%);
+            }
+        }
+        .intro{
+            margin: 28px 0 60px 0;
+            font-size: 18px;
+            color: var(--text-color-dark-gary);   
+        }   
+    }
+    // 通用的背景样式
+    .section-bg{
+        position: relative;
+        &::before{
+            content: '';
+            display: block;
+            position: absolute;
+            background-color: #f9fbfb;
+            width: 100vw;
+            height: 100%;
+            z-index: -1;
+        }
+    }
+    // 关于我们
+    .about-us{
+        padding-bottom: 32px;
+    }
+    .features{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        grid-template-rows: repeat(2,126px);
+        column-gap: 5vw;
+        .feature{
+            display: grid;
+            // 自定义行和列布局的名字
+            grid-template-areas:
+                'icon title' 
+                'icon content';
+            grid-template-columns: 60px 1fr;
+            grid-template-rows: 1fr 3fr;
+            i.fas{
+                grid-area: icon;
+                font-size: 34px;
+                color: var(--primary-color);
+            }
+            .feature-title{
+                grid-area: title;
+                font-size: 18px;
+                color: var(--text-color-darker);
+            }
+            .feature-content{
+                grid-area: content;
+                color: var(--text-color-gray);
+                margin-top: 8px;
+            }
+        }
+    }
+    // 成功案例
+    .showcases{
+        max-width: unset;
+        padding: 0;
+        padding-top: 72px;
+        // 按钮部分
+        .filter-btns{
+            margin-top: 54px;
+            margin-bottom: 38px;
+            .filter-btn{
+                margin: 0 7px;
+                background-color: var(--secondary-color);
+                border: 0;
+                color: var(--text-color-dark-gary);
+                padding: 8px 18px;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: 0.4;
+                &:focus,
+                &:active{
+                    outline: none;    
+                }
+            }
+            .active,
+            .filter-btn:hover{
+                background-color: var(--primary-color);
+                color: white;
+            }
+        }
+        .cases{
+            // 图片部分
+            width: 100vw;
+            .case-item{
+                // 都用vw保持图片的比例
+                width: 25vw;
+                height: 20vw;
+                overflow: hidden;
+                img{
+                    width:100%;
+                    height: 100%;
+                }
+            }
+        }
+    }
+    // 服务流程
+    .service{
+        padding-top: 131px;
+        .services{
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            grid-template-rows: 1fr 1fr;
+            // 行，列之间的间距
+            column-gap: 38px;
+            row-gap: 34px;
+            .service-item{
+                display: grid;
+                grid-template-areas: 
+                    "icon tittle"
+                    "icon content";
+                grid-template-columns: 70px 1fr;
+                grid-template-rows: 1fr 3fr;
+                padding: 24px;
+                box-shadow: 0px 0px 18px rgba(0,0,0,0.06);
+                i.fas{
+                    grid-area: icon;
+                    font-size: 42px;
+                    color: var(--primary-color);
+                    padding-top: 6px;
+                }
+                .service-title{
+                    grid-area: tittle;
+                    color: var(--text-color-darker);
+                    font-size: 24px;
+                }
+                .service-content{
+                    grid-area: content;
+                    color: var(--text-color-gray);
+                    line-height: 30px;
+                    font-size: 16px;
+                    margin-top: 8px;
+                }
+            }
+        }
+    }
+    // 团队介绍
+    .team-intro{
+        margin-top: 48px;
+        padding-top: 62px;
+        padding-bottom: 52px;
+        .team-members{
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            column-gap: 24px;
+            margin-top: 56px;
+            .team-member{
+                background-color: white;
+                box-shadow: 0 0 24px rgba(0,0,0,0.2);
+                text-align: center;
+                padding-bottom: 28px;
+                transition: .4s;
+                display: grid;
+                justify-items: center;
+                .profile-img{
+                    overflow: hidden;
+                    img{
+                        width: 100%;
+                        height: 264px;
+                        object-fit: cover;
+                        // 放大后图片如何摆放
+                        object-position: top center;
+                    }
+                }
+                .name{
+                    margin-top: 18px;
+                    font-size: 18px;
+                    font-weight: 500;
+                    color: var(--text-color-dart);
+                }
+                .position{
+                    color: var(--text-color-dark-gary);
+                    margin-top: 12px;
+                    margin-bottom: 18px;
+                }
+                .social-links{
+                    width: 100%;
+                    max-width: 200px;
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 0 42px;
+                    li{
+                        list-style: none;
+                        a{
+                            color: var(--text-color-dart);
+                            text-decoration: none;
+                        }
+                    }
+                }
+                // 卡片悬浮特效
+                &:hover{
+                    // 向上20像素，放大1.05倍
+                    transform: translateY(-20px) scale(1.05);
+                    box-shadow: 0 0 36px rgba(0,0,0,0.1);
+                }
+            }
+        }
+    }
+    // 数据
+    .data-section{
+        max-width: unset;
+        width: 100vw;
+        height: 255px;
+        background-image: url(./images/adult-business-computer-contemporary-380769.jpg);
+        background-size: cover;
+        background-position: center;
+        display: grid;
+        grid-template-columns: repeat(4,minmax(auto,220px));
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 20;
+        &::before{
+            content: "";
+            display: block;
+            position: absolute;
+            background-color: var(--backdrop-color);
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        .data-piece{
+            width: 250px;
+            display: grid;
+            grid-template-rows: repeat(3,1fr);
+            justify-items: center;
+            color: white;
+            position: relative;
+            z-index: 40;
+            .fas{
+                font-size: 54px;
+            }
+            .num{
+                margin-top: 7px;
+                font-size: 41px;
+                font-weight: 600;
+            }
+            .data-desc{
+                font-size: 18px;
+                font-weight: 500;
+            }
+        }
+    }
+    // 动态
+    .company-activities{
+        margin-top: 88px;
+        .activities{
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            column-gap: 24px;
+            .activity{
+                box-shadow: 0 0 24px rgba(0,0,0,0.1);
+                padding: 24px;
+                transition: .4s;
+                .act-image-wrapper{
+                    height: 255px;
+                    overflow: hidden;
+                    margin: -24px;
+                    margin-bottom: 0;
+                    img{
+                        min-height: 300px;
+                        object-fit: cover;
+                    }
+                }
+                .meta{
+                    margin-top: 20px;
+                    margin-bottom: 12px;
+                    color: var(--text-color-gray);
+                    font-size: 12px;
+                    display: flex;
+                    i{
+                        margin-right: 10px;
+                    }
+                    .comments{
+                        margin-left: 36px;
+                    }
+                }
+                .act-title{
+                    color: var(--text-color-dart);
+                    font-size: 18px;
+                    margin-bottom: 16px;
+                }
+                article{
+                    color: var(--text-color-gray);
+                    letter-spacing: .5px;
+                    line-height: 24px;
+                }
+                .read-more-btn{
+                    border: 0;
+                    color: white;
+                    background-color: var(--primary-color);
+                    border-radius: 4px;
+                    padding: 6px 14px;
+                    margin-top: 24px;
+                }
+                &:hover{
+                    transform: translateY(-20px) scale(1.05);
+                    box-shadow: 0 0 36px rgba(0,0,0,0.1);
+                }
+            }
+        }
+    }
+}
+// 底部信息
+footer{
+    margin-top: 124px;
+    background-color: #181818;
+    display: grid;
+    justify-items: center;
+    padding-top: 72px;
+    padding-bottom: 24px;
+    .footer-menus{
+        width: 100%;
+        max-width: 1180px;
+        display: grid;
+        grid-template-columns: 2fr repeat(4,1fr);
+        padding: 0 80px;
+        position: relative;
+        .menu-title{
+            font-size: 16px;
+            color: white;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .contact-us{
+            justify-self: start;
+            color: var(--text-color-lightest);
+            p:not(:first-child){
+                padding-bottom: 16px;
+            }
+        }
+        .menu-items{
+            list-style: none;
+            padding-bottom: 8px;
+            a{
+                text-decoration: none;
+                font-weight: 300;
+                color: var(--text-color-lightest);
+            }
+        }
+        .icp-info{
+            margin-top: 24px;
+            margin-bottom: 16px;
+
+        }
+        .icp-info,
+        .rights{
+            grid-column-start: 1;
+            grid-column-end: -1;
+            // grid-column: 1 / -1;
+            justify-self: center;
+            color: white;
+        }
+        .scrollToTop{
+            a{
+                width: 32px;
+                height: 32px;
+                border-radius: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: var(--primary-color);
+                color: white;
+                text-decoration: none;
+                position: fixed;
+                bottom: 60px;
+                right: 30px;
+            }
         }
     }
 }
