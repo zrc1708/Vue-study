@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    #app{
+        display: flex;
+        justify-content: center;
+    }
+    .button{
+        width: 100px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        border-radius: 5px;
+        background-color: pink;
+    }
+    .chouti {
+        background-color: #eeeeee;
+        position: fixed;
+        right: -300px;
+        width: 300px;
+        height: 100vh;
+    }
+    .show{
+        animation: move .5s ease-in-out forwards;
+    }
+    .hide{
+        animation: hide .5s ease-in-out forwards;
+    }
+    @keyframes move{
+        0%{
+            right: -300px;
+        }
+        100%{
+            right: 0;
+        }
+    }
+    @keyframes hide{
+        0%{
+            right: 0;
+        }
+        100%{
+            right: -300px;
+        }
+    }
+</style>
+
+<body>
+    <div id="app">
+        <div class="button" @click="show">显示抽屉</div>
+        <div class="chouti" :class="[showChouTi ?'show':'hide']">
+            <input type="text" placeholder="用户名">
+            <input type="text" placeholder="密码">
+            <button>登录</button>
+        </div>
+    </div>
+</body>
+<script>
+    const nico = new Vue({
+        el: '#app',
+        data:{
+            showChouTi:false
+        },
+        methods: {
+            show:function(){
+                this.showChouTi = !this.showChouTi
+            }
+        },
+    })
+</script>
+
+</html>
