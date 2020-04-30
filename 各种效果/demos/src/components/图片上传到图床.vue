@@ -18,7 +18,7 @@ export default {
             formData.append('image', this.$refs.file.files[0])
             formData.append('apiType', 'ali')
             formData.append('token', 'cd80a5ea93ddab33ded025aeff37')
-            this.$http.post(`/api/upload`, formData).then(res => {
+            this.$http.post(`/imageapi/upload`, formData).then(res => {
                 console.log(res.data.data.url.ali)
                 this.url = res.data.data.url.ali
             })
