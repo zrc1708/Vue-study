@@ -1,0 +1,20 @@
+.box{
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    box-shadow: 0 0 6px #ccc;
+    margin: 10px 0;
+}
+/* 启用css模块化之后，所有的类名都是私有的 */
+/* 想要把类名设为全局的，有:global()包起来 */
+:global(.title){
+    color: red;
+    text-align: center;
+}
+.title{
+    font-size: 16px;
+    color: purple;
+}
+.body{
+    font-size: 14px;
+    color: red;
+}

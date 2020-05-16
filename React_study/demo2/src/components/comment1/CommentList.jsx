@@ -28,7 +28,7 @@ export default class CommentList extends React.Component{
         // </div>
 
         return <div>
-            <h1 className="comList-title">评论列表案例</h1>
+            <h1 className="title">评论列表案例</h1>
             {this.state.cmts.map((item,index)=>{
                 // return <CommentItem user={item.user} content={item.content} key={index}></CommentItem>
                 return <CommentItem {...item} key={index}></CommentItem>
