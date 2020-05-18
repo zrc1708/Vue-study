@@ -7,9 +7,10 @@ const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
 // 路由相关的组件
-import {Route,Link} from 'react-router-dom'
+import {Route,Link,Switch} from 'react-router-dom'
 
 import MovieList from './MovieList.jsx'
+import MovieDetail from './MovieDetail.jsx'
 
 export default class MovieContainer extends React.Component {
     constructor(props){
@@ -22,15 +23,15 @@ export default class MovieContainer extends React.Component {
             <Sider width={200} className="site-layout-background">
                 <Menu
                 mode="inline"
-                defaultSelectedKeys={window.location.hash.split('#')[1]}
+                defaultSelectedKeys={window.location.hash.split('/')[2]}
                 style={{ height: '100%', borderRight: 0 }}>
-                    <Menu.Item key="/movie/in_theaters">
+                    <Menu.Item key="in_theaters">
                         <Link to="/movie/in_theaters/1">正在热映</Link>
                     </Menu.Item>
-                    <Menu.Item key="/movie/coming_soon">
+                    <Menu.Item key="coming_soon">
                         <Link to="/movie/coming_soon/1">即将上映</Link>
                     </Menu.Item>
-                    <Menu.Item key="/movie/top250">
+                    <Menu.Item key="top250">
                         <Link to="/movie/top250/1">Top250</Link>
                     </Menu.Item>
                 </Menu>
@@ -43,7 +44,11 @@ export default class MovieContainer extends React.Component {
                     minHeight: 280,
                     background:'#fff'
                 }}>
-                <Route path="/movie/:type/:page" component={MovieList}></Route>
+                <Switch>
+                    {/* 使用路由中的switch，如果前面的路由规则匹配到了，则放弃后面的路由 */}
+                    <Route exact path="/movie/detail/:id" component={MovieDetail}></Route>
+                    <Route exact path="/movie/:type/:page" component={MovieList}></Route>
+                </Switch>
                 </Content>
             </Layout>
         </Layout>
