@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './app.less'
 
 export default class app extends Component {
     render() {
