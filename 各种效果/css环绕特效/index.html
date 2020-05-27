@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background: #1c1c1c;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .enclose{
+        position: relative;
+        width: 150px;
+        height: 50px;
+        text-align: center;
+        color: #fff;
+        background: rgba(241, 241, 241, .25);
+        text-shadow: 0 0 0 #2097Ef;
+        cursor: pointer;
+        transition: all 1s;
+    }
+
+    .enclose:hover{
+        text-shadow: 0 0 10px #2097Ef;
+    }
+
+    .top,
+    .right,
+    .bottom,
+    .left{
+        position: absolute;
+        background: #2097Ef;
+        box-shadow: 0 0 10px #2097Ef;
+        transition: all .1s;
+    }
+
+    .top{
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 3px;
+    }
+    .enclose:hover>.top{
+        width: 150px;
+        transition-delay: 0s;
+    }
+
+    .right{
+        top: 0;
+        right: 0;
+        width: 3px;
+        height: 0;
+    }
+    .enclose:hover>.right{
+        height: 50px;
+        transition-delay: .1s;
+    }
+
+    .bottom{
+        bottom: 0;
+        right: 0;
+        width: 0;
+        height: 3px;
+    }
+    .enclose:hover>.bottom{
+        width: 150px;
+        transition-delay: .2s;
+    }
+
+    .left{
+        bottom: 0;
+        left: 0;
+        width: 3px;
+        height: 0;
+    }
+    .enclose:hover>.left{
+        height: 50px;
+        transition-delay: .3s;
+    }
+</style>
+<body>
+    <div class="enclose">
+        <span class="top"></span>
+        <span class="right"></span>
+        <span class="bottom"></span>
+        <span class="left"></span>
+        <p>Button</p>
+    </div>
+</body>
+</html>
