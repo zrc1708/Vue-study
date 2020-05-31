@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import {Redirect} from 'react-router-dom'
 import './login.less'
-import logo from './images/logo.png'
+import logo from '../../assets/images/logo.png'
 
 import { Form, Input, Button, message } from 'antd';
 import { UserOutlined ,LockOutlined} from '@ant-design/icons';
@@ -8,12 +9,19 @@ import { UserOutlined ,LockOutlined} from '@ant-design/icons';
 import {reqLogin} from '../../api/index.js'
 
 import memoryUtils from '../../utils/memoryUtils.js'
+import storageUtils from '../../utils/storageUtils.js'
 
 /**
  * 登录的路由组件
  */
 export default class Login extends Component {
     render() {
+        // r如果用户已经登录，自动跳转到管理页面
+        const user = memoryUtils.user
+        if(user&&user._id){
+            return <Redirect to="/" />
+        }
+
         return (
             <div className="login">
                 <header className="login-header">
@@ -52,9 +60,11 @@ export default class Login extends Component {
         const result =await reqLogin(username,password)
         if(result.status===0){
             message.success('登录成功')
-            // 保存user,保存在内存中
+            // 保存user
             let user = result.data
-            memoryUtils.user = user
+            memoryUtils.user = user //保存到内存中
+            storageUtils.saveUser(user) //保存到local中
+
             // 跳转到管理界面，不需要回退，所以用replace
             this.props.history.replace('/')
         }else{
