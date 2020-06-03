@@ -5,17 +5,23 @@ import {Form,Select,Input} from 'antd'
 
 export default class AddForm extends Component {
 
+    changes=(changedValues, allValues)=>{
+        this.props.setForm(allValues)
+    }
 
     render() {
+        const {categorys,parentId} = this.props
+
+        
         return (
             <Form 
-            onFinish={this.onFinish}
-            onFinishFailed={this.onFinishFailed}>
-                <Form.Item>
-                    <Select defaultValue='一级分类'>
-                        <Select.Option value='1'>1</Select.Option>
-                        <Select.Option value='2'>2</Select.Option>
-                        <Select.Option value='3'>3</Select.Option>
+            onValuesChange={this.changes}>
+                <Form.Item name="category" initialValue={parentId}>
+                    <Select>
+                        <Select.Option value='0'>一级分类</Select.Option>
+                        {categorys.map(c=>{
+                            return <Select.Option value={c._id}>{c.name}</Select.Option>
+                        })}
                     </Select>
                 </Form.Item>
 

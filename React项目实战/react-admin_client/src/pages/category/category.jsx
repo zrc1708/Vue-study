@@ -175,7 +175,10 @@ export default class Category extends Component {
                 onOk={this.addCategory}
                 onCancel={this.handleCancel}
                 >
-                    <AddForm></AddForm>
+                    <AddForm 
+                    categorys={categorys} 
+                    parentId={parentId}
+                    setForm={(form)=>{this.form = form}}></AddForm>
                 </Modal>
 
                 <Modal
