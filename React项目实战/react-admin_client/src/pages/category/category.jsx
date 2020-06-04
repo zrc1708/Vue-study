@@ -50,17 +50,18 @@ export default class Category extends Component {
     }
 
     // 获取一级分类列表
-    getCategorys= async ()=>{
+    getCategorys= async (parentId)=>{
         // 发出请求前，显示loading
         this.setState({loading:true})
-        const result = await reqCategorys(this.state.parentId)
+        parentId = parentId || this.state.parentId
+        const result = await reqCategorys(parentId)
         // 请求完成后，隐藏loading
         this.setState({loading:false})
         // console.log(result)
         if(result.status===0){
             // 取出分类数组，可能是一级的也可能是二级的
             const categorys = result.data
-            if(this.state.parentId==='0'){
+            if(parentId==='0'){
                 this.setState({categorys})
             }else{
                 this.setState({subcategorys:categorys})
@@ -115,20 +116,39 @@ export default class Category extends Component {
     }
 
     // 添加分类
-    addCategory=()=>{
-
+    addCategory=async ()=>{
+        if(this.form.error){
+            // 表单信息有误，不关闭表单
+            return
+        }
+        // 收集数据提交请求
+        const {categoryName,parentId} = this.form
+        this.setState({
+            showStatus:0
+        })
+        const result =await reqAddCategory(categoryName,parentId)
+        if(result.status===0){
+            if(parentId===this.state.parentId){
+                this.getCategorys()
+            }else if(parentId==='0'){
+                // 在二级分类列表写添加一级分类，重新获取一级分类列表，但不需要显示一级列表
+                this.getCategorys('0')
+            }
+        }
     }
 
     // 更新分类
     updateCategory=async ()=>{
+        if(this.form.error){
+            // 表单信息有误，不关闭表单
+            return
+        }
+        const categoryId = this.category._id
+        const categoryName = this.form.categoryName
         // 隐藏确定框
         this.setState({
             showStatus:0
         })
-        const categoryId = this.category._id
-        const categoryName = this.form.categoryName
-        // 清除输入
-
         // 发请求更新分类
         const result = await reqUpdateCategory(categoryId,categoryName)
         console.log(result)
@@ -178,6 +198,7 @@ export default class Category extends Component {
                     <AddForm 
                     categorys={categorys} 
                     parentId={parentId}
+                    modalVisible={showStatus===1?true:false}
                     setForm={(form)=>{this.form = form}}></AddForm>
                 </Modal>
 
