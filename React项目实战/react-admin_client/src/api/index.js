@@ -26,6 +26,8 @@ export const reqAddCategory = (categoryName,parentId)=>
 export const reqUpdateCategory = ({categoryId,categoryName})=> 
     ajax(BASE+ '/manage/category/update',{categoryId,categoryName},'POST')
 
+// 获取商品分页列表
+export const reqProducts = (pageNum,pageSize)=>ajax(BASE + '/manage/product/list',{pageNum,pageSize})
 
 // json请求的接口请求函数
 export const reqWeather = () =>{
