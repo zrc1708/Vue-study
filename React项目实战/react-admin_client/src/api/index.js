@@ -29,6 +29,19 @@ export const reqUpdateCategory = ({categoryId,categoryName})=>
 // 获取商品分页列表
 export const reqProducts = (pageNum,pageSize)=>ajax(BASE + '/manage/product/list',{pageNum,pageSize})
 
+// 搜索商品分页列表(根据商品名称/描述)
+export const reqSearchProducts =({pageNum,pageSize,searchName,searchType}) => ajax(BASE + '/manage/product/search',{
+    pageNum,
+    pageSize,
+    [searchType]:searchName
+})
+
+// 获取一个分类
+export const reqCategory = (categoryId) =>ajax(BASE+'/manage/category/info',{categoryId})
+
+// 更新商品的状态（上架，下架）
+export const reqUpdateStatus = (productId,status) => ajax(BASE+'/manage/product/updateStatus',{productId,status},'POST')
+
 // json请求的接口请求函数
 export const reqWeather = () =>{
     return new Promise((resolve,reject)=>{

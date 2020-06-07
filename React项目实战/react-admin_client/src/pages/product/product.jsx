@@ -2,6 +2,8 @@
 import React, { Component } from 'react'
 import {Switch,Route,Redirect} from 'react-router-dom'
 
+import './product.less'
+
 import ProductHome from './producthome'
 import ProductAddUpdate from './addupdate'
 import ProductDetail from './detail'
