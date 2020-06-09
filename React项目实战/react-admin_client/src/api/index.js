@@ -42,6 +42,9 @@ export const reqCategory = (categoryId) =>ajax(BASE+'/manage/category/info',{cat
 // 更新商品的状态（上架，下架）
 export const reqUpdateStatus = (productId,status) => ajax(BASE+'/manage/product/updateStatus',{productId,status},'POST')
 
+//删除已上传的图片
+export const reqDeleteImg = (name)=> ajax(BASE+'/manage/img/delete',{name},'POST')
+
 // json请求的接口请求函数
 export const reqWeather = () =>{
     return new Promise((resolve,reject)=>{
