@@ -82,7 +82,7 @@ export default class Detail extends Component {
                         </span>
                     </Item>
                     <Item>
-                        <span className="left">所属分类：</span>
+                        <span className="left">商品介绍：</span>
                         <span dangerouslySetInnerHTML={{__html:product.detail}}></span>
                     </Item>
                 </List>

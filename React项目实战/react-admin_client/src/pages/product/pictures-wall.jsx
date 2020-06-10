@@ -39,11 +39,11 @@ export default class PicturesWall extends React.Component {
         }
 
         //初始化状态
-        this.setState({
+        this.state = {
           previewVisible:false,
           previewImage:'',
           fileList
-        })
+        }
   }
 
 //   获取所有已上传文件名的数组
