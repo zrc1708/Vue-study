@@ -54,6 +54,15 @@ export const reqRoles =()=> ajax(BASE+'/manage/role/list')
 // 添加角色
 export const reqAddRole =(roleName)=> ajax(BASE+'/manage/role/add',{roleName},'POST')
 
+// 更新角色权限
+export const reqUpdateRole =(role)=> ajax(BASE+'/manage/role/update',role,'POST')
+
+// 获取所有用户的列表
+export const reqUsers =()=> ajax(BASE+'/manage/user/list')
+
+// 删除用户
+export const reqDeleteUser =(userId)=> ajax(BASE+'/manage/user/delete',{userId},'POST')
+
 // json请求的接口请求函数
 export const reqWeather = () =>{
     return new Promise((resolve,reject)=>{
