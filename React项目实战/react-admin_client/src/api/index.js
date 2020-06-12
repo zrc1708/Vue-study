@@ -12,9 +12,6 @@ const BASE = ''
 // }
 export const reqLogin = (username,password) => ajax(BASE+'/login',{username,password},'POST')
 
-// 添加用户
-export const reqAddUser = (user) => ajax('/manage/user/add',user,'POST')
-
 // 获取一级、二级分类列表
 export const reqCategorys = (parentId)=> ajax(BASE+ '/manage/category/list',{parentId})
 
@@ -62,6 +59,9 @@ export const reqUsers =()=> ajax(BASE+'/manage/user/list')
 
 // 删除用户
 export const reqDeleteUser =(userId)=> ajax(BASE+'/manage/user/delete',{userId},'POST')
+
+// 添加或更新用户
+export const reqAddOrUpdateUser =(user)=> ajax(BASE+'/manage/user/'+(user._id?'update':'add'),user,'POST')
 
 // json请求的接口请求函数
 export const reqWeather = () =>{
