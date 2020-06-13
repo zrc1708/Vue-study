@@ -7,6 +7,7 @@ import AddForm from './addform'
 import AuthForm from './authform'
 import memoryUtils from '../../utils/memoryUtils'
 import {formateDate} from '../../utils/dateUtils'
+import storageUtils from '../../utils/storageUtils'
 
 export default class Role extends Component {
     state ={
@@ -125,6 +126,13 @@ export default class Role extends Component {
         const result = await reqUpdateRole(role)
         if(result.status===0){
             message.success('设置角色权限成功')
+        }
+        // 如果更新的是自己角色的权限，强制退出
+        if(role._id===memoryUtils.user.role._id){
+            memoryUtils.user = {}
+            storageUtils.removeUser()
+            this.props.history.replace('/login')
+        }else{
             this.getRoles()
         }
     }
@@ -162,7 +170,14 @@ export default class Role extends Component {
                 dataSource={roles} 
                 columns={this.columns}
                 onRow={this.onRow}
-                rowSelection={{type:'radio',selectedRowKeys:[role._id]}}
+                rowSelection={{
+                    type:'radio',
+                    selectedRowKeys:[role._id],
+                    onSelect:(role)=>{
+                        // 选中radio时的回调 
+                        this.setState({role})
+                    }
+                }}
                 pagination={{
                     current:current,
                     defaultPageSize:PAGE_SIZE,

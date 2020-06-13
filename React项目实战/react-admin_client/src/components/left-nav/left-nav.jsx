@@ -10,6 +10,8 @@ import './left-nav.less'
 import { Menu } from 'antd';
 import * as Icon from '@ant-design/icons';
 import menuList from '../../config/menuConfig'
+import memoryUtils from '../../utils/memoryUtils'
+
 const { SubMenu } = Menu;
 
 class Leftnav extends Component {
@@ -52,29 +54,46 @@ class Leftnav extends Component {
         )
     }
 
+    // 判断当前登录用户对item是否有权限
+    hasAuth=(item)=>{
+        const key = item.key
+        const menus = memoryUtils.user.role.menus
+        // 如果当前用户是admin,直接通过
+        const username = memoryUtils.user.username
+        if(username==='admin'||item.isPublic||menus.indexOf(key)!==-1){
+            return true
+        }else if(item.children){
+            return !!item.children.find(child=> menus.indexOf(child.key)!==-1)
+        }
+        return false
+    }
+
     // 根据menu对应的数组生成对应的标签数组(map递归法)
     getMenuNodes =(menuList)=>{
         const path = this.props.location.pathname
         return menuList.map(item=>{
-            if(!item.children){
-                return (
-                    <Menu.Item key={item.key} icon={React.createElement(Icon[item.icon])}>
-                        <Link to={item.key}>{item.title}</Link>
-                    </Menu.Item>
-                )
-            }else{
-                // 查找一个域当前请求路径匹配的子item
-                const cItem = item.children.find(cItem => path.indexOf(cItem.key)===0)
-                // 如果存在，说明当前item的子列表需要打开
-                if(cItem){
-                    this.openKey = item.key
+            // 如果当前用户有item对应的权限，才需要展示对应的菜单项
+            if(this.hasAuth(item)){
+                if(!item.children){
+                    return (
+                        <Menu.Item key={item.key} icon={React.createElement(Icon[item.icon])}>
+                            <Link to={item.key}>{item.title}</Link>
+                        </Menu.Item>
+                    )
+                }else{
+                    // 查找一个域当前请求路径匹配的子item
+                    const cItem = item.children.find(cItem => path.indexOf(cItem.key)===0)
+                    // 如果存在，说明当前item的子列表需要打开
+                    if(cItem){
+                        this.openKey = item.key
+                    }
+    
+                    return (
+                        <SubMenu key={item.key} icon={React.createElement(Icon[item.icon])} title={item.title}>
+                            {this.getMenuNodes(item.children)}
+                        </SubMenu>
+                    )
                 }
-
-                return (
-                    <SubMenu key={item.key} icon={React.createElement(Icon[item.icon])} title={item.title}>
-                        {this.getMenuNodes(item.children)}
-                    </SubMenu>
-                )
             }
         })
     }
