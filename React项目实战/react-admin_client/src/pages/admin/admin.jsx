@@ -6,9 +6,11 @@ import {Redirect,Route,Switch} from 'react-router-dom'
 
 import { Layout } from 'antd';
 
-import memoryUtils from '../../utils/memoryUtils'
+// import memoryUtils from '../../utils/memoryUtils'
 import LeftNav from '../../components/left-nav/left-nav'
 import Header from '../../components/header/header'
+
+import {connect} from 'react-redux'
 
 // 引入子路由
 import Home from '../home/home'
@@ -22,9 +24,9 @@ import Pie from '../charts/pie'
 
 const { Content, Footer, Sider } = Layout;
 
-export default class Admin extends Component {
+class Admin extends Component {
     render() {
-        const user = memoryUtils.user 
+        const user = this.props.user 
         // 如果内存中没哟存储user=>当前没有登录
 
         if(!user || !user._id){
@@ -59,3 +61,8 @@ export default class Admin extends Component {
         )
     }
 }
+
+export default connect(
+    state => ({user:state.user}),
+    {}
+)(Admin)

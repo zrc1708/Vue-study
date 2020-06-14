@@ -6,21 +6,25 @@ import logo from '../../assets/images/logo.png'
 import { Form, Input, Button, message } from 'antd';
 import { UserOutlined ,LockOutlined} from '@ant-design/icons';
 
-import {reqLogin} from '../../api/index.js'
+// import {reqLogin} from '../../api/index.js'
+// import memoryUtils from '../../utils/memoryUtils.js'
+// import storageUtils from '../../utils/storageUtils.js'
 
-import memoryUtils from '../../utils/memoryUtils.js'
-import storageUtils from '../../utils/storageUtils.js'
+import {connect} from 'react-redux'
+import {login} from '../../redux/actions'
 
 /**
  * 登录的路由组件
  */
-export default class Login extends Component {
+class Login extends Component {
     render() {
         // r如果用户已经登录，自动跳转到管理页面
-        const user = memoryUtils.user
+        const user = this.props.user
         if(user&&user._id){
-            return <Redirect to="/" />
+            return <Redirect to="/home" />
         }
+
+        const errorMsg = this.props.user.errorMsg
 
         return (
             <div className="login">
@@ -29,6 +33,7 @@ export default class Login extends Component {
                     <h1>妮可后台管理项目</h1>
                 </header>
                 <section className="login-container">
+                    <div>{errorMsg}</div>
                     <h2>用户登录</h2>
                     <Form onFinish={this.handleSubmit} onFinishFailed={this.handleSubmitErr} className="login-form">
                         <Form.Item name="username" rules={[
@@ -57,19 +62,21 @@ export default class Login extends Component {
 
     handleSubmit= async (values)=>{
         const {username,password} = values
-        const result =await reqLogin(username,password)
-        if(result.status===0){
-            message.success('登录成功')
-            // 保存user
-            let user = result.data
-            memoryUtils.user = user //保存到内存中
-            storageUtils.saveUser(user) //保存到local中
+        // 调用分发异步action的函数=>发登录的请求，有结果后更新状态
+        this.props.login(username,password)
+        // const result =await reqLogin(username,password)
+        // if(result.status===0){
+        //     message.success('登录成功')
+        //     // 保存user
+        //     let user = result.data
+        //     memoryUtils.user = user //保存到内存中
+        //     storageUtils.saveUser(user) //保存到local中
 
-            // 跳转到管理界面，不需要回退，所以用replace
-            this.props.history.replace('/')
-        }else{
-            message.error(result.msg)
-        }
+        //     // 跳转到管理界面，不需要回退，所以用replace
+        //     this.props.history.replace('/home')
+        // }else{
+        //     message.error(result.msg)
+        // }
     }
 
     handleSubmitErr=()=>{
@@ -95,3 +102,8 @@ export default class Login extends Component {
         // }
     }
 }
+
+export default connect(
+    state=>({user:state.user}),
+    {login}
+)(Login)

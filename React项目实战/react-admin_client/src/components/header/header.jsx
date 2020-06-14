@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import './header.less'
 import {formateDate} from '../../utils/dateUtils'
-import memoryUtils from '../../utils/memoryUtils'
-import storageUtils from '../../utils/storageUtils'
+// import memoryUtils from '../../utils/memoryUtils'
+// import storageUtils from '../../utils/storageUtils'
 import {reqWeather} from '../../api/index'
 import {withRouter} from 'react-router-dom'
 import menuList from '../../config/menuConfig'
 import { Modal } from 'antd';
 import LinkButton from '../link-button/link-button'
+import {connect} from 'react-redux'
+import {logout} from '../../redux/actions'
 
 class Header extends Component {
 
@@ -56,8 +58,9 @@ class Header extends Component {
             content: '确定退出吗',
             onOk:()=> {
                 // 删除保存的user,跳转到登录
-                storageUtils.removeUser()
-                memoryUtils.user = {}
+                // storageUtils.removeUser()
+                // memoryUtils.user = {}
+                this.props.logout()
                 this.props.history.replace('/login')
             },
           })
@@ -65,9 +68,9 @@ class Header extends Component {
 
     render() {
         const {currentTime,weather} = this.state
-        const {username} = memoryUtils.user
-        const title = this.getTitle()
-
+        const {username} = this.props.user
+        // const title = this.getTitle()
+        const title = this.props.headTitle
         return (
             <div className="header">
                 <div className="header-top">
@@ -92,4 +95,7 @@ class Header extends Component {
     }
 }
 
-export default withRouter(Header)
+export default connect(
+    state =>({headTitle:state.headTitle,user:state.user}),
+    {logout}
+)(withRouter(Header))

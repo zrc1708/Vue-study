@@ -5,12 +5,14 @@ import React, { Component } from 'react'
 import {Link,withRouter} from 'react-router-dom'
 import logo from '../../assets/images/logo.png'
 import './left-nav.less'
+import {connect} from 'react-redux'
+import {setHeadTitle} from '../../redux/actions'
 
 // antd菜单相关组件
 import { Menu } from 'antd';
 import * as Icon from '@ant-design/icons';
 import menuList from '../../config/menuConfig'
-import memoryUtils from '../../utils/memoryUtils'
+// import memoryUtils from '../../utils/memoryUtils'
 
 const { SubMenu } = Menu;
 
@@ -57,9 +59,9 @@ class Leftnav extends Component {
     // 判断当前登录用户对item是否有权限
     hasAuth=(item)=>{
         const key = item.key
-        const menus = memoryUtils.user.role.menus
+        const menus = this.props.user.role.menus
         // 如果当前用户是admin,直接通过
-        const username = memoryUtils.user.username
+        const username = this.props.user.username
         if(username==='admin'||item.isPublic||menus.indexOf(key)!==-1){
             return true
         }else if(item.children){
@@ -75,9 +77,17 @@ class Leftnav extends Component {
             // 如果当前用户有item对应的权限，才需要展示对应的菜单项
             if(this.hasAuth(item)){
                 if(!item.children){
+                    //判断item是否是当前对应的item
+                    if(item.key===path || path.indexOf(item.key)===0){
+                        // 更新redux中的headertitle状态
+                        this.props.setHeadTitle(item.title)
+                    }
+
                     return (
                         <Menu.Item key={item.key} icon={React.createElement(Icon[item.icon])}>
-                            <Link to={item.key}>{item.title}</Link>
+                            <Link 
+                            to={item.key}
+                            onClick={()=>this.props.setHeadTitle(item.title)}>{item.title}</Link>
                         </Menu.Item>
                     )
                 }else{
@@ -124,4 +134,7 @@ class Leftnav extends Component {
  * 包装非路由组件，返回一个新的组件
  * 新的组件向非路由组件传递三个属性：history,location,match
  */
-export default withRouter(Leftnav)
+export default connect(
+    state => ({user:state.user}),
+    {setHeadTitle}
+)(withRouter(Leftnav))
