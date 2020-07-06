@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .container{
+        position: relative;
+    }
+    ul {
+        display: flex;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        padding: 20px;
+        font-size: 24px;
+        flex: 1;
+        text-align: center;
+        color: #000;
+        list-style: none;
+        cursor: pointer;
+    }
+    .cloud{
+        background-color: lightblue;
+        width: 20%;
+        height: 10px;
+        display: block;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <ul>
+            <li class="tab"><a href="javascript:">第一条</a></li>
+            <li class="tab"><a href="javascript:">第二条</a></li>
+            <li class="tab"><a href="javascript:">第三条</a></li>
+            <li class="tab"><a href="javascript:">第四条</a></li>
+            <li class="tab"><a href="javascript:">第五条</a></li>
+        </ul>
+        <span class="cloud"></span>
+    </div>
+</body>
+<script>
+    // js缓动方法
+    function animate(obj, target, callback) {
+        // 先清除以前的定时器，只保留当前的一个定时器执行
+        clearInterval(obj.timer);
+        obj.timer = setInterval(function () {
+            var step = (target - obj.offsetLeft) / 10
+            step = step > 0 ? Math.ceil(step) : Math.floor(step)
+            if (obj.offsetLeft == target) {
+                // 停止动画 本质是停止定时器
+                clearInterval(obj.timer);
+                // 如果有回调函数，就调用回调函数
+                callback && callback()
+            }
+            // 慢慢变小实现缓动效果 步长公式：（目标值-现在位置）/10
+            obj.style.marginLeft = obj.offsetLeft + step + 'px';
+        }, 15);
+    }
+
+    let cloud = document.querySelector('.cloud')
+    let arr = document.querySelectorAll('.tab')
+    for (let index = 0; index < arr.length; index++) {
+        arr[index].addEventListener('click',function(){
+            animate(cloud,this.offsetLeft)
+        })
+    }
+    console.log(arr)
+</script>
+</html>
