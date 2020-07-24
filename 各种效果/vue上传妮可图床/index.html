@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zn-ch">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.20.0-0/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="inputbox">
+            <input type="file" ref="file" @change="checkField($event)" accept="image/*" multiple="multiple" v-show="true"/> 
+            <p>注意：上方的input无法使用样式美化，建议直接隐藏，使用下方按钮操作</p>
+        </div>
+        <span class="choose" @click="upload">点击选择文件</span>
+        <span class="uploadButton" @click="uploadImage">上传</span>
+        <p>{{data}}</p>
+    </div>
+</body>
+<style>
+    .inputbox{
+        width: 200px;
+        height: 120px;
+        background-color: pink;
+        margin-bottom: 50px;
+    }
+    .choose{
+        padding: 10px;
+        border: 1px solid black;
+    }
+    .uploadButton{
+        margin-left: 20px;
+        padding: 10px;
+        border: 1px solid black;
+    }
+</style>
+<script>
+    const nico = new Vue({
+        el: '#app',
+        data:{
+            filesArr:[],
+            filesNameArr:[],
+            data:''
+        },
+        methods: {
+            // 触发input文件选择
+            upload(){
+                this.$refs.file.click()
+            }, 
+            //获取所选文件的信息
+            checkField(e){
+                [...this.$refs.file.files].forEach(item => {
+                    this.filesArr.push(item)
+                    // 这里直接套用了原文件名，你也可以使用自定义的新文件名
+                    this.filesNameArr.push(item.name)
+                });
+            },
+            // 文件上传
+            async uploadImage(){
+                const formData = new FormData()
+                const files = this.filesArr
+                files.forEach(item=>{
+                    formData.append("file",item)
+                })
+                const fileNames = this.filesNameArr
+                formData.append('fileNames',fileNames)
+                const res = await axios.post("http://imgapi.jibei66.com/nicoimageapi/zrc",formData)
+                if(res.data.code==200){
+                    this.data = res.data.imageUrl
+                }else{
+                    console.log('fail')
+                }
+            },
+        },
+    })
+</script>
+
+</html>
