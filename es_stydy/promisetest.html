@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    1243
+    <script>
+        let one,two
+
+        function showMsgBox() {
+          this.promise = new Promise((resolve, reject) => {
+            one = resolve;
+            two = reject;
+          });
+          return this.promise;
+        }
+
+        setTimeout(() => {
+            one('resolve')
+        }, 3000);
+
+        showMsgBox().then(val=>{
+            console.log(val)
+        })
+
+    </script>
+</body>
+</html>
