@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    div {
+        width: 600px;
+        height: 400px;
+    }
+
+    .div1 {
+        background: white;
+        background-image: linear-gradient(90deg,
+                rgba(200, 0, 0, .5) 50%, transparent 0),
+            linear-gradient(rgba(200, 0, 0, .5) 50%, transparent 0);
+        background-size: 30px 30px;
+    }
+
+    .div2 {
+        background: #58a;
+        background-image:
+            linear-gradient(white 1px, transparent 0),
+            linear-gradient(90deg, white 1px, transparent 0);
+        background-size: 30px 30px;
+    }
+    .div3{
+        background: #58a;
+        background-image:
+        linear-gradient(white 2px, transparent 0),
+        linear-gradient(90deg, white 2px, transparent 0),
+        linear-gradient(hsla(0,0%,100%,.3) 1px,
+        transparent 0),
+        linear-gradient(90deg, hsla(0,0%,100%,.3) 1px,
+        transparent 0);
+        background-size: 75px 75px, 75px 75px,
+        15px 15px, 15px 15px;
+    }
+    .div4{
+        background: #655;
+        background-image: radial-gradient(tan 30%, transparent 0);
+        background-size: 30px 30px;
+    }
+    .div5{
+        background: #655;
+        background-image: radial-gradient(tan 30%, transparent 0),
+        radial-gradient(tan 30%, transparent 0);
+        background-size: 30px 30px;
+        background-position: 0 0, 15px 15px;
+    }
+    .div6{
+        background: #eee;
+        background-image:
+        linear-gradient(45deg, #bbb 25%, transparent 0),
+        linear-gradient(45deg, transparent 75%, #bbb 0),
+        linear-gradient(45deg, #bbb 25%, transparent 0),
+        linear-gradient(45deg, transparent 75%, #bbb 0);
+        background-position: 0 0, 15px 15px,
+                            15px 15px, 30px 30px;
+        background-size: 30px 30px;
+    }
+    .div7{
+        background: #eee;
+        background-image:linear-gradient(45deg,
+                        rgba(0,0,0,.25) 25%, transparent 0,
+                        transparent 75%, rgba(0,0,0,.25) 0),
+                        linear-gradient(45deg,
+                        rgba(0,0,0,.25) 25%, transparent 0,
+                        transparent 75%, rgba(0,0,0,.25) 0);
+        background-position: 0 0, 15px 15px;
+        background-size: 30px 30px;
+    }
+</style>
+
+<body>
+    <div class="div1"></div>
+    <hr>
+    <div class="div2"></div>
+    <hr>
+    <div class="div3"></div>
+    <hr>
+    <div class="div4"></div>
+    <hr>
+    <div class="div5"></div>
+    <hr>
+    <div class="div6"></div>
+    <hr>
+    <div class="div7"></div>
+</body>
+
+</html>
