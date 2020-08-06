@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .div1 {
+        display: inline-block;
+        width: 16em;
+        height: 10em;
+        margin: 1em;
+        background: #fb3;
+        border-radius: 50% / 100% 100% 0 0;
+    }
+
+    div:nth-of-type(2) {
+        border-radius: 50% / 0 0 100% 100%;
+    }
+
+    div:nth-of-type(3) {
+        border-radius: 100% 0 0 100% / 50%;
+    }
+
+    div:nth-of-type(4) {
+        border-radius: 0 100% 100% 0 / 50%;
+    }
+    .div2{
+        display: inline-block;
+        width: 16em;
+        height: 10em;
+        margin: 1em;
+        background: #fb3;
+        border-radius: 100% 0 0 0;
+    }
+    div:nth-of-type(6) { border-radius: 0 100% 0 0; }
+    div:nth-of-type(7) { border-radius: 0 0 100% 0; }
+    div:nth-of-type(8) { border-radius: 0 0 0 100%; }
+</style>
+
+<body>
+    <div class="div1"></div>
+    <div class="div1"></div>
+    <div class="div1"></div>
+    <div class="div1"></div>
+
+    <div class="div2"></div>
+    <div class="div2"></div>
+    <div class="div2"></div>
+    <div class="div2"></div>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .diamond {
+        width: 250px;
+        height: 250px;
+        transform: rotate(45deg);
+        overflow: hidden;
+        margin: 100px;
+    }
+
+    .diamond img {
+        max-width: 100%;
+        transform: rotate(-45deg) scale(1.42);
+        z-index: -1;
+        position: relative;
+    }
+
+
+    img {
+        max-width: 250px;
+        margin: 20px;
+        -webkit-clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+        clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+        transition: 1s;
+    }
+
+    img:hover {
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+</style>
+
+<body>
+    <!-- 变形法，只能用于正方形图片 -->
+    <div class="diamond">
+        <img src="http://csssecrets.io/images/adamcatlace.jpg" />
+    </div>
+    <!-- 裁切路径法，浏览器适配一般 -->
+    <img src="http://csssecrets.io/images/adamcatlace.jpg" />
+    <img src="http://csssecrets.io/images/adam-sleeping.jpg" />
+</body>
+
+</html>
