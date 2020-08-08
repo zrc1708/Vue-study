@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /* 伪元素法 */
+    .pie {
+        display: inline-block;
+        position: relative;
+        width: 100px;
+        line-height: 100px;
+        border-radius: 50%;
+        background: yellowgreen;
+        background-image: linear-gradient(to right, transparent 50%, #655 0);
+        color: transparent;
+        text-align: center;
+    }
+    @keyframes spin {
+        to {
+            transform: rotate(.5turn);
+        }
+    }
+    @keyframes bg {
+        50% {
+            background: #655;
+        }
+    }
+    .pie::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 50%;
+        height: 100%;
+        border-radius: 0 100% 100% 0 / 50%;
+        background-color: inherit;
+        transform-origin: left;
+        animation: spin 50s linear infinite, bg 100s step-end infinite;
+        animation-play-state: paused;
+        animation-delay: inherit;
+    }
+
+
+    /* svg法 */
+    .pie2 {
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+        margin: 10px;
+        transform: rotate(-90deg);
+    }
+
+    svg {
+        background: yellowgreen;
+        border-radius: 50%;
+    }
+
+    circle {
+        fill: yellowgreen;
+        stroke: #655;
+        stroke-width: 32;
+    }
+
+    @keyframes grow { to { stroke-dasharray: 100 100 } }
+
+    .pie2.animated circle {
+        animation: grow 2s infinite linear;
+    }
+
+</style>
+
+<body>
+    <!-- 伪元素法 -->
+    <div class="pie">0%</div>
+    <div class="pie">20%</div>
+    <div class="pie">40%</div>
+    <div class="pie">60%</div>
+    <div class="pie">80%</div>
+    <hr>
+    <!-- svg法 -->
+    <div class="pie2">20%</div>
+    <div class="pie2">60%</div>
+    <div class="pie2 animated">0%</div>
+</body>
+<script>
+    function $$(selector, context) {
+        context = context || document;
+        var elements = context.querySelectorAll(selector);
+        return Array.prototype.slice.call(elements);
+    }
+    $$('.pie').forEach(function(pie) {
+        var p = parseFloat(pie.textContent);
+        pie.style.animationDelay = '-' + p + 's';
+    });
+    $$('.pie2').forEach(function(pie) {
+        var p = parseFloat(pie.textContent);
+        var NS = "http://www.w3.org/2000/svg";
+        var svg = document.createElementNS(NS, "svg");
+        var circle = document.createElementNS(NS, "circle");
+        var title = document.createElementNS(NS, "title");
+        
+        circle.setAttribute("r", 16);
+        circle.setAttribute("cx", 16);
+        circle.setAttribute("cy", 16);
+        circle.setAttribute("stroke-dasharray", p + " 100");
+        
+        svg.setAttribute("viewBox", "0 0 32 32");
+        title.textContent = pie.textContent;
+        pie.textContent = '';
+        svg.appendChild(title);
+        svg.appendChild(circle);
+        pie.appendChild(svg);
+    });
+</script>
+</html>

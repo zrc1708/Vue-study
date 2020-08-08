@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .img1 {
+        max-width: 640px;
+        transition: 1s filter, 1s -webkit-filter;
+        -webkit-filter: sepia() saturate(4) hue-rotate(295deg);
+        filter: sepia() saturate(4) hue-rotate(295deg);
+    }
+
+    .img1:hover,
+    .img1:focus {
+        -webkit-filter: none;
+        filter: none;
+    }
+
+    .tinted-image {
+        width: 640px; height: 440px;
+        background-size: cover;
+        background-color: hsl(335, 100%, 50%);
+        background-blend-mode: luminosity;
+        transition: .5s background-color;
+    }
+    .tinted-image:hover {
+        background-color: transparent;
+    }
+</style>
+
+<body>
+    <!-- 滤镜法 -->
+    <img class="img1" src="http://csssecrets.io/images/tiger.jpg" />
+    <!-- 混合模式法 -->
+    <div style="background-image:url(http://csssecrets.io/images/tiger.jpg)" class="tinted-image"></div>
+</body>
+
+</html>
