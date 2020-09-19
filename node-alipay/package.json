@@ -17,7 +17,7 @@
     "koa-static-cache": "^5.1.2",
     "koa2": "^2.0.0-alpha.7",
     "koa2-cors": "^2.0.6",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.5",
     "svg-captcha": "^1.4.0"
