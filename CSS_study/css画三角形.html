@@ -6,13 +6,34 @@
     <title>Document</title>
 </head>
 <style>
-    div{
+    .div1{
         width: 0;
         border: 10px solid;
         border-color: #f30 transparent transparent ;
     }
+    .div2{
+        width: 30px;
+        height: 30px;
+        background: linear-gradient(to bottom right, red 50%, transparent 0);
+    }
+    .div3{
+        width: 30px;
+        height: 60px;
+        background: linear-gradient(to bottom right, red 50%, transparent 0);
+    }
+    .div4{
+        width: 120px;
+        height: 60px;
+        background: linear-gradient(45deg, transparent 50%, red 0) left,
+                     linear-gradient(-45deg, transparent 50%, blue 0) right;
+        background-size: 50% 100%;
+        background-repeat: no-repeat;
+    }
 </style>
 <body>
-    <div></div>
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <div class="div3"></div>
+    <div class="div4"></div>
 </body>
 </html>

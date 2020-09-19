@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 在 JavaScript 中，当我们调用对象的某个方法时，
+        // 其实不用去关心该对象原本是否被设计为拥有这个方法，
+        // 这是动态类型语言的特点，也是常说的鸭子类型思想。
+        // 同理，一个对象也未必只能使用它自身的方法
+
+        // call 和 apply 都可以完成这个需求
+        var obj1 = {
+            name: 'sven'
+        };
+        var obj2 = {
+            getName: function () {
+                return '姓名：' + this.name;
+            }
+        };
+        console.log(obj2.getName.call(obj1)); // 输出：sven
+
+
+        // 我们常常让类数组对象去借用 Array.prototype 的方法，
+        // 这是 call 和 apply 最常见的应用场景之一：
+        (function () {
+            Array.prototype.push.call(arguments, 4); // arguments 借用 Array.prototype.push 方法
+            console.log(arguments); // 输出：[1, 2, 3, 4] 
+        })(1, 2, 3);
+        // 在我们的预期中，Array.prototype 上的方法原本只能用来操作 array 对象。
+        // 但用 call 和 apply可以把任意对象当作 this 传入某个方法
+        // 这样一来，方法中用到 this 的地方就不再局限于原来规定的对象，而是加以泛化并得到更广的适用性。
+
+
+        // 那么有没有办法把泛化 this 的过程提取出来呢？
+        // uncurrying 就是用来解决这个问题的
+        Function.prototype.uncurrying = function () {
+            var self = this;
+            return function () {
+                var obj = Array.prototype.shift.call(arguments);
+                return self.apply(obj, arguments);
+            };
+        };
+
+        // 在类数组对象 arguments 借用 Array.prototype 的方法之前，
+        // 先把 Array.prototype.push.call这句代码转换为一个通用的 push 函数
+        var push = Array.prototype.push.uncurrying();
+        (function () {
+            push(arguments, 4);
+            console.log(arguments); // 输出：[1, 2, 3, 4] 
+        })(1, 2, 3);
+        // 通过 uncurrying 的方式，Array.prototype.push.call 变成了一个通用的 push 函数。
+
+        // 还可以一次性地把 Array.prototype 上的方法“复制”到 array 对象上，
+        // 同样这些方法可操作的对象也不仅仅只是 array 对象：
+        for (var i = 0, fn, ary = ['push', 'shift', 'forEach']; fn = ary[i++];) {
+            Array[fn] = Array.prototype[fn].uncurrying();
+        };
+
+        var obj = {
+            "length": 3,
+            "0": 1,
+            "1": 2,
+            "2": 3
+        };
+        Array.push(obj, 4); // 向对象中添加一个元素
+        console.log(obj.length); // 输出：4 
+        var first = Array.shift(obj); // 截取第一个元素
+        console.log(first); // 输出：1 
+        console.log(obj); // 输出：{0: 2, 1: 3, 2: 4, length: 3} 
+        Array.forEach(obj, function (i, n) {
+            console.log(n); // 分别输出：0, 1, 2 
+        });
+    </script>
+</body>
+
+</html>
