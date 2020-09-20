@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .title {
+        background-color: pink;
+    }
+
+    .box {
+        float: left;
+        width: calc(50% - 20px);
+        height: 300px;
+        background-color: white;
+        margin: 10px;
+    }
+    .box2{
+        height: 200px;
+    }
+    /* 让::before 和::after 伪元素都显示出来 */
+    .clearfix::before,
+    .clearfix::after {
+        display: table;   /* 防止伪元素的外边距折叠 */
+        content: " ";
+    }
+
+    /* 只有::after 伪元素需要清除浮动 */
+    .clearfix::after {
+        clear: both;
+    }
+</style>
+
+<body>
+    <div class="title clearfix">
+        <p>修改清除浮动的代码，让其包含所有的外边距</p>
+        <div class="box">1</div>
+        <div class="box box2">2</div>
+        <div class="box">3</div>
+        <div class="box">4</div>
+    </div>
+</body>
+
+</html>

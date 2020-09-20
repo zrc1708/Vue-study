@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    :root {
+        --main-bg: #fff;
+        --main-color: #000;
+    }
+
+    .panel {
+        font-size: 1rem;
+        padding: 1em;
+        border: 1px solid #999;
+        border-radius: 0.5em;
+        background-color: var(--main-bg);
+        color: var(--main-color);
+    }
+
+    .panel>h2 {
+        margin-top: 0;
+        font-size: 0.8em;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    /* css改变自定义属性 */
+    .dark {
+        margin-top: 2em;
+        padding: 1em;
+        background-color: #999;
+        --main-bg: #333;
+        --main-color: #fff;
+    }
+    .jschange{
+        margin-top: 2em;
+    }
+</style>
+
+<body>
+    <div class="panel">
+        <h2>Single-origin</h2>
+        <div class="body">
+            We have built partnerships with small farms
+            around the world to hand-select beans at the
+            peak of season. We then careful roast in
+            small batches to maximize their potential.
+        </div>
+    </div>
+
+    <aside class="dark">
+        <div class="panel">
+            <h2>Single-origin</h2>
+            <div class="body">
+                We have built partnerships with small farms
+                around the world to hand-select beans at the
+                peak of season. We then careful roast in
+                small batches to maximize their potential.
+            </div>
+        </div>
+    </aside>
+
+    <aside class="jschange">
+        <div class="panel">
+            <h2>Single-origin</h2>
+            <div class="body">
+                We have built partnerships with small farms
+                around the world to hand-select beans at the
+                peak of season. We then careful roast in
+                small batches to maximize their potential.
+            </div>
+        </div>
+    </aside>
+
+    <script>
+        // var rootElement = document.documentElement;
+        // var styles = getComputedStyle(rootElement);     // 获取一个元素的 styles对象
+        // var mainColor = styles.getPropertyValue('--main-bg');      // 获取 styles 对象的--main-bg 值
+        // console.log(String(mainColor).trim());
+
+        var rootElement = document.querySelector('.jschange');
+        rootElement.style.setProperty('--main-bg', 'blue');
+    </script>
+</body>
+
+</html>

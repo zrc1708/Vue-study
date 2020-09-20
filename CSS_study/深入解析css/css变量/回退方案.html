@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    :root {
+        --main-bg: #fff;
+        --main-color: #000;
+    }
+    p{
+        color: black;
+        color: var(--main-color);
+    }
+</style>
+<body>
+    <p>不支持自定义属性的浏览器上，任何使用 var()的声明都会被忽略</p>
+    <p>为这些浏览器提供回退方案</p>
+</body>
+</html>

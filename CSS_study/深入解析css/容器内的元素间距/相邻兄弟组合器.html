@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .box {
+        width: 600px;
+        padding: 1.5em;
+        border: 1px solid black;
+    }
+
+    .button-link {
+        display: block;
+        padding: 0.5em;
+        color: #fff;
+        background-color: #0090C9;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        /* 按钮的上外边距使得容器的内边距看起来更大了 */
+        /* margin-top: 1.5em */
+    }
+
+    /* 使用相邻兄弟组合器给按钮之间加上一个外边距 */
+    /* .button-link+.button-link {
+        margin-top: 1.5em;
+    } */
+
+    .sponsor-link {
+        display: block;
+        color: #0072b0;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    /* 用猫头鹰选择器全局设置上下堆叠的元素的间距 */
+    /* 它会选中页面上有着相同父级的非第一个子元素 */
+    body *+* {
+        margin-top: 1.5em;
+    }
+</style>
+
+<body>
+    <div class="box">
+        <a href="/twitter" class="button-link">
+            follow us on Twitter
+        </a>
+        <a href="/facebook" class="button-link">
+            like us on Facebook
+        </a>
+        <!-- 加上了新元素需要重设外边距，解决方法：使用猫头鹰选择器 -->
+        <a href="/sponsors" class="sponsor-link">
+            become a sponsor
+        </a>
+    </div>
+</body>
+
+</html>
