@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .hero {
+        padding: 2em 1em;
+        text-align: center;
+        /* 给移动设备提供最小的图 */
+        background-image: url(coffee-beans-small.jpg);
+        background-size: 100%;
+        color: #fff;
+        text-shadow: 0.1em 0.1em 0.3em #000;
+    }
+
+    @media (min-width: 35em) {
+        .hero {
+            padding: 5em 3em;
+            font-size: 1.2rem;
+            /* 给中等屏幕提供稍大的图 */
+            background-image: url(coffee-beans-medium.jpg);
+        }
+    }
+
+    @media (min-width: 50em) {
+        .hero {
+            padding: 7em 6em;
+            /* 给大屏幕提供完整分辨率的图 */
+            background-image: url(coffee-beans.jpg);
+        }
+    }
+</style>
+
+<body>
+    <!-- 媒体查询能够解决用 CSS 加载图片的问题 -->
+    <div class="hero"></div>
+    <!-- HTML 里的<img>标签怎么办呢？对于这种行内图片，有另一个重要的解决方法：srcset 属性（“source set”的缩写）。 -->
+    <!-- 给不支持srcset的浏览器提供常规的src属性（比如IE和Opera MIni） -->
+    <!-- srcset 写每个图片的URL和它的宽度 -->
+    <hr>
+    <img alt="A white coffee mug on a bed of coffee beans"
+         src="coffee-beans-small.jpg"
+         srcset="coffee-beans-small.jpg 560w,
+         coffee-beans-medium.jpg 800w,
+         coffee-beans.jpg 1280w"/>
+</body>
+
+</html>

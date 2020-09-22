@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    table {
+        width: 100%;
+    }
+
+    @media (max-width: 30em) {
+
+        table,
+        thead,
+        tbody,
+        tr,
+        th,
+        td {
+            /* 让表格的所有元素都显示为块级 */
+            display: block;
+        }
+
+        thead tr {
+            /* 将表头移到屏幕外，将其隐藏 */
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+        tr {
+            /* 在表格数据的每一个集合之间加上间隔 */
+            margin-bottom: 1em;
+        }
+    }
+</style>
+
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>课程</th>
+                <th>学号</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>张三</td>
+                <td>男</td>
+                <td>算法与数据结构</td>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>李四</td>
+                <td>女</td>
+                <td>计算机网络</td>
+                <td>456</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

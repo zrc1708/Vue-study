@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /* 将容器设置为弹性容器，实现两栏布局 */
+    .container {
+        display: flex;
+        width: 80%;
+        max-width: 1000px;
+        margin: 1em auto;
+        /* 特意给容器设置高度 */
+        min-height: 500vh;
+    }
+
+    /* 给两栏布局 */
+    .col-main {
+        flex: 1 80%;
+    }
+    /* 给两栏布局 */
+    .col-sidebar {
+        flex: 20%;
+        background-color: pink;
+        max-height: 200vh;
+    }
+
+    .affix {
+        position: sticky;
+        /* 给侧边栏的菜单添加粘滞定位。它会停在距离视口顶部 1em 的位置 */
+        top: 1em;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <main class="col-main">
+            <nav>
+                <div class="dropdown">
+                    <div class="dropdown-label">Main Menu</div>
+                    <div class="dropdown-menu">
+                        <ul class="submenu">
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/coffees">Coffees</a></li>
+                            <li><a href="/brewers">Brewers</a></li>
+                            <li><a href="/specials">Specials</a></li>
+                            <li><a href="/about">About us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <h1>Wombat Coffee Roasters</h1>
+        </main>
+        <aside class="col-sidebar">
+            <div class="affix">
+                <ul class="submenu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/coffees">Coffees</a></li>
+                    <li><a href="/brewers">Brewers</a></li>
+                    <li><a href="/specials">Specials</a></li>
+                    <li><a href="/about">About us</a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</body>
+
+</html>
