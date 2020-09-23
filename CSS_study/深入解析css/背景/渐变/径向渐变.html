@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    div{
+        height: 200px;
+        width: 400px;
+    }
+    .example{
+        background-image: radial-gradient(white, blue);
+    }
+    .example2{
+        background-image: radial-gradient(circle,white, blue);
+    }
+    .example3{
+        background-image: radial-gradient(3em at 25% 25%, white ,blue);
+    }
+    .example4{
+        background-image: radial-gradient(circle,blue 0%, white 75%, red 100%);
+    }
+    .example5{
+        background-image: repeating-radial-gradient(circle,blue 0,blue 1em, white 1em, white 2em);
+    }
+</style>
+<body>
+    <p>基础渐变（椭圆）</p>
+    <div class="example"></div>
+    <p>圆形渐变</p>
+    <div class="example2"></div>
+    <p>大小3em，中心距离左侧和顶部边缘都为25%</p>
+    <div class="example3"></div>
+    <p>制定颜色节点位置的径向渐变</p>
+    <div class="example4"></div>
+    <p>重复渐变生成条纹效果</p>
+    <div class="example5"></div>
+</body>
+</html>

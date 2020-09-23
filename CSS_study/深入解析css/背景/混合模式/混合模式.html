@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .blend {
+        min-height: 400px;
+        background-image: url(bear.jpg), url(bear.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: -30vw, 30vw;
+        background-blend-mode: multiply;
+    }
+
+    .blend2 {
+        min-height: 400px;
+        background-image: url("bear.jpg");
+        /* 蓝色背景色 */
+        background-color: #148;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        /* 使用明度混合模式 */
+        background-blend-mode: luminosity;
+    }
+
+    .blend3 {
+        min-height: 400px;
+        /* 将纹理图片覆盖在主图片之上 */
+        background-image: url("scratches.png"), url("bear.jpg");
+        /* 每 200px 平铺一张纹理图片 */
+        background-size: 200px, cover;
+        background-repeat: repeat, no-repeat;
+        background-position: center center;
+        /* 使用柔光混合模式 */
+        background-blend-mode: soft-light;
+    }
+</style>
+
+<body>
+    <div class="blend"></div>
+    <p>为图片着色</p>
+    <div class="blend2"></div>
+    <p>为图片添加纹理</p>
+    <div class="blend3"></div>
+
+
+</body>
+
+</html>
