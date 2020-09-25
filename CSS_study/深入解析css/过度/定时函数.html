@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .container {
+        position: relative;
+        height: 30px;
+    }
+
+    .box {
+        position: absolute;
+        left: 0;
+        height: 30px;
+        width: 30px;
+        background-color: hsl(130, 50%, 50%);
+        transition: all 1s linear;
+    }
+
+    .c1:hover .box {
+        left: 400px;
+    }
+
+    .c2,.c3{
+        width: 400px;
+        padding: 10px 0;
+        background: linear-gradient(to right,pink 0%,pink 33.3%,
+                                            blue 33.3%,blue 66.66%,
+                                            lightblue 66.66%,lightblue 100%);
+    }
+    .box2 {
+        position: absolute;
+        left: 0;
+        height: 30px;
+        width: 30px;
+        background-color: hsl(130, 50%, 50%);
+        transition: all 3s steps(3);
+    }
+
+    .box3 {
+        position: absolute;
+        left: 0;
+        height: 30px;
+        width: 30px;
+        background-color: hsl(130, 50%, 50%);
+        transition: all 3s steps(3 , start);
+    }
+    .c2:hover .box2 {
+        left: 400px;
+    }
+    .c3:hover .box3 {
+        left: 400px;
+    }
+</style>
+
+<body>
+    <p>基础用法</p>
+    <div class="container c1">
+        <div class="box"></div>
+    </div>
+    <p>阶跃</p>
+    <div class="container c2">
+        <div class="box2"></div>
+    </div>
+    <div class="container c3">
+        <div class="box3"></div>
+    </div>
+</body>
+
+</html>
