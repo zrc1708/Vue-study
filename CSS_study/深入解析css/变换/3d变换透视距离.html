@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .row {
+        display: flex;
+        justify-content: center;
+        perspective: 200px;
+    }
+
+    .box {
+        box-sizing: border-box;
+        width: 150px;
+        margin: 0 2em;
+        padding: 60px 0;
+        text-align: center;
+        background-color: hsl(150, 50%, 40%);
+        transform: rotateX(30deg);
+    }
+
+    .row2 {
+        display: flex;
+        justify-content: center;
+        perspective: 200px;
+        /* 使用 perspective-origin 移动镜头的位置 */
+        perspective-origin: left bottom;
+    }
+</style>
+
+<body>
+    <div class="row">
+        <div class="box">One</div>
+        <div class="box">Two</div>
+        <div class="box">Three</div>
+        <div class="box">Four</div>
+    </div>
+    <div class="row2">
+        <div class="box">One</div>
+        <div class="box">Two</div>
+        <div class="box">Three</div>
+        <div class="box">Four</div>
+    </div>
+</body>
+
+</html>

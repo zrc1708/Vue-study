@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /*  旋转（Rotate）——元素绕着一个轴心转动一定角度。
+     平移（Translate）——元素向上、下、左、右各个方向移动（有点类似于相对定位）。
+     缩放（Scale）——缩小或放大元素。
+     倾斜（Skew）——使元素变形，顶边滑向一个方向，底边滑向相反的方向。 */
+    body {
+        background-color: hsl(210, 80%, 20%);
+        font-family: Helvetica, Arial, sans-serif;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    .card {
+        padding: 0.5em;
+        margin: 0 auto;
+        background-color: white;
+        max-width: 300px;
+        transform: rotate(15deg);
+    }
+</style>
+
+<body>
+    <div class="card">
+        <img src="images/chicken1.jpg" alt="a chicken" />
+        <h4>Mrs. Featherstone</h4>
+        <p> She may be a bit frumpy, but Mrs Featherstone gets the job done. She
+            lays her largish cream-colored eggs on a daily basis. She is gregarious
+            to a fault.</p>
+        <p>This Austra White is our most prolific producer.</p>
+    </div>
+</body>
+
+</html>
