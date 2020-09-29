@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.1.0/axios.min.js"></script>
+</head>
+
+<body>
+
+    用户名<input id="username" type="text"><br>
+    密码<input id="password" type="text"><br>
+    <button id="button">登录</button>
+    <br>
+    <button id="read">看帖</button>
+
+    <script>
+        let btn = document.querySelector('#button')
+
+        btn.addEventListener('click', function () {
+            let username = document.querySelector('#username').value
+            let password = document.querySelector('#password').value
+
+            axios.post('/login', {username,password}).then(res => {
+                console.log(res)
+            }).catch(err => {
+                console.log(err)
+            })
+        })
+
+        let btn2 = document.querySelector('#read')
+
+        btn2.addEventListener('click', function () {
+            axios.get('/read').then(res => {
+                console.log(res)
+            }).catch(err => {
+                console.log(err)
+            })
+        })
+    </script>
+</body>
+
+</html>
