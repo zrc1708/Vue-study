@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .example{
+        width: 1000px;
+        height: 300px;
+        display: flex;
+    }
+    .left{
+        flex: 1;
+        background-color: pink;
+    }
+    .right{
+        flex: 2;
+        background-color: lightblue;
+    }
+    .content{
+        width: 800px;
+        height: 30px;
+        background-color: #eeeeee;
+    }
+    .test{
+        width: 0;
+    }
+</style>
+<body>
+    <div class="example">
+        <div class="left"></div>
+        <div class="right">
+            <p>子元素如果比父元素大，就会撑开父元素，破坏flex的比例</p>
+            <div class="content"></div>
+        </div>
+    </div>
+    <hr>
+    <div class="example">
+        <div class="left"></div>
+        <div class="right test">
+            <p>为父元素添加"width:0"属性，即可使得父级不受影响</p>
+            <div class="content"></div>
+        </div>
+    </div>
+</body>
+</html>
