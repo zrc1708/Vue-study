@@ -65,21 +65,27 @@ router.get(/\S*\.(jpe?g|png)$/, async (ctx, next) => {
 
 // router.get(/\S*\.(jpe?g|png)$/, async (ctx, next) => {
 //     const imageName = ctx.path
-//     // 设置文件路径
 //     let filePath = path.join(__dirname) + imageName
-
 //     file = fs.readFileSync(filePath)
-
-//     //获取图片文件类型
 //     let mimeType = mime.getType(imageName)
-
-//     //设置返回类型
 //     ctx.set('content-type', mimeType)
 
-//     // 使用cache-control设置一分钟的缓存
 //     ctx.set('cache-control','max-age=60')
 
-//     //返回图片
+//     ctx.body = file
+// })
+
+// router.get(/\S*\.(jpe?g|png)$/, async (ctx, next) => {
+//     const imageName = ctx.path
+//     let filePath = path.join(__dirname) + imageName
+//     file = fs.readFileSync(filePath)
+//     let mimeType = mime.getType(imageName)
+//     ctx.set('content-type', mimeType)
+
+//     // 使用expires设置一个1分钟后过期的缓存
+//     let date = new Date(Date.now()+1*60*1000).toString()
+//     ctx.set('expires', date)
+
 //     ctx.body = file
 // })
 
@@ -95,10 +101,6 @@ router.get(/\S*\.(jpe?g|png)$/, async (ctx, next) => {
 
 //     //设置返回类型
 //     ctx.set('content-type', mimeType)
-
-//     // 使用expires设置一个1分钟后过期的缓存
-//     let date = new Date(Date.now()+1*60*1000).toString()
-//     ctx.set('expires', date)
 
 //     //返回图片
 //     ctx.body = file
