@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 也可以设置meta标签(不能设置report) -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="script-src 'self';form-action 'self'"> -->
+    <!-- 限制ajax -->
+    <meta http-equiv="Content-Security-Policy" content="connect-src 'self';form-action 'self'">
+    <title>Document</title>
+</head>
+<body>
+    <div>csp-内容安全策略</div>
+    <form action="http://baidu.com">
+        <button type="submit">click</button>
+    </form>
+    <img src="http://imgapi.jibei66.com/getimage/jibei.jpg" alt="">
+    <script>
+        console.log('inline js');
+        fetch('http://baidu.com')
+    </script>
+    <script src="/test.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+</body>
+</html>
