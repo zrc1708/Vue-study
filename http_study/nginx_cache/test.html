@@ -7,5 +7,30 @@
 </head>
 <body>
     <div>测试nginx</div>
+    <span id="data"></span>
+    <button id="button">click</button>
+    <button id="re">reset index</button>
+    <script>
+        let index = 0
+        function doRequest(){
+            let data = document.getElementById('data')
+            data.innerText = ''
+            fetch('/data',{
+                headers:{
+                    'X-Test-Cache':index++
+                }
+            }).then((res)=>{
+                return res.text()
+            }).then((text)=>{
+                data.innerText = text
+            })
+        }
+        function resetIndex(){
+            index = 0
+        }
+
+        document.getElementById('button').addEventListener('click',doRequest)
+        document.getElementById('re').addEventListener('click',resetIndex)
+    </script>
 </body>
 </html>

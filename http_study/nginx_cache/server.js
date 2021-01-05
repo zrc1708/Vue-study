@@ -20,6 +20,13 @@ http.createServer((request,response)=>{
         response.end(html)
     }
     if(request.url==='/data'){
+        // private,只允许浏览器缓存，不允许代理服务器
+        // no-store 所有地方都不缓存
+        response.writeHead(200,{
+            // 'Cache-Control':'max-age=2,s-maxage=20'
+            'Cache-Control':'s-maxage=200',
+            'Vary':'X-Test-Cache'
+        })
         wait(2).then(()=>{
             response.end('success')
         })
