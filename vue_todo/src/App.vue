@@ -2,17 +2,17 @@
     <div class="todo-container">
         <Header :addTodo="addTodo"></Header> 
         <List :todos="todos" :deleteTodo="deleteTodo" :updateTodo="updateTodo"></List>
-        <Footer></Footer>
+        <Footer :todos="todos" :checkAll="checkAll" :clearAllCompletedTodos="clearAllCompletedTodos"></Footer>
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
+import { defineComponent, onMounted, reactive, toRefs, watch } from 'vue'
 
 import Header from './components/header.vue'
 import List from './components/list.vue'
 import Footer from './components/footer.vue'
 import { Todo } from './types/todo'
-
+import {saveTodos,readTodos} from './utils/loaclStorage'
 
 export default defineComponent({
     name:'App',
@@ -23,11 +23,12 @@ export default defineComponent({
     },
     setup(){
         const state = reactive<{todos: Todo[]}>({
-            todos:[
-                {id:1,title:'睡觉',isCompleted:false},
-                {id:2,title:'吃饭',isCompleted:true},
-                {id:3,title:'奥利给',isCompleted:false},
-            ]
+            todos:[]
+        })
+
+        // 界面加载完毕后，读取数据
+        onMounted(()=>{
+            state.todos = readTodos()
         })
 
         // 添加数据
@@ -42,12 +43,31 @@ export default defineComponent({
         const updateTodo = (todo: Todo, isCompleted: boolean) => {
             todo.isCompleted = isCompleted
         }
+        // 全选，全不选
+        const checkAll = (isCompleted: boolean) => {
+            state.todos.forEach(todo =>{
+                todo.isCompleted = isCompleted
+            })
+        }
+        // 清理所有选中
+        const clearAllCompletedTodos = () => {
+            state.todos = state.todos.filter(todo => !todo.isCompleted)
+        }
+        // 监听改变
+        watch(()=>state.todos,(value)=>{
+            // 保存到浏览器的缓存中
+            saveTodos(value)
+        },{
+            deep:true
+        })
 
         return {
             ...toRefs(state),
             addTodo,
             deleteTodo,
-            updateTodo
+            updateTodo,
+            checkAll,
+            clearAllCompletedTodos
         }
     }
 })
