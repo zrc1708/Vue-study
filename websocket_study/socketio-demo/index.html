@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div>koa2&socket.io demo</div>
+    <input type="text" class="username">
+    <button class="login">login</button>
+    <hr>
+
+    <input type="sendtext" class="myinput">
+    <button class="mybutton">send</button>
+    <input type="file" accept="image/*" class="fileinput">
+    <hr>
+
+
+    <script>
+        const socket = io('http://127.0.0.1:3000/chats');
+        const username = document.querySelector('.username')
+        const loginbtn = document.querySelector('.login')
+        const sendbtn = document.querySelector('.mybutton')
+        const sendtext = document.querySelector('.myinput')
+        const fileinput = document.querySelector('.fileinput')
+
+        loginbtn.addEventListener('click',()=>{
+            socket.emit('login',{username:username.value})
+        })
+
+        // 监听登录失败
+        socket.on('loginerror',data=>{
+            alert(data.msg)
+        })
+
+        // 监听登录成功
+        socket.on('loginsuccess',data=>{
+            console.log(data)
+        })
+
+        // 监听登录成功
+        socket.on('addUser',data=>{
+            const div = document.createElement('div')
+            div.innerHTML = data.username+'加入了群聊'
+            div.style.color = 'green'
+            document.body.appendChild(div)
+        })
+
+        // 发送图片
+        fileinput.addEventListener('change',()=>{
+            const fr = new FileReader()
+            fr.readAsDataURL(fileinput.files[0])
+            fr.onload = ()=>{
+                socket.emit('sendImage',{
+                    image: fr.result
+                })
+            }
+        })
+        socket.on('receiveImage',data=>{
+            const img = document.createElement('img')
+            img.src = data.image
+            img.style.width = '200px'
+            img.style.height = '200px'
+            document.body.appendChild(img)
+        })
+
+
+
+        sendbtn.addEventListener('click',()=>{
+            socket.emit('send',sendtext.value)
+        })
+
+        socket.on('getmsg',data=>{
+            const div = document.createElement('div')
+            div.innerHTML = data
+            document.body.appendChild(div)
+        })
+    </script>
+</body>
+</html>

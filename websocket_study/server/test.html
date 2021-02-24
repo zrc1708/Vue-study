@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" class="myinput">
+    <button class="mybutton">btn</button>
+
+    <script>
+        const btn = document.querySelector('.mybutton')
+
+        const socket = new WebSocket('ws://127.0.0.1:3000')
+
+        socket.addEventListener('open',()=>{
+            console.log('连接成功')
+        })
+        btn.addEventListener('click',()=>{
+            const val = document.querySelector('.myinput').value
+            socket.send(val)
+        })
+        socket.addEventListener('message', res=>{
+            console.log(res)
+        })
+
+    </script>
+</body>
+</html>
