@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="300" height="200"></canvas>
+
+    <script>
+        let canvas = document.querySelector('#myCanvas')
+        let ctx = canvas.getContext('2d')
+        
+        // 设置文字
+        ctx.font = 'bold 30PX Arial'
+        // fillText绘制文字
+        // 文本字符串，坐标xy，文本宽（可省）
+        ctx.fillText('hello world',100,50)
+
+        // strokeText绘制文字
+        ctx.strokeText('Hello World',100,100)
+    </script>
+</body>
+</html>

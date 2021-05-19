@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="500" height="500"></canvas>
+    <img class="image" src="./jibei.jpg" width="240" height="240" alt="">
+
+    <script>
+        let canvas = document.querySelector('#myCanvas')
+        let ctx = canvas.getContext('2d')
+        let image = document.querySelector('.image')
+        // context.drawImage(img,x,y);
+        // context.drawImage(img,x,y,width,height);
+        // context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
+        ctx.drawImage(image,10,10)
+        // let img = new Image()
+        // img.src = './jibei.jpg'
+        // img.onload = function(){
+        //     ctx.drawImage(img,10,10)
+        // }
+    </script>
+</body>
+</html>

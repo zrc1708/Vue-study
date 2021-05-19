@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zn-ch">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dragon</title>
+</head>
+<style>
+    html,
+    body {
+        height: 1080px;
+    }
+
+    .container {
+        background-color: gray;
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .bubble {
+        position: absolute;
+        animation: bounce-down linear infinite;
+    }
+
+    /* .bubble:hover{
+        transform: scale(8);
+    } */
+
+    @keyframes bounce-down {
+        25% {
+             transform: translateY(-3px);
+        }
+        50%, 100% {
+             transform: translateY(0);
+        }
+        75% {
+             transform: translateY(3px);
+        }
+    }
+</style>
+
+<body>
+    <div class="container">
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <script>
+        var dragonContainer = document.querySelector(".container");
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        var dragonScale = 2;
+
+        // 将图片绘制
+        var image = new Image();
+        image.src = "./dragon.png";
+        image.onload = function () {
+            canvas.width = image.width;
+            canvas.height = image.height;
+            ctx.drawImage(image, 0, 0);
+
+            // 获取并裁剪画布的点阵信息
+            var imageData = ctx.getImageData(0, 0, image.width, image.height).data;
+            // ctx.fillStyle = "#ffffff";
+            ctx.fillStyle = "gray";
+            ctx.fillRect(0, 0, image.width, image.height);
+
+            var gap = 10;
+            for (var h = 0; h < image.height; h += gap) {
+                for (var w = 0; w < image.width; w += gap) {
+                    var position = (image.width * h + w) * 4;
+                    var r = imageData[position];
+                    var g = imageData[position + 1];
+                    var b = imageData[position + 2];
+
+                    if (r + g + b == 0) {
+                        //   ctx.fillStyle = "#000";
+                        //   ctx.fillRect(w, h, 4, 4);
+
+                        var bubble = document.createElement("img");
+                        bubble.src = "./bubble.png";
+                        bubble.setAttribute("class", "bubble");
+
+                        var bubbleSize = Math.random() * 10 + 20;
+                        bubble.style.left = w * dragonScale - bubbleSize / 2 + "px";
+                        bubble.style.top = h * dragonScale - bubbleSize / 2 + "px";
+                        bubble.style.width = bubble.style.height = bubbleSize + "px";
+                        bubble.style.animationDuration = Math.random() * 6 + 4 + "s";
+
+                        dragonContainer.appendChild(bubble);
+                    }
+                }
+            }
+        };
+    </script>
+</body>
+
+</html>

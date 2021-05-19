@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="300" height="200"></canvas>
+
+    <script>
+        let canvas = document.querySelector('#myCanvas')
+        let ctx = canvas.getContext('2d')
+        // 线条宽度
+        ctx.lineWidth = 5
+        // 线条颜色
+        ctx.strokeStyle = 'red'
+        // 创建一个新的路径
+        ctx.beginPath()
+        // 中心坐标x，中心坐标y，圆弧半径，起始角度，终止角度，是否逆时针
+        ctx.arc(100,100,70,0,130*Math.PI/180,true)
+        ctx.stroke()
+        // ctx.fill()
+    </script>
+</body>
+</html>

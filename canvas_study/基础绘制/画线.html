@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="200" height="100"></canvas>
+
+    <script>
+        let canvas = document.querySelector('#myCanvas')
+        let ctx = canvas.getContext('2d')
+        // 线条宽度
+        ctx.lineWidth = 10
+        // 线条颜色
+        ctx.strokeStyle = 'red'
+        // 创建一个新的路径
+        ctx.beginPath()
+        // 画笔光标位置移动到坐标（10,10）
+        ctx.moveTo(10,10)
+        // 从当前坐标开始移动画笔到（150,50），绘制一条直线
+        ctx.lineTo(150,50)
+        // 开始绘制定义好的路径
+        ctx.stroke()
+    </script>
+</body>
+</html>

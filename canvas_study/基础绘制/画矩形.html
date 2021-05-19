@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="300" height="200"></canvas>
+
+    <script>
+        let canvas = document.querySelector('#myCanvas')
+        let ctx = canvas.getContext('2d')
+        // 线条宽度
+        ctx.lineWidth = 5
+        // 线条颜色
+        ctx.strokeStyle = 'red'
+        // 创建一个新的路径
+        ctx.beginPath()
+        // 空心
+        ctx.strokeRect(10,10,70,40)
+
+        ctx.fillStyle = 'blue'
+        // 实心
+        ctx.fillRect(90,60,120,80)
+    </script>
+</body>
+</html>
